@@ -1,0 +1,65 @@
+[project]
+name = "nuqta-ocr"
+version = "0.1.0"
+description = "Nuqta OCR: accurate Arabic document OCR with faithful tashkeel (open 0.8B and 4B models)"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Salah AlHaismawi" }, { name = "Mohamed Saleh Tulib" }, { name = "Ahmed ElSayed Mohamed Ibrahim" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Natural Language :: Arabic",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Image Recognition",
+  "Topic :: Text Processing :: Linguistic",
+]
+keywords = ["arabic", "ocr", "arabic-ocr", "tashkeel", "diacritics", "document-ai", "pdf-to-markdown", "handwriting", "passport", "mrz", "vlm"]
+dependencies = [
+  "pillow>=10",
+  "pypdfium2>=4",
+  "torch>=2.4",
+  "torchvision",
+  "transformers>=4.57",
+  "accelerate>=1.0",
+]
+
+[project.optional-dependencies]
+vllm = ["vllm>=0.19"]
+fast = ["flash-linear-attention>=0.5", "causal-conv1d>=1.5"]  # fast kernels for the transformers backend
+dev = ["pytest>=8"]
+# benchmarks/ (run.py + score.py): dataset download, endpoint client and the official KITAB-Bench / Misraj scoring
+bench = [
+  "huggingface_hub>=0.24",
+  "pyarrow>=14",
+  "httpx>=0.27",
+  "levenshtein>=0.25",       # python-Levenshtein's maintained name, same distance
+  "sacrebleu>=2.4,<3",       # KITAB-Bench pins 2.5.1; the published numbers were scored with 2.6.0
+  "apted>=1.0.3",            # TEDS (KITAB-Bench pdfs-eval/teds_metric.py)
+  "distance>=0.1.3",
+  "lxml>=5",
+  "beautifulsoup4>=4.12",
+]
+
+[project.urls]
+Homepage = "https://huggingface.co/collections/SalahALHaismawi/nuqta-ocr-6ad4af255195b706ac93d1d4"
+Repository = "https://github.com/SalahAlHaismawi/nuqta-ocr"
+Demo = "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-OCR"
+"Model 4B" = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B"
+"Model 0.8B" = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B"
+
+[project.scripts]
+nuqta = "nuqta.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/nuqta"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src/nuqta", "/tests", "/README.md", "/LICENSE", "/pyproject.toml", "/llms.txt"]

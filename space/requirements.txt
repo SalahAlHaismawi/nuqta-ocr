@@ -1,0 +1,10 @@
+# the nuqta package is bundled in ./nuqta (works before the PyPI release)
+torch
+pillow
+spaces
+gradio>=5
+transformers>=4.57
+torchvision
+accelerate
+pypdfium2
+flash-linear-attention   # fast kernels for Qwen3.5 linear-attention layers
