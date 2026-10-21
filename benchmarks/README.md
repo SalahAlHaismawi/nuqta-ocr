@@ -8,6 +8,7 @@ Code to reproduce the KITAB-Bench and Misraj-DocOCR numbers in the Nuqta OCR mod
 | `score.py` | The scorer. It applies the published KITAB-Bench recipe, and the Misraj-DocOCR recipe from Baseer §7.1, to the prediction files. It does not depend on the `nuqta` package. |
 | `kitab_official.py` | The KITAB-Bench scoring functions (text normalisation, `aug_html`, TEDS), copied unchanged from [KITAB-Bench](https://github.com/mbzuai-oryx/KITAB-Bench) (MIT licence, attribution in the file). |
 | `excluded_ids.json` | The 114 KITAB PATS-OCR images whose text overlaps our training data (scored; `--exclude-overlap` drops them) (see [Test images left out](#test-images-left-out)). |
+| `predictions/misraj_dococr/` | Our exact Misraj-DocOCR outputs (400 pages each) for the published Nuqta numbers, and the Qwen3-VL-8B run of the scorer check (see [Does our Misraj scorer match Misraj's?](#does-our-misraj-scorer-match-misrajs)). |
 
 ## Setup
 
@@ -141,6 +142,45 @@ output-standardisation steps and reuses KITAB-Bench's metrics, so `score.py` doe
 Nothing is clipped or trimmed, so a runaway (looping) prediction counts in full. `--trim-loops` (the library's
 loop trimming) and `--clip-runaways` exist for diagnosis, but they are not the published setting.
 
+### Does our Misraj scorer match Misraj's?
+
+Because Misraj's scorer is not public, we checked ours against a number they did publish. We ran
+**Qwen3-VL-8B-Instruct** on all 400 Misraj-DocOCR pages with a plain setup and scored it with `score.py`. The setup was
+`run.py`'s Markdown prompt, the images as given, greedy decoding and up to 8,192 output tokens, through OpenRouter on
+2026-10-21. Misraj reports this model in their
+[September 2026 results table](https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj):
+
+| Qwen3-VL-8B-Instruct | chrF ↑ | TEDS ↑ | MARS ↑ |
+|---|---|---|---|
+| Our run, scored with `score.py` | 54.7 | 50.3 | 52.5 |
+| Misraj's published row | 54.5 | 49 | 51.8 |
+
+Every component lands within about a point of Misraj's own number, so our Misraj-DocOCR scores are on the same scale as
+theirs. The predictions are in `predictions/misraj_dococr/qwen3-vl-8b-instruct_scorer-check.jsonl`.
+
+Models whose output depends heavily on how they are run make poor checks, because Misraj did not publish their
+prompts or settings. With our generic prompt, Gemini-2.5-Pro fell into dot-leader and JSON-box outputs on some pages.
+Gemma-3-12B looped on about half of the pages. dots.ocr and QARI have several output modes. Their scores against
+Misraj's therefore reflect the run, not the scorer, and we do not use them.
+
+**Score our outputs yourself.** The exact predictions behind the published Nuqta numbers are in
+`predictions/misraj_dococr/`, with each page's reference included. Anyone, including Misraj, can score them with their
+own code:
+
+| File | Model, input | MARS with `score.py` |
+|---|---|---|
+| `nuqta-ocr-4b_recommended.jsonl` | 4B, recommended input size | 82.78 |
+| `nuqta-ocr-4b_as-given.jsonl` | 4B, images as given | 81.00 |
+| `nuqta-ocr-0.8b_recommended.jsonl` | 0.8B, recommended input size | 77.09 |
+| `nuqta-ocr-0.8b_as-given.jsonl` | 0.8B, images as given | 76.28 |
+
+```bash
+python benchmarks/score.py benchmarks/predictions/misraj_dococr/nuqta-ocr-4b_recommended.jsonl --teds-jobs 4
+```
+
+The references in these files come from [Misraj-DocOCR](https://huggingface.co/datasets/Misraj/Misraj-DocOCR)
+(Apache-2.0).
+
 ## Test images left out
 
 All 500 PATS-OCR images are scored, as in the official benchmark (13 KITAB sets, 3,760 images). 114 of them have
@@ -156,9 +196,11 @@ numbers. Misraj-DocOCR has no such overlap.
 
 The other models' numbers in the cards come from their papers and leaderboards: Gemini-2.0-Flash, AIN-7B, GPT-4o,
 Qwen-2.5-VL, Tesseract and EasyOCR from [KITAB-Bench](https://github.com/mbzuai-oryx/KITAB-Bench)
-([arXiv:2502.14949](https://arxiv.org/abs/2502.14949)); Baseer, Gemini-2.5-Pro, Azure Document Intelligence, dots.ocr
-and QARI on Misraj-DocOCR from the [Baseer paper](https://arxiv.org/abs/2509.18174). We did not re-run those models
-with this code.
+([arXiv:2502.14949](https://arxiv.org/abs/2502.14949)). Baseer, Gemini-2.5-Pro, Azure Document Intelligence,
+dots.ocr and QARI on Misraj-DocOCR come from the [Baseer paper](https://arxiv.org/abs/2509.18174). Baseer v2, GPT-5
+and Mistral OCR come from Misraj's
+[September 2026 results table](https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj). Apart from the
+Qwen3-VL-8B scorer check above, we did not re-run those models.
 
 ## Options
 

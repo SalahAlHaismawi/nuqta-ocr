@@ -37,7 +37,7 @@ MODELS = {
         mis=dict(cer=0.130, wer=0.241, bleu=63.6, chrf=87.4, teds=66.8, mars=77.1, tables="55 / 59"),
         mis_plain=dict(cer=0.141, chrf=85.7, teds=66.9, mars=76.3, teds_ci="59.2-74.7"),
         faith=0.08, tdir="95% / 96%", layout="87.3%", ids="79.2%", pass_="84.9% / 85.7%", privacy="0 of 633",
-        kitab=K08, tagline="**The best accuracy for its size.** Under 1B parameters, it is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and level with or slightly ahead of Baseer (3B) on Misraj-DocOCR, at under a third of its size (recommended input size).",
+        kitab=K08, tagline="**The best accuracy for its size.** Under 1B parameters, it is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and on Misraj-DocOCR it is just behind Misraj's own Baseer v2 and ahead of Gemini-2.5-Pro and GPT-5 (recommended input size).",
         training="40,000 steps from Qwen3.5-0.8B (effective batch 16, AdamW 8-bit, peak LR 2e-5 for the decoder and 2e-6 for the "
                  "vision encoder, warmup-stable-decay schedule); from step 30,000 a curated annealing mix (verified real pages, "
                  "tables, IDs, layouts and diagrams) while the learning rate decays. Then reinforcement-learning rounds with weight averaging between them (GRPO-style, "
@@ -56,6 +56,23 @@ llama.cpp on Android, iOS, Mac, Windows and Linux: 560 MB at 4-bit plus a 205 MB
 The 4-bit build matches this model's accuracy on KITAB-Bench pages (Hindawi book pages with tashkeel: CER 0.028 vs
 0.031 in bf16). Settings and measured speeds are on its card.
 
+"""
+
+URDU_JAWI = """
+**Urdu and Jawi, never trained on.** Nuqta was trained for Arabic (and the English printed alongside it), not for
+Urdu or Jawi, but it still reads them. On a page rendered from an Urdu Wikipedia article (Naskh type) the 4B gets 93% of characters right; it
+mostly confuses Urdu-only letter forms (it reads ہ as ب, and writes Arabic ي / ك for Urdu ی / ک). Nastaliq, the usual Urdu
+book and newspaper style, is harder (87%). On a page rendered from a Malay news article written in Jawi it gets 94%; nearly
+every miss is a letter Arabic does not have (ڤ read as ق, ڠ as ڭ, ڬ as ك). These are single-page spot checks with the
+default prompt, not benchmarks.
+"""
+
+URDU_JAWI_08B = """
+**Urdu and Jawi, never trained on.** Nuqta was trained for Arabic (and the English printed alongside it), not for
+Urdu or Jawi. On a page rendered from a Malay news article written in Jawi the 0.8B gets 94.5% of characters right,
+as well as the 4B; nearly every miss is a letter Arabic does not have (ڤ read as ق or ف, ڠ as غ, ڬ as ك). Urdu is
+weaker: 78.5% on a page rendered from an Urdu Wikipedia article in Naskh type and 62% in Nastaliq, the usual Urdu book
+and newspaper style (the 4B: 93% and 87%). These are single-page spot checks with the default prompt, not benchmarks.
 """
 
 
@@ -146,7 +163,7 @@ Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta
 ## Highlights
 
 - **KITAB-Bench: CER {m['kitab_rel']}**, against Gemini-2.0-Flash 0.13, AIN-7B 0.20 and GPT-4o 0.31 (13 Arabic OCR datasets; {m['kitab_plain']} with the images as given).
-- {'**Misraj-DocOCR: MARS ' + str(mis['mars']) + '** (' + str(mp['mars']) + ' with the images as given), chrF ' + str(mis['chrf']) + ', CER ' + str(mis['cer']) + '; Baseer (3B) scores 76.9' if key == '4b' else '**Misraj-DocOCR: MARS ' + str(mis['mars']) + ', level with Baseer (3B, 76.9) at under a third of its size**; CER ' + f"{mis['cer']:.3f}" + ' against Gemini-2.5-Pro 0.31 and Azure Document Intelligence 0.27 (the lead over Baseer is within the noise of the 59-page table score)'}.
+- {'**Misraj-DocOCR: MARS ' + str(mis['mars']) + '** (' + str(mp['mars']) + ' with the images as given), chrF ' + str(mis['chrf']) + ', CER ' + str(mis['cer']) + ', ahead of Misraj\'s own Baseer v2 (77.8), Gemini-2.5-Pro (70.8) and GPT-5 (54.8)' if key == '4b' else '**Misraj-DocOCR: MARS ' + str(mis['mars']) + '** (' + str(mp['mars']) + ' with the images as given): just behind Misraj\'s own Baseer v2 (77.8), ahead of the original Baseer (76.9), Gemini-2.5-Pro (70.8) and GPT-5 (54.8)'}.
 - **Faithful tashkeel:** {m['faith']} invented diacritics per 100 letters on undiacritized text, and vocalized pages keep their marks.
 - **Tables** as HTML in the order they are drawn (left-to-right or right-to-left), merged cells included; column order right on {m['tdir']} of rendered mixed-direction test tables.
 - **IDs and passports:** {m['ids']} of fields correct on real ID cards and {m['pass_'].split(' / ')[0]} on real passports (held-out, no training overlap), with ICAO check-digit validation of the MRZ.
@@ -167,11 +184,11 @@ Misraj-DocOCR page (Apache-2.0), and a synthetic passport and diagram we generat
 
 ## Benchmarks
 
-All Nuqta numbers are our runs with each benchmark's **official scoring script**; competitor numbers are the published
+All Nuqta numbers are our runs, scored with **KITAB-Bench's own scoring code** (copied unchanged). Misraj published no scoring code, so for Misraj-DocOCR we follow the recipe in the Baseer paper (§7.1) on top of that same code; competitor numbers are the published
 figures. For the full benchmarks, every subset and the other models' results, see
 [KITAB-Bench](https://github.com/mbzuai-oryx/KITAB-Bench) and
 [Misraj-DocOCR](https://huggingface.co/datasets/Misraj/Misraj-DocOCR) (leaderboard in the
-Baseer paper). *Recommended input size* = how the model is meant to be
+Baseer paper, updated in [Misraj's September 2026 results table](https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj)). *Recommended input size* = how the model is meant to be
 used, and what the `nuqta-ocr` library, the demo and the code below do: a page-shaped image smaller than the model's
 2.4-megapixel training size is enlarged to it, while line and word crops are read as they are. *Images as given* =
 each test image sent to the model unchanged (apart from the same 2.4 MP cap). Evaluation code to reproduce every number: [nuqta-ocr/benchmarks](https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks).
@@ -209,13 +226,19 @@ also appears in our training data (scores are the same or better without them). 
 
 | Model | Size | CER ↓ | WER ↓ | BLEU ↑ | chrF ↑ | TEDS ↑ | MARS ↑ |
 |---|---|---|---|---|---|---|---|
-| **{m['name']}**, recommended input size | {m['params'].split(' ')[0]} | **{mis['cer']}** | {mis['wer']} | {mis['bleu']} | {('**' + str(mis['chrf']) + '**') if key == '4b' else mis['chrf']} | **{mis['teds']}** | **{mis['mars']}** |
+| **{m['name']}**, recommended input size | {m['params'].split(' ')[0]} | {mis['cer']} | {mis['wer']} | {mis['bleu']} | {mis['chrf']} | {('**' + str(mis['teds']) + '**') if key == '4b' else mis['teds']} | {('**' + str(mis['mars']) + '**') if key == '4b' else mis['mars']} |
 | {m['name']}, images as given | {m['params'].split(' ')[0]} | {mp['cer']} | - | - | {mp['chrf']} | {mp['teds']} (95% CI {mp['teds_ci']}) | {mp['mars']} |
-| Baseer | 3B | 0.53† | 0.25 | - | 87.8 | 66 | 76.9 |
-| Gemini-2.5-Pro | closed | 0.31 | - | - | - | - | 70.8 |
-| Azure Document Intelligence | closed | 0.27 | - | - | - | - | 62.2 |
-| dots.ocr | 3B | 0.40 | - | - | - | - | 59.2 |
-| QARI | - | 0.64 | - | - | - | - | - |
+| Baseer v2 (Misraj, September 2026) | not stated | **0.12** | **0.19** | 76.3 | 88.9 | {'67' if key == '4b' else '**67**'} | {'77.8' if key == '4b' else '**77.8**'} |
+| Baseer (paper) | 3B | 0.53† | 0.25 | - | 87.8 | 66 | 76.9 |
+| Gemini-2.5-Pro | closed | 0.31 | 0.37 | **77.9** | **89.6** | 52 | 70.8 |
+| Azure Document Intelligence | closed | 0.27 | 0.44 | 62.0 | 82.5 | 42 | 62.2 |
+| dots.ocr | 3B | 0.40 | 0.50 | 58.2 | 78.4 | 40 | 59.2 |
+| GPT-5 | closed | 0.62 | 0.86 | 40.7 | 61.6 | 48 | 54.8 |
+| Mistral OCR | closed | 0.42 | 0.49 | 52.4 | 71.8 | 17 | 44.4 |
+| QARI | - | 0.64 | 0.76 | 38.6 | 64.5 | 21 | 42.8 |
+
+Bold = best in each column. Every other model's numbers are Misraj's: the Baseer paper and their September 2026
+results table, which added Baseer v2 (no public weights that we could find; its demo is baseerocr.com) and GPT-5. {'The 4B has the best MARS and TEDS; Baseer v2 has the lowest CER and WER, and Gemini-2.5-Pro the best BLEU and chrF.' if key == '4b' else 'The 0.8B is third on MARS, behind the 4B and Baseer v2.'}
 
 † As printed in the Baseer paper. It is higher than Baseer's own WER (0.25), unlike every other row of that
 table, so it was probably computed with different text cleanup; Baseer's weights are not public, so we could not
@@ -223,6 +246,13 @@ re-score it, and we make no CER comparison with Baseer.
 
 TEDS rests on 59 table pages and moves by several points between comparable models; MARS = (chrF + TEDS) / 2.
 Tables written where the reference has one: {mis['tables']}.
+
+**Scorer check.** Misraj's scoring code is not public, so we checked ours against a row they did publish. We ran
+Qwen3-VL-8B-Instruct on all 400 pages with a plain Markdown prompt. Our scorer gives it chrF 54.7, TEDS 50.3 and MARS
+52.5, against Misraj's 54.5, 49 and 51.8. Each part lands within about a point, so the numbers in this table are on
+Misraj's scale. Our exact predictions for every Nuqta number, and for this check, are in
+[benchmarks/predictions](https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks/predictions/misraj_dococr)
+for anyone to score with their own code.
 
 ### Beyond the benchmarks
 
@@ -234,7 +264,7 @@ Tables written where the reference has one: {mis['tables']}.
 | Real ID cards, fields correct (held-out) | {m['ids']} |
 | Real passports, fields correct / MRZ valid | {m['pass_']} |
 | Privacy check: training ID numbers reproduced on other cards | {m['privacy']} numbers |
-
+{URDU_JAWI if key == '4b' else URDU_JAWI_08B}
 ## What makes Nuqta different
 
 **Architecture: a deeper attention stack.** Nuqta builds on [{m['base']}](https://huggingface.co/{m['base']}), a

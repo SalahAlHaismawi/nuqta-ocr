@@ -65,7 +65,7 @@ model-index:
 
 # Nuqta-OCR 0.8B
 
-**The best accuracy for its size.** Under 1B parameters, it is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and level with or slightly ahead of Baseer (3B) on Misraj-DocOCR, at under a third of its size (recommended input size).
+**The best accuracy for its size.** Under 1B parameters, it is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and on Misraj-DocOCR it is just behind Misraj's own Baseer v2 and ahead of Gemini-2.5-Pro and GPT-5 (recommended input size).
 
 **Nuqta-OCR 0.8B** is an open-weights **Arabic OCR** model. It converts Arabic scans, photos and PDFs (books, official
 documents, research papers, tables, forms, IDs and passports) into clean text or Markdown with HTML tables, in reading
@@ -81,7 +81,7 @@ Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta
 ## Highlights
 
 - **KITAB-Bench: CER 0.117**, against Gemini-2.0-Flash 0.13, AIN-7B 0.20 and GPT-4o 0.31 (13 Arabic OCR datasets; 0.132 with the images as given).
-- **Misraj-DocOCR: MARS 77.1, level with Baseer (3B, 76.9) at under a third of its size**; CER 0.130 against Gemini-2.5-Pro 0.31 and Azure Document Intelligence 0.27 (the lead over Baseer is within the noise of the 59-page table score).
+- **Misraj-DocOCR: MARS 77.1** (76.3 with the images as given): just behind Misraj's own Baseer v2 (77.8), ahead of the original Baseer (76.9), Gemini-2.5-Pro (70.8) and GPT-5 (54.8).
 - **Faithful tashkeel:** 0.08 invented diacritics per 100 letters on undiacritized text, and vocalized pages keep their marks.
 - **Tables** as HTML in the order they are drawn (left-to-right or right-to-left), merged cells included; column order right on 95% / 96% of rendered mixed-direction test tables.
 - **IDs and passports:** 79.2% of fields correct on real ID cards and 84.9% on real passports (held-out, no training overlap), with ICAO check-digit validation of the MRZ.
@@ -102,11 +102,11 @@ Misraj-DocOCR page (Apache-2.0), and a synthetic passport and diagram we generat
 
 ## Benchmarks
 
-All Nuqta numbers are our runs with each benchmark's **official scoring script**; competitor numbers are the published
+All Nuqta numbers are our runs, scored with **KITAB-Bench's own scoring code** (copied unchanged). Misraj published no scoring code, so for Misraj-DocOCR we follow the recipe in the Baseer paper (§7.1) on top of that same code; competitor numbers are the published
 figures. For the full benchmarks, every subset and the other models' results, see
 [KITAB-Bench](https://github.com/mbzuai-oryx/KITAB-Bench) and
 [Misraj-DocOCR](https://huggingface.co/datasets/Misraj/Misraj-DocOCR) (leaderboard in the
-Baseer paper). *Recommended input size* = how the model is meant to be
+Baseer paper, updated in [Misraj's September 2026 results table](https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj)). *Recommended input size* = how the model is meant to be
 used, and what the `nuqta-ocr` library, the demo and the code below do: a page-shaped image smaller than the model's
 2.4-megapixel training size is enlarged to it, while line and word crops are read as they are. *Images as given* =
 each test image sent to the model unchanged (apart from the same 2.4 MP cap). Evaluation code to reproduce every number: [nuqta-ocr/benchmarks](https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks).
@@ -156,13 +156,19 @@ also appears in our training data (scores are the same or better without them). 
 
 | Model | Size | CER ↓ | WER ↓ | BLEU ↑ | chrF ↑ | TEDS ↑ | MARS ↑ |
 |---|---|---|---|---|---|---|---|
-| **Nuqta-OCR 0.8B**, recommended input size | 0.89B | **0.13** | 0.241 | 63.6 | 87.4 | **66.8** | **77.1** |
+| **Nuqta-OCR 0.8B**, recommended input size | 0.89B | 0.13 | 0.241 | 63.6 | 87.4 | 66.8 | 77.1 |
 | Nuqta-OCR 0.8B, images as given | 0.89B | 0.141 | - | - | 85.7 | 66.9 (95% CI 59.2-74.7) | 76.3 |
-| Baseer | 3B | 0.53† | 0.25 | - | 87.8 | 66 | 76.9 |
-| Gemini-2.5-Pro | closed | 0.31 | - | - | - | - | 70.8 |
-| Azure Document Intelligence | closed | 0.27 | - | - | - | - | 62.2 |
-| dots.ocr | 3B | 0.40 | - | - | - | - | 59.2 |
-| QARI | - | 0.64 | - | - | - | - | - |
+| Baseer v2 (Misraj, September 2026) | not stated | **0.12** | **0.19** | 76.3 | 88.9 | **67** | **77.8** |
+| Baseer (paper) | 3B | 0.53† | 0.25 | - | 87.8 | 66 | 76.9 |
+| Gemini-2.5-Pro | closed | 0.31 | 0.37 | **77.9** | **89.6** | 52 | 70.8 |
+| Azure Document Intelligence | closed | 0.27 | 0.44 | 62.0 | 82.5 | 42 | 62.2 |
+| dots.ocr | 3B | 0.40 | 0.50 | 58.2 | 78.4 | 40 | 59.2 |
+| GPT-5 | closed | 0.62 | 0.86 | 40.7 | 61.6 | 48 | 54.8 |
+| Mistral OCR | closed | 0.42 | 0.49 | 52.4 | 71.8 | 17 | 44.4 |
+| QARI | - | 0.64 | 0.76 | 38.6 | 64.5 | 21 | 42.8 |
+
+Bold = best in each column. Every other model's numbers are Misraj's: the Baseer paper and their September 2026
+results table, which added Baseer v2 (no public weights that we could find; its demo is baseerocr.com) and GPT-5. The 0.8B is third on MARS, behind the 4B and Baseer v2.
 
 † As printed in the Baseer paper. It is higher than Baseer's own WER (0.25), unlike every other row of that
 table, so it was probably computed with different text cleanup; Baseer's weights are not public, so we could not
@@ -170,6 +176,13 @@ re-score it, and we make no CER comparison with Baseer.
 
 TEDS rests on 59 table pages and moves by several points between comparable models; MARS = (chrF + TEDS) / 2.
 Tables written where the reference has one: 55 / 59.
+
+**Scorer check.** Misraj's scoring code is not public, so we checked ours against a row they did publish. We ran
+Qwen3-VL-8B-Instruct on all 400 pages with a plain Markdown prompt. Our scorer gives it chrF 54.7, TEDS 50.3 and MARS
+52.5, against Misraj's 54.5, 49 and 51.8. Each part lands within about a point, so the numbers in this table are on
+Misraj's scale. Our exact predictions for every Nuqta number, and for this check, are in
+[benchmarks/predictions](https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks/predictions/misraj_dococr)
+for anyone to score with their own code.
 
 ### Beyond the benchmarks
 
@@ -181,6 +194,12 @@ Tables written where the reference has one: 55 / 59.
 | Real ID cards, fields correct (held-out) | 79.2% |
 | Real passports, fields correct / MRZ valid | 84.9% / 85.7% |
 | Privacy check: training ID numbers reproduced on other cards | 0 of 633 numbers |
+
+**Urdu and Jawi, never trained on.** Nuqta was trained for Arabic (and the English printed alongside it), not for
+Urdu or Jawi. On a page rendered from a Malay news article written in Jawi the 0.8B gets 94.5% of characters right,
+as well as the 4B; nearly every miss is a letter Arabic does not have (ڤ read as ق or ف, ڠ as غ, ڬ as ك). Urdu is
+weaker: 78.5% on a page rendered from an Urdu Wikipedia article in Naskh type and 62% in Nastaliq, the usual Urdu book
+and newspaper style (the 4B: 93% and 87%). These are single-page spot checks with the default prompt, not benchmarks.
 
 ## What makes Nuqta different
 

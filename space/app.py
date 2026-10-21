@@ -114,7 +114,7 @@ HEADER = """
   </div>
   <div class="models">
     <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B"><span class="tag">Most accurate</span><b>Nuqta-OCR 4B</b><span>#1 on KITAB &amp; Misraj · 16 GB GPU</span></a>
-    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B"><span class="tag">Best for its size</span><b>Nuqta-OCR 0.8B</b><span>Beats Gemini, level with Baseer · 3 GB</span></a>
+    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B"><span class="tag">Best for its size</span><b>Nuqta-OCR 0.8B</b><span>Beats Gemini on KITAB · 3 GB</span></a>
     <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF"><span class="tag">Phones</span><b>0.8B GGUF</b><span>560 MB · offline · llama.cpp</span></a>
     <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF"><span class="tag">Laptops</span><b>4B GGUF</b><span>2.9 GB · offline · llama.cpp</span></a>
   </div>
@@ -144,12 +144,14 @@ BENCH = """
       <p class="metric">MARS = (chrF + TEDS) / 2 · higher is better</p>
       <table>
         <tr><th>Model</th><th>Size</th><th class="n">chrF</th><th class="n">TEDS</th><th class="n">MARS</th></tr>
-        <tr class="us"><td>Nuqta-OCR 4B</td><td>4.75B</td><td class="n best">89.4</td><td class="n best">76.1</td><td class="n best">82.8</td></tr>
+        <tr class="us"><td>Nuqta-OCR 4B</td><td>4.75B</td><td class="n">89.4</td><td class="n best">76.1</td><td class="n best">82.8</td></tr>
+        <tr><td>Baseer v2 <span class="hint">Misraj, Sept 2026</span></td><td>–</td><td class="n">88.9</td><td class="n">67</td><td class="n">77.8</td></tr>
         <tr class="us"><td>Nuqta-OCR 0.8B</td><td>0.89B</td><td class="n">87.4</td><td class="n">66.8</td><td class="n">77.1</td></tr>
-        <tr><td>Baseer</td><td>3B</td><td class="n">87.8</td><td class="n">66</td><td class="n">76.9</td></tr>
-        <tr><td>Gemini-2.5-Pro</td><td>closed</td><td class="n">–</td><td class="n">–</td><td class="n">70.8</td></tr>
-        <tr><td>Azure Doc. Intelligence</td><td>closed</td><td class="n">–</td><td class="n">–</td><td class="n">62.2</td></tr>
-        <tr><td>dots.ocr</td><td>3B</td><td class="n">–</td><td class="n">–</td><td class="n">59.2</td></tr>
+        <tr><td>Baseer <span class="hint">paper</span></td><td>3B</td><td class="n">87.8</td><td class="n">66</td><td class="n">76.9</td></tr>
+        <tr><td>Gemini-2.5-Pro</td><td>closed</td><td class="n best">89.6</td><td class="n">52</td><td class="n">70.8</td></tr>
+        <tr><td>Azure Doc. Intelligence</td><td>closed</td><td class="n">82.5</td><td class="n">42</td><td class="n">62.2</td></tr>
+        <tr><td>dots.ocr</td><td>3B</td><td class="n">78.4</td><td class="n">40</td><td class="n">59.2</td></tr>
+        <tr><td>GPT-5</td><td>closed</td><td class="n">61.6</td><td class="n">48</td><td class="n">54.8</td></tr>
       </table>
     </div>
   </div>
@@ -163,8 +165,8 @@ BENCH = """
       <tr><td>Real passports: fields correct</td><td class="n best">87.2%</td><td class="n">84.9%</td></tr>
     </table>
   </div>
-  <p class="bnote">Nuqta numbers: our runs with each benchmark's official scoring script, at the recommended input size
-  (what this demo and the <code>nuqta-ocr</code> library do). Competitor numbers: published figures. Full results,
+  <p class="bnote">Nuqta numbers: our runs, scored with KITAB-Bench's own scoring code (for Misraj-DocOCR, which published no code, with the Baseer paper's recipe on top of it; checked against Misraj's own published score for Qwen3-VL-8B, 52.5 vs 51.8 MARS), at the recommended input size
+  (what this demo and the <code>nuqta-ocr</code> library do). Competitor numbers: published figures (KITAB-Bench authors; Misraj's <a href="https://arxiv.org/abs/2509.18174">Baseer paper</a> and <a href="https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj">September 2026 results table</a>). Full results,
   confidence intervals, the "images as given" setting and a contamination disclosure are on the
   <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B">model cards</a>.</p>
 </div>
@@ -229,7 +231,13 @@ CSS = """
 .brand {display: flex; align-items: center; justify-content: center; gap: 14px;}
 .brand img {height: 72px; border-radius: 14px;}
 .brand h1 {margin: 0;}
-.pick {font-weight: 600; margin: 4px 0 -4px;}
+.pick {font-weight: 600; margin: 4px 0 0;}
+.credits {font-size: .82em; opacity: .7; margin-top: -6px;}
+@media (max-width: 640px) {.tab-container button {padding-left: 10px !important; padding-right: 10px !important;}}
+#examples, #examples .gallery-container, #examples .grid-wrap {height: auto !important; max-height: none !important; overflow: visible !important;}
+#examples .caption-label {max-width: 92%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+@media (max-width: 640px) {#examples .grid-container {grid-template-columns: repeat(3, minmax(0, 1fr)) !important;}
+  #examples .gallery-item, #examples .thumbnail-item {height: auto !important; aspect-ratio: 1;}}
 .hero {text-align: center; padding: 8px 0 4px;}
 .hero h1 {font-size: 2.4em; margin-bottom: 4px;}
 .hero .ar {color: #19b98a;}
@@ -255,9 +263,11 @@ with gr.Blocks(title="Nuqta OCR: Arabic OCR with faithful tashkeel", css=CSS, de
     gr.HTML(HEADER.replace("{logo}", LOGO))
     with gr.Tabs():
         with gr.Tab("Try it"):
-            gr.Markdown("Pick an example to see the 4B's reading instantly, or upload your own page (it streams as the model reads; the 0.8B is faster). Book pages: Hindawi (CC BY 4.0); table page: Misraj-DocOCR (Apache-2.0). Passports, invoice, receipt, form and diagram are synthetic: no real person's data.", elem_classes="pick")
-            examples = gr.Gallery([(str(A / f), cap) for f, cap, _ in GALLERY], columns=6, rows=2, height=410,
-                                  allow_preview=False, show_label=False, object_fit="cover")
+            gr.Markdown("Tap an example to see the 4B's reading, or upload your own page below.", elem_classes="pick")
+            examples = gr.Gallery([(str(A / f), cap) for f, cap, _ in GALLERY], columns=6, height="auto",
+                                  allow_preview=False, show_label=False, object_fit="cover", elem_id="examples")
+            gr.Markdown("Book pages: Hindawi (CC BY 4.0). Table: Misraj-DocOCR (Apache-2.0). Passports, invoice, "
+                        "receipt, form and diagram are made up: no real person's data.", elem_classes="credits")
             with gr.Row(equal_height=False):
                 with gr.Column(scale=5):
                     image = gr.Image(label="Page, photo, ID or passport", type="filepath", height=520,
@@ -274,7 +284,7 @@ with gr.Blocks(title="Nuqta OCR: Arabic OCR with faithful tashkeel", css=CSS, de
                         with gr.Tab("Text", id="text"):
                             out = gr.Textbox(show_label=False, lines=22, max_lines=40, elem_classes="rtl",
                                              show_copy_button=True, placeholder="ستظهر القراءة هنا")
-                        with gr.Tab("Rendered (tables, Markdown)", id="rendered"):
+                        with gr.Tab("Rendered", id="rendered"):
                             rendered = gr.Markdown(elem_classes="rtl")
                         with gr.Tab("ID fields", id="fields"):
                             extra = gr.Code(language="json", show_label=False)
@@ -285,13 +295,13 @@ with gr.Blocks(title="Nuqta OCR: Arabic OCR with faithful tashkeel", css=CSS, de
             gr.Image(str(A / "results_chart.png"), show_label=False, interactive=False, show_download_button=False,
                      show_fullscreen_button=False, container=False)
             gr.HTML(BENCH)
-        with gr.Tab("Example outputs"):
+        with gr.Tab("Examples"):
             gr.Markdown("Real outputs of Nuqta-OCR 4B. Sources: a Hindawi book page (CC BY 4.0), a Misraj-DocOCR page "
                         "(Apache-2.0), and a synthetic passport and diagram we generated (no real person's document).")
             for k in ("book", "table", "id", "diagram"):
                 gr.Image(str(A / f"example_{k}.png"), show_label=False, interactive=False, container=False,
                          show_download_button=False)
-        with gr.Tab("Models & code"):
+        with gr.Tab("Code"):
             gr.Markdown(USAGE)
 
 if __name__ == "__main__":

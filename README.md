@@ -2,7 +2,7 @@
 
 # Nuqta OCR
 
-Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **Nuqta-OCR 4B** (#1 on KITAB-Bench and Misraj-DocOCR among published results) and **Nuqta-OCR 0.8B** (best for its size: ahead of Gemini-2.0-Flash, level with or slightly ahead of Baseer, runs on phones).
+Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **Nuqta-OCR 4B** (#1 on KITAB-Bench and Misraj-DocOCR among published results) and **Nuqta-OCR 0.8B** (best for its size: ahead of Gemini-2.0-Flash on KITAB-Bench, just behind Misraj's Baseer v2 on Misraj-DocOCR, runs on phones).
 
 - Reads books, scans, official documents, tables, IDs and passports
 - Copies the tashkeel printed on the page and almost never adds any (0.08–0.16 invented marks per 100 letters)
@@ -69,10 +69,15 @@ nuqta read passport.jpg --mode id --json
 | | KITAB-Bench CER ↓ | Misraj-DocOCR MARS ↑ |
 |---|---|---|
 | **Nuqta-OCR 4B** | **0.106** | **82.8** |
-| **Nuqta-OCR 0.8B** | **0.117** | **77.1** |
-| Previous best (Gemini-2.0-Flash / Baseer) | 0.13 | 76.9 |
+| **Nuqta-OCR 0.8B** | **0.117** | 77.1 |
+| Best other published result | 0.13 (Gemini-2.0-Flash) | 77.8 (Baseer v2, Misraj, Sept 2026) |
 
-Recommended input size (what the library does). The 0.8B's lead over Baseer is within the benchmark's noise.
+Recommended input size (what the library does). The 4B is first on both; the 0.8B is ahead of every other published
+KITAB-Bench result and third on Misraj-DocOCR, just behind Baseer v2. Our Misraj-DocOCR scorer reproduces Misraj's own published
+score for Qwen3-VL-8B to within a point (MARS 52.5 vs 51.8), and our exact predictions are in
+[benchmarks/predictions](benchmarks/predictions/misraj_dococr) for anyone to re-score. Other models' figures are the ones published by
+the KITAB-Bench authors and by Misraj ([Baseer paper](https://arxiv.org/abs/2509.18174),
+[September 2026 results table](https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj)).
 
 Full tables, confidence intervals and disclosures are in the model cards; the full benchmarks are
 [KITAB-Bench](https://github.com/mbzuai-oryx/KITAB-Bench) and [Misraj-DocOCR](https://huggingface.co/datasets/Misraj/Misraj-DocOCR).

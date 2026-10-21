@@ -7,9 +7,9 @@ MODES = {
 }
 
 GALLERY = [("1_book.png", "Book", "As written (tashkeel only where printed)"),
-           ("9_tashkeel_story.png", "Tashkeel · story", "As written (tashkeel only where printed)"),
-           ("11_tashkeel_kids.png", "Tashkeel · kids", "As written (tashkeel only where printed)"),
-           ("10_tashkeel_tale.png", "Tashkeel · tale", "As written (tashkeel only where printed)"),
+           ("9_tashkeel_story.png", "Story", "As written (tashkeel only where printed)"),
+           ("11_tashkeel_kids.png", "Kids", "As written (tashkeel only where printed)"),
+           ("10_tashkeel_tale.png", "Tale", "As written (tashkeel only where printed)"),
            ("2_table.png", "Table", "Markdown (headings, lists, tables)"),
            ("3_id.png", "Passport", "ID / passport fields"),
            ("8_idcard.png", "Passport 2", "ID / passport fields"),
