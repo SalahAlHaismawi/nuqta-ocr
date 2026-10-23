@@ -1,0 +1,16 @@
+<resources>
+    <style name="Theme.Nuqta" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/green_soft</item>
+        <item name="colorOnSecondaryContainer">@color/green</item>
+        <item name="colorSurface">@color/paper</item>
+        <item name="android:colorBackground">@color/paper</item>
+        <item name="android:statusBarColor">@color/paper</item>
+        <item name="android:navigationBarColor">@color/paper</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="fontFamily">@font/plex_sans</item>
+        <item name="android:fontFamily">@font/plex_sans</item>
+    </style>
+</resources>

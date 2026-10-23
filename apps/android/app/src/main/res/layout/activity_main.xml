@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/paper"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layoutDirection="ltr"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="40dp">
+
+        <!-- top bar -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:gravity="center_vertical" android:orientation="horizontal">
+            <View android:layout_width="10dp" android:layout_height="10dp" android:background="@drawable/dot"/>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="8dp" android:text="Nuqta OCR" android:textColor="@color/ink"
+                android:textSize="15sp" android:textStyle="bold"/>
+            <TextView android:id="@+id/badge" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="ON DEVICE · OFFLINE" android:textColor="@color/green" android:textSize="11sp"
+                android:letterSpacing="0.12" android:textStyle="bold"/>
+        </LinearLayout>
+
+        <!-- hero -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="26dp" android:gravity="bottom" android:orientation="horizontal">
+            <View android:layout_width="16dp" android:layout_height="16dp" android:layout_marginBottom="22dp"
+                android:layout_marginEnd="8dp" android:background="@drawable/dot"/>
+            <TextView android:id="@+id/brand" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="نقطة" android:textColor="@color/ink" android:textSize="64sp" android:includeFontPadding="true"/>
+        </LinearLayout>
+        <TextView android:id="@+id/headline" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="Arabic OCR that keeps the tashkeel."
+            android:textColor="@color/ink" android:textSize="28sp" android:lineSpacingMultiplier="1.05"/>
+        <TextView android:id="@+id/sub" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" android:text="Nuqta-OCR 0.8B, running on this phone. Nothing leaves the device."
+            android:textColor="@color/muted" android:textSize="15sp"/>
+
+        <!-- setup card -->
+        <LinearLayout android:id="@+id/setup" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="22dp" android:background="@drawable/card" android:orientation="vertical"
+            android:padding="18dp" android:visibility="gone">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ONE-TIME SETUP"
+                android:textColor="@color/green" android:textSize="11sp" android:letterSpacing="0.14" android:textStyle="bold"/>
+            <TextView android:id="@+id/setupTitle" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:text="Download the model, once."
+                android:textColor="@color/ink" android:textSize="20sp"/>
+            <TextView android:id="@+id/setupBody" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="765 MB from Hugging Face. After that, Nuqta reads pages fully offline. Wi-Fi recommended."
+                android:textColor="@color/muted" android:textSize="14sp"/>
+            <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/dlBar"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp"
+                android:max="1000" android:visibility="gone" app:trackCornerRadius="3dp" app:trackThickness="6dp"
+                app:indicatorColor="@color/green" app:trackColor="@color/green_soft"/>
+            <TextView android:id="@+id/dlText" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:textColor="@color/muted" android:textSize="12sp" android:visibility="gone"/>
+            <com.google.android.material.button.MaterialButton android:id="@+id/dlButton"
+                android:layout_width="match_parent" android:layout_height="56dp" android:layout_marginTop="14dp"
+                android:text="Download 765 MB" android:textSize="16sp" app:cornerRadius="14dp"/>
+        </LinearLayout>
+
+        <!-- main -->
+        <LinearLayout android:id="@+id/main" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:visibility="gone">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="26dp"
+                android:text="TRY A PAGE" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.14"/>
+            <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:scrollbars="none" android:clipToPadding="false">
+                <LinearLayout android:id="@+id/samples" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:orientation="horizontal"/>
+            </HorizontalScrollView>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/camera"
+                    style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="52dp" android:layout_marginEnd="6dp" android:text="Take a photo"
+                    android:textColor="@color/ink" app:cornerRadius="14dp" app:strokeColor="@color/rule"/>
+                <com.google.android.material.button.MaterialButton android:id="@+id/gallery"
+                    style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="52dp" android:layout_marginStart="6dp" android:text="From gallery"
+                    android:textColor="@color/ink" app:cornerRadius="14dp" app:strokeColor="@color/rule"/>
+            </LinearLayout>
+
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp"
+                android:background="@drawable/card" android:padding="10dp">
+                <ImageView android:id="@+id/preview" android:layout_width="match_parent" android:layout_height="280dp"
+                    android:scaleType="fitCenter" android:contentDescription="page"/>
+            </FrameLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="18dp"
+                android:text="OUTPUT" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.14"/>
+            <com.google.android.material.chip.ChipGroup android:id="@+id/modes" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="4dp" app:singleSelection="true"
+                app:selectionRequired="true"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+                android:text="QUALITY" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.14"/>
+            <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/quality"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp"
+                app:singleSelection="true" app:selectionRequired="true" app:checkedButton="@+id/accurate">
+                <com.google.android.material.button.MaterialButton android:id="@+id/accurate"
+                    style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="48dp" android:text="Most accurate"/>
+                <com.google.android.material.button.MaterialButton android:id="@+id/fast"
+                    style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="48dp" android:text="Faster"/>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <com.google.android.material.button.MaterialButton android:id="@+id/go"
+                android:layout_width="match_parent" android:layout_height="60dp" android:layout_marginTop="18dp"
+                android:text="Read the page" android:textSize="17sp" app:cornerRadius="16dp"/>
+
+            <TextView android:id="@+id/status" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" android:gravity="center" android:textColor="@color/muted" android:textSize="13sp"/>
+
+            <LinearLayout android:id="@+id/outWrap" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="14dp" android:background="@drawable/out_card" android:orientation="vertical"
+                android:padding="18dp" android:visibility="gone">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                        android:text="WHAT NUQTA READS" android:textColor="@color/muted" android:textSize="11sp" android:letterSpacing="0.14"/>
+                    <TextView android:id="@+id/copy" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:padding="6dp" android:text="Copy" android:textColor="@color/green" android:textStyle="bold" android:textSize="14sp"/>
+                </LinearLayout>
+                <TextView android:id="@+id/out" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" android:layoutDirection="rtl" android:textDirection="anyRtl"
+                    android:textColor="@color/ink" android:textIsSelectable="true" android:textSize="19sp"
+                    android:lineSpacingMultiplier="1.35"/>
+                <TextView android:id="@+id/stats" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" android:textColor="@color/muted" android:textSize="12sp"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="28dp"
+                android:gravity="center" android:textColor="@color/muted" android:textSize="12sp"
+                android:text="Open weights · Apache-2.0 · huggingface.co/SalahALHaismawi"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

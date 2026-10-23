@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.22)
+project(nuqta LANGUAGES C CXX)
+set(CMAKE_CXX_STANDARD 17)
+
+if(ANDROID_ABI STREQUAL "arm64-v8a")
+    set(GGML_SYSTEM_ARCH "ARM")
+    set(GGML_CPU_KLEIDIAI ON)
+endif()
+
+# llama.cpp: run apps/fetch_llama.sh once (or pass -DLLAMA_SRC=/path/to/llama.cpp)
+set(APPS_DIR ${CMAKE_CURRENT_LIST_DIR}/../../../../..)
+if(NOT LLAMA_SRC)
+    set(LLAMA_SRC ${APPS_DIR}/vendor/llama.cpp)
+endif()
+if(NOT EXISTS ${LLAMA_SRC}/CMakeLists.txt)
+    message(FATAL_ERROR "llama.cpp not found at ${LLAMA_SRC}: run apps/fetch_llama.sh first")
+endif()
+add_subdirectory(${LLAMA_SRC} build-llama)
+
+add_library(nuqta SHARED ${APPS_DIR}/core/nuqta_core.cpp nuqta_jni.cpp)
+target_include_directories(nuqta PRIVATE ${APPS_DIR}/core ${LLAMA_SRC}/include ${LLAMA_SRC}/ggml/include ${LLAMA_SRC}/tools/mtmd)
+target_link_libraries(nuqta llama mtmd ggml android log)

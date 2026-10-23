@@ -7,7 +7,7 @@ Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **N
 - Reads books, scans, official documents, tables, IDs and passports
 - Copies the tashkeel printed on the page and almost never adds any (0.08–0.16 invented marks per 100 letters)
 - Markdown output with HTML tables, in reading order
-- Runs on-premises on a single GPU: your documents never leave your network
+- Runs on-premises on a single GPU, or fully offline on Android and iPhone: your documents never leave your network
 
 ## Install
 
@@ -55,6 +55,16 @@ nuqta read passport.jpg --mode id --json
 - **Loop guard:** if a page reading repeats itself, the page is re-read at its native size; any repetition left is trimmed (`Page.looped` tells you).
 - **PDFs:** every page rendered at 200 dpi.
 - **ID checks:** a failed check digit or an inconsistent national number is reported, never silently "fixed". Send those fields to a human.
+
+## On phones and laptops, offline
+
+- **Android and iPhone apps:** [`apps/`](apps) has two small apps that run the 0.8B entirely on the phone (CPU on
+  Android, GPU on iPhone), with the first words in about 2 seconds. Build steps are in [apps/README.md](apps/README.md).
+- **GGUF for llama.cpp, LM Studio, Ollama and other local apps:**
+  [Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF) (560 MB at 4-bit) and
+  [Nuqta-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF) (2.9 GB). The files carry the reading
+  settings (greedy decoding, thinking off, a minimum image size), so most apps read well without setup; the cards
+  list the settings to check in apps that override them.
 
 ## Speed (0.8B, one 24 GB GPU)
 

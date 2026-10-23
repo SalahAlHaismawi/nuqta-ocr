@@ -74,6 +74,34 @@ files. Tested with llama.cpp commit `5aeac37` (October 2026).
 
 The model may begin its answer with an empty `<think></think>` block: drop it.
 
+### On your phone, as an app
+
+[nuqta-ocr/apps](https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/apps) has ready-made Android and iPhone apps
+that download these files once and read pages fully offline (first words in about 2 seconds with the 0.8B). They
+handle the input size, read the page in strips and use the right settings for you.
+
+### In chat apps (PocketPal, LM Studio, Jan, Ollama…)
+
+These files carry Nuqta's reading settings, so llama.cpp-based apps pick them up without any setup: greedy decoding
+(temperature 0, no repeat penalty), thinking switched off in the chat template, and a minimum image size of about
+1 megapixel so small pages and photos are enlarged before reading. With no settings at all, this raised a small page
+from 92.9% to 98.4% of characters right in our test, and stopped the model from writing `<think>`.
+
+Some apps override these with their own defaults. If the output looks wrong, set them by hand:
+
+| Setting | Value |
+|---|---|
+| Temperature | 0 |
+| Top-K | 1 |
+| Repeat / frequency / presence penalty | off (1.0 / 0 / 0) |
+| Context length | 8192 |
+| Max new tokens | 4096 |
+| System prompt | none |
+| Thinking / reasoning | off |
+
+Send the image together with one of the prompts below in the same message. For the best accuracy on whole pages,
+use the [nuqta-ocr](https://github.com/SalahAlHaismawi/nuqta-ocr) library, which also applies the recommended input size.
+
 ### Prompts
 
 | Mode | Prompt |

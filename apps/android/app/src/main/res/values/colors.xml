@@ -1,0 +1,9 @@
+<resources>
+    <color name="paper">#F3EFE6</color>
+    <color name="ink">#141414</color>
+    <color name="muted">#6E695F</color>
+    <color name="rule">#D8D2C5</color>
+    <color name="green">#0F7A5C</color>
+    <color name="green_soft">#E3EFE9</color>
+    <color name="white">#FFFFFF</color>
+</resources>
