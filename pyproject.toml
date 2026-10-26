@@ -1,7 +1,7 @@
 [project]
 name = "nuqta-ocr"
-version = "0.1.0"
-description = "Nuqta OCR: accurate Arabic document OCR with faithful tashkeel (open 0.8B and 4B models)"
+version = "0.1.1"
+description = "Nuqta OCR: open-source Arabic OCR with faithful tashkeel (open 0.8B and 4B models)"
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
@@ -17,7 +17,7 @@ classifiers = [
   "Topic :: Scientific/Engineering :: Image Recognition",
   "Topic :: Text Processing :: Linguistic",
 ]
-keywords = ["arabic", "ocr", "arabic-ocr", "tashkeel", "diacritics", "document-ai", "pdf-to-markdown", "handwriting", "passport", "mrz", "vlm"]
+keywords = ["arabic", "ocr", "arabic-ocr", "arabic-text-recognition", "text-recognition", "tashkeel", "diacritics", "document-ai", "pdf-to-markdown", "handwriting", "passport", "mrz", "vlm"]
 dependencies = [
   "pillow>=10",
   "pypdfium2>=4",
@@ -47,9 +47,9 @@ bench = [
 [project.urls]
 Homepage = "https://huggingface.co/collections/SalahALHaismawi/nuqta-ocr-6ad4af255195b706ac93d1d4"
 Repository = "https://github.com/SalahAlHaismawi/nuqta-ocr"
-Demo = "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-OCR"
-"Model 4B" = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B"
-"Model 0.8B" = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B"
+Demo = "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR"
+"Model 4B" = "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B"
+"Model 0.8B" = "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B"
 
 [project.scripts]
 nuqta = "nuqta.cli:main"

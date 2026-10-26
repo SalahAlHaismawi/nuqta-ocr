@@ -21,8 +21,12 @@ tags:
 - passport
 - mrz
 - markdown
+- text-recognition
+- image-to-text
+- arabic-nlp
+- pdf
 model-index:
-- name: Nuqta-OCR 4B
+- name: Nuqta-Arabic-OCR 4B
   results:
   - task:
       type: image-to-text
@@ -63,17 +67,17 @@ model-index:
 
 <p align="center"><img src="nuqta_logo.png" alt="Nuqta OCR" width="440"></p>
 
-# Nuqta-OCR 4B
+# Nuqta-Arabic-OCR 4B
 
-The most accurate model of the Nuqta OCR family: **#1 on KITAB-Bench and on Misraj-DocOCR** among published results.
+Open-source **Arabic OCR** model, **first on KITAB-Bench and Misraj-DocOCR** among published results. It is the most accurate model in the Nuqta OCR family.
 
-**Nuqta-OCR 4B** is an open-weights **Arabic OCR** model. It converts Arabic scans, photos and PDFs (books, official
+**Nuqta-Arabic-OCR 4B** is an open-weights **Arabic OCR** model. It converts Arabic scans, photos and PDFs (books, official
 documents, research papers, tables, forms, IDs and passports) into clean text or Markdown with HTML tables, in reading
 order, and it **copies the tashkeel printed on the page and almost never adds any** (0.08–0.16 invented marks per 100
 letters on undiacritized text).
 
 Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta-ocr-6ad4af255195b706ac93d1d4) family ·
-[Nuqta-OCR 0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-OCR) ·
+[Nuqta-Arabic-OCR 0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR) ·
 [library and benchmark code](https://github.com/SalahAlHaismawi/nuqta-ocr) · Apache-2.0
 
 **Contributors:** Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim
@@ -86,13 +90,13 @@ Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta
 - **Tables** as HTML in the order they are drawn (left-to-right or right-to-left), merged cells included; column order right on 98% / 98% of rendered mixed-direction test tables.
 - **IDs and passports:** 85.7% of fields correct on real ID cards and 87.2% on real passports (held-out, no training overlap), with ICAO check-digit validation of the MRZ.
 - **Stable:** essentially no repetition loops; the `nuqta-ocr` library adds a loop guard on top.
-- **Open and on-premises:** your documents never leave your network. Serves comfortably on a 16 GB GPU in bf16 (about 1.8 s per document page in batched vLLM serving); GGUF builds for llama.cpp: [Nuqta-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF).
+- **Open and on-premises:** your documents never leave your network. Serves comfortably on a 16 GB GPU in bf16 (about 1.8 s per document page in batched vLLM serving); GGUF builds for llama.cpp: [Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF).
 
 <p align="center"><img src="results_chart.png" alt="KITAB-Bench and Misraj-DocOCR results" width="100%"></p>
 
 ## Examples
 
-Real outputs of Nuqta-OCR 4B, through the `nuqta-ocr` library. Sources: a Hindawi book page (CC BY 4.0), a
+Real outputs of Nuqta-Arabic-OCR 4B, through the `nuqta-ocr` library. Sources: a Hindawi book page (CC BY 4.0), a
 Misraj-DocOCR page (Apache-2.0), and a synthetic passport and diagram we generated (no real person's document).
 
 ![Faithful tashkeel](examples/example_book.png)
@@ -117,8 +121,8 @@ With the recommended input size only the Hindawi pages change (they are small 61
 
 | Model | Size | CER |
 |---|---|---|
-| **Nuqta-OCR 4B**, recommended input size | 4.75B | **0.106** |
-| Nuqta-OCR 4B, images as given | 4.75B | 0.111 (95% CI 0.105-0.118) |
+| **Nuqta-Arabic-OCR 4B**, recommended input size | 4.75B | **0.106** |
+| Nuqta-Arabic-OCR 4B, images as given | 4.75B | 0.111 (95% CI 0.105-0.118) |
 | Gemini-2.0-Flash | closed | 0.130 |
 | AIN-7B | 7B | 0.200 |
 | GPT-4o | closed | 0.310 |
@@ -126,7 +130,7 @@ With the recommended input size only the Hindawi pages change (they are small 61
 | Tesseract | - | 0.540 |
 | EasyOCR | - | 0.580 |
 
-<details><summary><b>Every KITAB-Bench dataset (Nuqta-OCR 4B, images as given)</b></summary>
+<details><summary><b>Every KITAB-Bench dataset (Nuqta-Arabic-OCR 4B, images as given)</b></summary>
 
 | Dataset | CER |
 |---|---|
@@ -156,8 +160,8 @@ also appears in our training data (scores are the same or better without them). 
 
 | Model | Size | CER ↓ | WER ↓ | BLEU ↑ | chrF ↑ | TEDS ↑ | MARS ↑ |
 |---|---|---|---|---|---|---|---|
-| **Nuqta-OCR 4B**, recommended input size | 4.75B | 0.121 | 0.246 | 68.4 | 89.4 | **76.1** | **82.8** |
-| Nuqta-OCR 4B, images as given | 4.75B | 0.161 | - | - | 87.6 | 74.4 (95% CI 67.4-81.1) | 81.0 |
+| **Nuqta-Arabic-OCR 4B**, recommended input size | 4.75B | 0.121 | 0.246 | 68.4 | 89.4 | **76.1** | **82.8** |
+| Nuqta-Arabic-OCR 4B, images as given | 4.75B | 0.161 | - | - | 87.6 | 74.4 (95% CI 67.4-81.1) | 81.0 |
 | Baseer v2 (Misraj, September 2026) | not stated | **0.12** | **0.19** | 76.3 | 88.9 | 67 | 77.8 |
 | Baseer (paper) | 3B | 0.53† | 0.25 | - | 87.8 | 66 | 76.9 |
 | Gemini-2.5-Pro | closed | 0.31 | 0.37 | **77.9** | **89.6** | 52 | 70.8 |
@@ -186,7 +190,7 @@ for anyone to score with their own code.
 
 ### Beyond the benchmarks
 
-| | Nuqta-OCR 4B |
+| | Nuqta-Arabic-OCR 4B |
 |---|---|
 | Invented diacritics on undiacritized text | 0.16 per 100 letters |
 | Table column order, rendered mixed-direction web tables (left-to-right / right-to-left) | 98% / 98% correct |
@@ -249,7 +253,7 @@ import torch
 from PIL import Image
 from transformers import AutoModelForImageTextToText, AutoProcessor
 
-repo = "SalahALHaismawi/Nuqta-OCR-4B"
+repo = "SalahALHaismawi/Nuqta-Arabic-OCR-4B"
 processor = AutoProcessor.from_pretrained(repo)
 model = AutoModelForImageTextToText.from_pretrained(repo, dtype=torch.bfloat16, device_map="auto")
 
@@ -269,7 +273,7 @@ out = model.generate(**inputs, max_new_tokens=8192, do_sample=False)
 print(processor.decode(out[0, inputs["input_ids"].shape[1]:], skip_special_tokens=True))
 ```
 
-With vLLM: `vllm serve SalahALHaismawi/Nuqta-OCR-4B`, then send the `prepare`d image and prompt to the OpenAI-compatible chat endpoint with
+With vLLM: `vllm serve SalahALHaismawi/Nuqta-Arabic-OCR-4B`, then send the `prepare`d image and prompt to the OpenAI-compatible chat endpoint with
 `temperature 0` and `chat_template_kwargs: {"enable_thinking": false}`.
 
 ### With the nuqta-ocr library
@@ -342,6 +346,6 @@ Apache-2.0.
   title  = {Nuqta OCR: Accurate Arabic Document OCR with Faithful Tashkeel},
   author = {Salah AlHaismawi and Mohamed Saleh Tulib and Ahmed ElSayed Mohamed Ibrahim},
   year   = {2026},
-  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B}
+  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B}
 }
 ```

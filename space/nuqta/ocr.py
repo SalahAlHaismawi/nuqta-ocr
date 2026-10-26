@@ -40,7 +40,7 @@ def _pdf_pages(path: Path, dpi: int = 200) -> list[Image.Image]:
     return [doc[i].render(scale=dpi / 72).to_pil().convert("RGB") for i in range(len(doc))]
 
 
-MODELS = {"nuqta-0.8b": "SalahALHaismawi/Nuqta-OCR-0.8B", "nuqta-4b": "SalahALHaismawi/Nuqta-OCR-4B"}
+MODELS = {"nuqta-0.8b": "SalahALHaismawi/Nuqta-Arabic-OCR-0.8B", "nuqta-4b": "SalahALHaismawi/Nuqta-Arabic-OCR-4B"}
 
 
 class OCR:

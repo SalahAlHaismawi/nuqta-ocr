@@ -9,7 +9,7 @@ import java.net.URL
 /** Downloads the 0.8B GGUF and its vision file from Hugging Face once, then keeps them on the device. */
 class ModelStore(ctx: Context) {
     private val dir = File(ctx.getExternalFilesDir(null) ?: ctx.filesDir, "models").apply { mkdirs() }
-    private val base = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF/resolve/main/"
+    private val base = "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF/resolve/main/"
 
     // bytes = the current files on Hugging Face (reading settings baked in, 2026-10-22); `old` = the first upload,
     // still accepted so phones that already have it do not download again

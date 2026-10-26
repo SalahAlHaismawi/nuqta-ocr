@@ -7,7 +7,7 @@ final class ModelStore: NSObject, URLSessionDownloadDelegate {
     static let parts = [Part(name: "nuqta-ocr-0.8b-Q4_K_M.gguf", bytes: 559_595_520, old: 559_595_392),
                         Part(name: "nuqta-ocr-0.8b-mmproj-f16.gguf", bytes: 204_986_688, old: 204_986_656)]
     static let totalBytes = parts.reduce(0) { $0 + $1.bytes }
-    private static let base = "https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF/resolve/main/"
+    private static let base = "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF/resolve/main/"
 
     static var dir: URL {
         let d = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("models")

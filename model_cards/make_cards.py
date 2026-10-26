@@ -15,29 +15,29 @@ K08 = dict(zip(KITAB_SETS, [0.246, 0.028, 0.155, 0.234, 0.179, 0.187, 0.035, 0.1
 
 MODELS = {
     "4b": dict(
-        name="Nuqta-OCR 4B", repo="SalahALHaismawi/Nuqta-OCR-4B", other=("Nuqta-OCR 0.8B", "SalahALHaismawi/Nuqta-OCR-0.8B"),
+        name="Nuqta-Arabic-OCR 4B", repo="SalahALHaismawi/Nuqta-Arabic-OCR-4B", other=("Nuqta-Arabic-OCR 0.8B", "SalahALHaismawi/Nuqta-Arabic-OCR-0.8B"),
         base="Qwen/Qwen3.5-4B", base_layers=32, base_full=8, layers=34, full=10, linear=24, inserted="after decoder layers 15 and 31",
         params="4.75B (0.33B vision encoder)", hidden=2560,
         kitab_rel=0.106, kitab_plain=0.111, kitab_ci="0.105-0.118", kitab_clean=0.113,
         mis=dict(cer=0.121, wer=0.246, bleu=68.4, chrf=89.4, teds=76.1, mars=82.8, tables="56 / 59"),
         mis_plain=dict(cer=0.161, chrf=87.6, teds=74.4, mars=81.0, teds_ci="67.4-81.1"),
         faith=0.16, tdir="98% / 98%", layout="90.9%", ids="85.7%", pass_="87.2% / 85.7%", privacy="0 of 634",
-        kitab=K4, tagline="The most accurate model of the Nuqta OCR family: **#1 on KITAB-Bench and on Misraj-DocOCR** among published results.",
+        kitab=K4, tagline="Open-source **Arabic OCR** model, **first on KITAB-Bench and Misraj-DocOCR** among published results. It is the most accurate model in the Nuqta OCR family.",
         training="20,000 steps from Qwen3.5-4B (effective batch 64 on 4 GPUs, AdamW 8-bit, peak LR 1e-5 for the decoder and "
                  "1e-6 for the vision encoder, warmup-stable-decay schedule); from step 15,000 a curated annealing mix "
                  "(verified real pages, tables, IDs, layouts) while the learning rate decays to zero. The released 4B is the "
                  "end of this supervised stage: a reinforcement-learning round (same recipe as the 0.8B) scored slightly "
                  "better on KITAB but worse on Misraj tables at release resolution, so it was not shipped. Compute: 4 NVIDIA RTX PRO 6000 GPUs (96 GB each).",
-        size_note="Serves comfortably on a 16 GB GPU in bf16 (about 1.8 s per document page in batched vLLM serving); GGUF builds for llama.cpp: [Nuqta-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF)."),
+        size_note="Serves comfortably on a 16 GB GPU in bf16 (about 1.8 s per document page in batched vLLM serving); GGUF builds for llama.cpp: [Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF)."),
     "0.8b": dict(
-        name="Nuqta-OCR 0.8B", repo="SalahALHaismawi/Nuqta-OCR-0.8B", other=("Nuqta-OCR 4B", "SalahALHaismawi/Nuqta-OCR-4B"),
+        name="Nuqta-Arabic-OCR 0.8B", repo="SalahALHaismawi/Nuqta-Arabic-OCR-0.8B", other=("Nuqta-Arabic-OCR 4B", "SalahALHaismawi/Nuqta-Arabic-OCR-4B"),
         base="Qwen/Qwen3.5-0.8B", base_layers=24, base_full=6, layers=26, full=8, linear=18, inserted="after decoder layers 11 and 23",
         params="0.89B (0.10B vision encoder)", hidden=1024,
         kitab_rel=0.117, kitab_plain=0.132, kitab_ci="0.127-0.139", kitab_clean=0.131,
         mis=dict(cer=0.130, wer=0.241, bleu=63.6, chrf=87.4, teds=66.8, mars=77.1, tables="55 / 59"),
         mis_plain=dict(cer=0.141, chrf=85.7, teds=66.9, mars=76.3, teds_ci="59.2-74.7"),
         faith=0.08, tdir="95% / 96%", layout="87.3%", ids="79.2%", pass_="84.9% / 85.7%", privacy="0 of 633",
-        kitab=K08, tagline="**The best accuracy for its size.** Under 1B parameters, it is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and on Misraj-DocOCR it is just behind Misraj's own Baseer v2 and ahead of Gemini-2.5-Pro and GPT-5 (recommended input size).",
+        kitab=K08, tagline="Open-source **Arabic OCR** model with under 1B parameters, small enough for a phone. It is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and on Misraj-DocOCR it is just behind Misraj's own Baseer v2 and ahead of Gemini-2.5-Pro and GPT-5 (recommended input size).",
         training="40,000 steps from Qwen3.5-0.8B (effective batch 16, AdamW 8-bit, peak LR 2e-5 for the decoder and 2e-6 for the "
                  "vision encoder, warmup-stable-decay schedule); from step 30,000 a curated annealing mix (verified real pages, "
                  "tables, IDs, layouts and diagrams) while the learning rate decays. Then reinforcement-learning rounds with weight averaging between them (GRPO-style, "
@@ -51,7 +51,7 @@ MODELS = {
 
 GGUF = """### On phones and laptops (GGUF, llama.cpp)
 
-[Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF) runs fully offline with
+[Nuqta-Arabic-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF) runs fully offline with
 llama.cpp on Android, iOS, Mac, Windows and Linux: 560 MB at 4-bit plus a 205 MB vision file, about 1.6 GB of RAM.
 The 4-bit build matches this model's accuracy on KITAB-Bench pages (Hindawi book pages with tashkeel: CER 0.028 vs
 0.031 in bf16). Settings and measured speeds are on its card.
@@ -103,6 +103,10 @@ tags:
 - passport
 - mrz
 - markdown
+- text-recognition
+- image-to-text
+- arabic-nlp
+- pdf
 model-index:
 - name: {m['name']}
   results:
@@ -155,7 +159,7 @@ order, and it **copies the tashkeel printed on the page and almost never adds an
 letters on undiacritized text).
 
 Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta-ocr-6ad4af255195b706ac93d1d4) family ·
-[{m['other'][0]}](https://huggingface.co/{m['other'][1]}) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-OCR) ·
+[{m['other'][0]}](https://huggingface.co/{m['other'][1]}) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR) ·
 [library and benchmark code](https://github.com/SalahAlHaismawi/nuqta-ocr) · Apache-2.0
 
 **Contributors:** Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim

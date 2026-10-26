@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadModel() {
         v.setup.visibility = View.VISIBLE
         v.setupTitle.text = "Getting ready…"
-        v.setupBody.text = "Loading Nuqta-OCR 0.8B into memory. This takes a few seconds."
+        v.setupBody.text = "Loading Nuqta-Arabic-OCR 0.8B into memory. This takes a few seconds."
         v.dlButton.visibility = View.GONE; v.dlBar.visibility = View.VISIBLE; v.dlBar.isIndeterminate = true
         v.dlText.visibility = View.GONE
         lifecycleScope.launch {

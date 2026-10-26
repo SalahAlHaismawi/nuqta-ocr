@@ -1,8 +1,8 @@
 <p align="center"><img src="https://raw.githubusercontent.com/SalahAlHaismawi/nuqta-ocr/main/assets/nuqta_logo.png" alt="Nuqta OCR" width="440"></p>
 
-# Nuqta OCR
+# Nuqta OCR: open-source Arabic OCR
 
-Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **Nuqta-OCR 4B** (#1 on KITAB-Bench and Misraj-DocOCR among published results) and **Nuqta-OCR 0.8B** (best for its size: ahead of Gemini-2.0-Flash on KITAB-Bench, just behind Misraj's Baseer v2 on Misraj-DocOCR, runs on phones).
+Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **Nuqta-Arabic-OCR 4B** (#1 on KITAB-Bench and Misraj-DocOCR among published results) and **Nuqta-Arabic-OCR 0.8B** (best for its size: ahead of Gemini-2.0-Flash on KITAB-Bench, just behind Misraj's Baseer v2 on Misraj-DocOCR, runs on phones).
 
 - Reads books, scans, official documents, tables, IDs and passports
 - Copies the tashkeel printed on the page and almost never adds any (0.08–0.16 invented marks per 100 letters)
@@ -61,8 +61,8 @@ nuqta read passport.jpg --mode id --json
 - **Android and iPhone apps:** [`apps/`](apps) has two small apps that run the 0.8B entirely on the phone (CPU on
   Android, GPU on iPhone), with the first words in about 2 seconds. Build steps are in [apps/README.md](apps/README.md).
 - **GGUF for llama.cpp, LM Studio, Ollama and other local apps:**
-  [Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF) (560 MB at 4-bit) and
-  [Nuqta-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF) (2.9 GB). The files carry the reading
+  [Nuqta-Arabic-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF) (560 MB at 4-bit) and
+  [Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF) (2.9 GB). The files carry the reading
   settings (greedy decoding, thinking off, a minimum image size), so most apps read well without setup; the cards
   list the settings to check in apps that override them.
 
@@ -78,8 +78,8 @@ nuqta read passport.jpg --mode id --json
 
 | | KITAB-Bench CER ↓ | Misraj-DocOCR MARS ↑ |
 |---|---|---|
-| **Nuqta-OCR 4B** | **0.106** | **82.8** |
-| **Nuqta-OCR 0.8B** | **0.117** | 77.1 |
+| **Nuqta-Arabic-OCR 4B** | **0.106** | **82.8** |
+| **Nuqta-Arabic-OCR 0.8B** | **0.117** | 77.1 |
 | Best other published result | 0.13 (Gemini-2.0-Flash) | 77.8 (Baseer v2, Misraj, Sept 2026) |
 
 Recommended input size (what the library does). The 4B is first on both; the 0.8B is ahead of every other published

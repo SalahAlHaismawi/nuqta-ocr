@@ -14,8 +14,8 @@ from app_examples import GALLERY, MODES
 
 HERE = Path(__file__).parent
 A = HERE / "assets"
-MODELS = {"4B · most accurate": os.environ.get("NUQTA_4B", "SalahALHaismawi/Nuqta-OCR-4B"),
-          "0.8B · fast": os.environ.get("NUQTA_08B", "SalahALHaismawi/Nuqta-OCR-0.8B")}
+MODELS = {"4B · most accurate": os.environ.get("NUQTA_4B", "SalahALHaismawi/Nuqta-Arabic-OCR-4B"),
+          "0.8B · fast": os.environ.get("NUQTA_08B", "SalahALHaismawi/Nuqta-Arabic-OCR-0.8B")}
 # the examples' readings, precomputed with the 4B (precompute_examples.py): a click shows them at once, no GPU time
 CACHED = json.loads((A / "example_outputs.json").read_text())
 MAX_PDF_PAGES = int(os.environ.get("MAX_PDF_PAGES", "5"))
@@ -113,10 +113,10 @@ HEADER = """
     <div><b>560 MB</b><span>0.8B on a phone<br>(4-bit GGUF)</span></div>
   </div>
   <div class="models">
-    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B"><span class="tag">Most accurate</span><b>Nuqta-OCR 4B</b><span>#1 on KITAB &amp; Misraj · 16 GB GPU</span></a>
-    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B"><span class="tag">Best for its size</span><b>Nuqta-OCR 0.8B</b><span>Beats Gemini on KITAB · 3 GB</span></a>
-    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF"><span class="tag">Phones</span><b>0.8B GGUF</b><span>560 MB · offline · llama.cpp</span></a>
-    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF"><span class="tag">Laptops</span><b>4B GGUF</b><span>2.9 GB · offline · llama.cpp</span></a>
+    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B"><span class="tag">Most accurate</span><b>Nuqta-Arabic-OCR 4B</b><span>#1 on KITAB &amp; Misraj · 16 GB GPU</span></a>
+    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B"><span class="tag">Best for its size</span><b>Nuqta-Arabic-OCR 0.8B</b><span>Beats Gemini on KITAB · 3 GB</span></a>
+    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF"><span class="tag">Phones</span><b>0.8B GGUF</b><span>560 MB · offline · llama.cpp</span></a>
+    <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF"><span class="tag">Laptops</span><b>4B GGUF</b><span>2.9 GB · offline · llama.cpp</span></a>
   </div>
 </div>
 """
@@ -129,8 +129,8 @@ BENCH = """
       <p class="metric">Character error rate · lower is better</p>
       <table>
         <tr><th>Model</th><th>Size</th><th class="n">CER</th></tr>
-        <tr class="us"><td>Nuqta-OCR 4B</td><td>4.75B</td><td class="n best">0.106</td></tr>
-        <tr class="us"><td>Nuqta-OCR 0.8B</td><td>0.89B</td><td class="n">0.117</td></tr>
+        <tr class="us"><td>Nuqta-Arabic-OCR 4B</td><td>4.75B</td><td class="n best">0.106</td></tr>
+        <tr class="us"><td>Nuqta-Arabic-OCR 0.8B</td><td>0.89B</td><td class="n">0.117</td></tr>
         <tr><td>Gemini-2.0-Flash</td><td>closed</td><td class="n">0.130</td></tr>
         <tr><td>AIN-7B</td><td>7B</td><td class="n">0.200</td></tr>
         <tr><td>GPT-4o</td><td>closed</td><td class="n">0.310</td></tr>
@@ -144,9 +144,9 @@ BENCH = """
       <p class="metric">MARS = (chrF + TEDS) / 2 · higher is better</p>
       <table>
         <tr><th>Model</th><th>Size</th><th class="n">chrF</th><th class="n">TEDS</th><th class="n">MARS</th></tr>
-        <tr class="us"><td>Nuqta-OCR 4B</td><td>4.75B</td><td class="n">89.4</td><td class="n best">76.1</td><td class="n best">82.8</td></tr>
+        <tr class="us"><td>Nuqta-Arabic-OCR 4B</td><td>4.75B</td><td class="n">89.4</td><td class="n best">76.1</td><td class="n best">82.8</td></tr>
         <tr><td>Baseer v2 <span class="hint">Misraj, Sept 2026</span></td><td>–</td><td class="n">88.9</td><td class="n">67</td><td class="n">77.8</td></tr>
-        <tr class="us"><td>Nuqta-OCR 0.8B</td><td>0.89B</td><td class="n">87.4</td><td class="n">66.8</td><td class="n">77.1</td></tr>
+        <tr class="us"><td>Nuqta-Arabic-OCR 0.8B</td><td>0.89B</td><td class="n">87.4</td><td class="n">66.8</td><td class="n">77.1</td></tr>
         <tr><td>Baseer <span class="hint">paper</span></td><td>3B</td><td class="n">87.8</td><td class="n">66</td><td class="n">76.9</td></tr>
         <tr><td>Gemini-2.5-Pro</td><td>closed</td><td class="n best">89.6</td><td class="n">52</td><td class="n">70.8</td></tr>
         <tr><td>Azure Doc. Intelligence</td><td>closed</td><td class="n">82.5</td><td class="n">42</td><td class="n">62.2</td></tr>
@@ -168,7 +168,7 @@ BENCH = """
   <p class="bnote">Nuqta numbers: our runs, scored with KITAB-Bench's own scoring code (for Misraj-DocOCR, which published no code, with the Baseer paper's recipe on top of it; checked against Misraj's own published score for Qwen3-VL-8B, 52.5 vs 51.8 MARS), at the recommended input size
   (what this demo and the <code>nuqta-ocr</code> library do). Competitor numbers: published figures (KITAB-Bench authors; Misraj's <a href="https://arxiv.org/abs/2509.18174">Baseer paper</a> and <a href="https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj">September 2026 results table</a>). Full results,
   confidence intervals, the "images as given" setting and a contamination disclosure are on the
-  <a href="https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B">model cards</a>.</p>
+  <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">model cards</a>.</p>
 </div>
 """
 
@@ -191,9 +191,9 @@ if __name__ == "__main__":                               # needed with vLLM
 
 ### Offline, on a phone or laptop
 
-[Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF) runs with llama.cpp on Android,
+[Nuqta-Arabic-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF) runs with llama.cpp on Android,
 iOS, Mac, Windows and Linux: 560 MB at 4-bit, about 1.6 GB of RAM, matching the full model on our spot checks.
-[Nuqta-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF) for laptops and desktops.
+[Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF) for laptops and desktops.
 
 ### Why it is different
 
@@ -296,7 +296,7 @@ with gr.Blocks(title="Nuqta OCR: Arabic OCR with faithful tashkeel", css=CSS, de
                      show_fullscreen_button=False, container=False)
             gr.HTML(BENCH)
         with gr.Tab("Examples"):
-            gr.Markdown("Real outputs of Nuqta-OCR 4B. Sources: a Hindawi book page (CC BY 4.0), a Misraj-DocOCR page "
+            gr.Markdown("Real outputs of Nuqta-Arabic-OCR 4B. Sources: a Hindawi book page (CC BY 4.0), a Misraj-DocOCR page "
                         "(Apache-2.0), and a synthetic passport and diagram we generated (no real person's document).")
             for k in ("book", "table", "id", "diagram"):
                 gr.Image(str(A / f"example_{k}.png"), show_label=False, interactive=False, container=False,

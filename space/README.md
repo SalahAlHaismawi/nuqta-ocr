@@ -1,5 +1,5 @@
 ---
-title: Nuqta OCR
+title: Nuqta Arabic OCR
 emoji: 📜
 colorFrom: green
 colorTo: blue
@@ -10,8 +10,8 @@ pinned: true
 license: apache-2.0
 short_description: "Arabic OCR with faithful tashkeel: #1 on KITAB & Misraj"
 models:
-- SalahALHaismawi/Nuqta-OCR-4B
-- SalahALHaismawi/Nuqta-OCR-0.8B
+- SalahALHaismawi/Nuqta-Arabic-OCR-4B
+- SalahALHaismawi/Nuqta-Arabic-OCR-0.8B
 tags:
 - ocr
 - arabic

@@ -1,6 +1,6 @@
 # Nuqta OCR on phones
 
-Two small apps that run **Nuqta-OCR 0.8B fully on the phone**, with no server and no internet after the first
+Two small apps that run **Nuqta-Arabic-OCR 0.8B fully on the phone**, with no server and no internet after the first
 download. They share one reading engine (`core/`), built on [llama.cpp](https://github.com/ggml-org/llama.cpp):
 
 | | Android | iPhone |
@@ -10,7 +10,7 @@ download. They share one reading engine (`core/`), built on [llama.cpp](https://
 | Build on | Linux, macOS or Windows (Android SDK + NDK) | a Mac with Xcode |
 
 On first launch the app downloads the 0.8B GGUF and its vision file (765 MB) from
-[Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF) and keeps them on the phone.
+[Nuqta-Arabic-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF) and keeps them on the phone.
 Then: pick a sample, take a photo or choose one, and read it as written, as Markdown or without tashkeel.
 
 ## What the engine does

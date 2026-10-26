@@ -36,10 +36,10 @@ All runs use the same decoding settings, which are fixed in `run.py`:
 - the library's `as-written` prompt for the 13 KITAB OCR sets, and its `markdown` prompt for Misraj-DocOCR
 - the output is kept raw (code fences stripped only): no loop trimming and no fallback re-read
 
-### Nuqta-OCR 0.8B
+### Nuqta-Arabic-OCR 0.8B
 
 ```bash
-vllm serve SalahALHaismawi/Nuqta-OCR-0.8B --served-model-name nuqta --max-model-len 16384 &
+vllm serve SalahALHaismawi/Nuqta-Arabic-OCR-0.8B --served-model-name nuqta --max-model-len 16384 &
 
 # images as given: the 13 KITAB-Bench OCR sets and Misraj-DocOCR
 python benchmarks/run.py --sets kitab misraj --model nuqta --out results/0.8b/as-given
@@ -56,12 +56,12 @@ python benchmarks/score.py results/0.8b/as-given/misraj_dococr.jsonl --teds-jobs
 python benchmarks/score.py results/0.8b/page-enlarging/misraj_dococr.jsonl --teds-jobs 4
 ```
 
-### Nuqta-OCR 4B
+### Nuqta-Arabic-OCR 4B
 
 These are the same commands with the 4B model served:
 
 ```bash
-vllm serve SalahALHaismawi/Nuqta-OCR-4B --served-model-name nuqta --max-model-len 16384 &
+vllm serve SalahALHaismawi/Nuqta-Arabic-OCR-4B --served-model-name nuqta --max-model-len 16384 &
 python benchmarks/run.py --sets kitab misraj --model nuqta --out results/4b/as-given
 python benchmarks/run.py --sets kitab_hindawi misraj --model nuqta --out results/4b/page-enlarging --page-enlarging
 python benchmarks/score.py results/4b/as-given/kitab_*.jsonl

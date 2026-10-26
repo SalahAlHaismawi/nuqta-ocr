@@ -5,7 +5,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sqrt
 
-/** Nuqta-OCR 0.8B on the device (llama.cpp). One read at a time. */
+/** Nuqta-Arabic-OCR 0.8B on the device (llama.cpp). One read at a time. */
 object Engine {
     init { System.loadLibrary("nuqta") }
 

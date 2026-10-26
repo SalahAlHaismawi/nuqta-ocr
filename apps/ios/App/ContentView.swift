@@ -65,7 +65,7 @@ struct ContentView: View {
             .padding(.top, 22)
             Text("Arabic OCR that keeps the tashkeel.")
                 .font(.custom("Source Serif 4", size: 28)).fontWeight(.semibold).foregroundColor(.ink)
-            Text("Nuqta-OCR 0.8B, running on this iPhone. Nothing leaves the device.")
+            Text("Nuqta-Arabic-OCR 0.8B, running on this iPhone. Nothing leaves the device.")
                 .font(.custom("IBM Plex Sans", size: 15)).foregroundColor(.muted).padding(.top, 6)
         }
     }
@@ -78,7 +78,7 @@ struct ContentView: View {
             switch r.phase {
             case .loading:
                 Text("Getting ready…").font(.custom("Source Serif 4", size: 20)).fontWeight(.semibold)
-                Text("Loading Nuqta-OCR 0.8B into memory.").font(.custom("IBM Plex Sans", size: 14)).foregroundColor(.muted)
+                Text("Loading Nuqta-Arabic-OCR 0.8B into memory.").font(.custom("IBM Plex Sans", size: 14)).foregroundColor(.muted)
                 ProgressView().tint(.nuqtaGreen)
             case .downloading(let f):
                 Text("Downloading the model…").font(.custom("Source Serif 4", size: 20)).fontWeight(.semibold)

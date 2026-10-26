@@ -1,4 +1,4 @@
-"""Precompute the demo's example readings with Nuqta-OCR 4B (served by vLLM, OpenAI API), so clicking an example in
+"""Precompute the demo's example readings with Nuqta-Arabic-OCR 4B (served by vLLM, OpenAI API), so clicking an example in
 the Space shows its result instantly without spending ZeroGPU time.
 
     python space/precompute_examples.py --url http://127.0.0.1:8100/v1 --model <served name>

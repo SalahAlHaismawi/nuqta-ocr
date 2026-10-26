@@ -2,7 +2,7 @@
 license: apache-2.0
 language:
 - ar
-base_model: SalahALHaismawi/Nuqta-OCR-0.8B
+base_model: SalahALHaismawi/Nuqta-Arabic-OCR-0.8B
 pipeline_tag: image-text-to-text
 library_name: gguf
 tags:
@@ -15,13 +15,15 @@ tags:
 - llama.cpp
 - on-device
 - mobile
+- text-recognition
+- arabic-nlp
 ---
 
 <p align="center"><img src="nuqta_logo.png" width="160" alt="Nuqta OCR"></p>
 
-# Nuqta-OCR 0.8B GGUF: Arabic OCR on phones and laptops
+# Nuqta-Arabic-OCR 0.8B GGUF: Arabic OCR on phones and laptops
 
-This repo holds the GGUF build of [Nuqta-OCR-0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B) for
+This repo holds the GGUF build of [Nuqta-Arabic-OCR-0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B) for
 [llama.cpp](https://github.com/ggml-org/llama.cpp). It reads printed Arabic pages, copies the tashkeel that is
 printed and almost never adds any. It runs fully offline in **about 1.6 GB of RAM**, on Android, iOS, Mac,
 Windows and Linux, on CPU or GPU.
@@ -45,7 +47,7 @@ greedy decoding, KITAB-Bench normalisation, character error rate (lower is bette
 | Adab (poetry word crops) | 0.275 | 0.291 |
 
 All differences are within page-to-page noise. On the full benchmarks the 0.8B model scores KITAB-Bench CER
-0.117 and Misraj-DocOCR MARS 77.1: see the [main model card](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B).
+0.117 and Misraj-DocOCR MARS 77.1: see the [main model card](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B).
 
 ## Run it
 
@@ -129,8 +131,8 @@ Android) is usually much faster, especially for the image encoding step.
 ## Limitations
 
 Tables: the 0.8B may reorder or drop columns, especially in small mixed Arabic / English tables that start with an
-English column (every cell is still read correctly). Use the [4B GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF)
-for tables. Full limitations: [Nuqta-OCR-0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B#limitations).
+English column (every cell is still read correctly). Use the [4B GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF)
+for tables. Full limitations: [Nuqta-Arabic-OCR-0.8B](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B#limitations).
 
 ## Contributors
 
@@ -147,6 +149,6 @@ Apache 2.0, like the original model. Built on [Qwen3.5-0.8B](https://huggingface
   title  = {Nuqta OCR: Accurate Arabic Document OCR with Faithful Tashkeel},
   author = {Salah AlHaismawi and Mohamed Saleh Tulib and Ahmed ElSayed Mohamed Ibrahim},
   year   = {2026},
-  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF}
+  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF}
 }
 ```

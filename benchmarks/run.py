@@ -1,12 +1,12 @@
 """Produce benchmark predictions ({"id", "ref", "hyp"} per line, one .jsonl per set) for KITAB-Bench and Misraj-DocOCR.
 
     # 1) serve the model with vLLM (the published numbers were made this way)
-    vllm serve SalahALHaismawi/Nuqta-OCR-0.8B --served-model-name nuqta --max-model-len 16384
+    vllm serve SalahALHaismawi/Nuqta-Arabic-OCR-0.8B --served-model-name nuqta --max-model-len 16384
     # 2) predictions: images as given (default) or with the library's page enlarging
     python benchmarks/run.py --sets kitab misraj --model nuqta --out results/nuqta-0.8b
     python benchmarks/run.py --sets kitab_hindawi misraj --model nuqta --out results/nuqta-0.8b-enlarged --page-enlarging
     # or without a server, through the nuqta library's own generation backend (vLLM offline or transformers)
-    python benchmarks/run.py --sets kitab misraj --backend nuqta --model SalahALHaismawi/Nuqta-OCR-0.8B --out ...
+    python benchmarks/run.py --sets kitab misraj --backend nuqta --model SalahALHaismawi/Nuqta-Arabic-OCR-0.8B --out ...
     # 3) score
     python benchmarks/score.py results/nuqta-0.8b
 

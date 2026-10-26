@@ -2,7 +2,7 @@
 license: apache-2.0
 language:
 - ar
-base_model: SalahALHaismawi/Nuqta-OCR-4B
+base_model: SalahALHaismawi/Nuqta-Arabic-OCR-4B
 pipeline_tag: image-text-to-text
 library_name: gguf
 tags:
@@ -14,16 +14,18 @@ tags:
 - gguf
 - llama.cpp
 - on-device
+- text-recognition
+- arabic-nlp
 ---
 
 <p align="center"><img src="nuqta_logo.png" width="160" alt="Nuqta OCR"></p>
 
-# Nuqta-OCR 4B GGUF: the most accurate Nuqta model, offline
+# Nuqta-Arabic-OCR 4B GGUF: offline Arabic OCR for laptops and desktops
 
-This repo holds the GGUF build of [Nuqta-OCR-4B](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B) for
+This repo holds the GGUF build of [Nuqta-Arabic-OCR-4B](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B) for
 [llama.cpp](https://github.com/ggml-org/llama.cpp). It reads Arabic documents, copies the tashkeel that is printed
 and almost never adds any, and runs fully offline on Mac, Windows and Linux. It needs **about 6 GB of RAM** at 4-bit, so it suits
-laptops and desktops; for phones use [Nuqta-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-0.8B-GGUF).
+laptops and desktops; for phones use [Nuqta-Arabic-OCR-0.8B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF).
 
 | File | Size | Use |
 |---|---|---|
@@ -44,7 +46,7 @@ greedy decoding, KITAB-Bench normalisation, character error rate (lower is bette
 | Adab (poetry word crops) | 0.226 | 0.229 |
 
 All differences are within page-to-page noise. On the full benchmarks the 4B model scores KITAB-Bench CER 0.106
-and Misraj-DocOCR MARS 82.8, first on both: see the [main model card](https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B).
+and Misraj-DocOCR MARS 82.8, first on both: see the [main model card](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B).
 
 ## Run it
 
@@ -131,6 +133,6 @@ Apache 2.0, like the original model. Built on [Qwen3.5-4B](https://huggingface.c
   title  = {Nuqta OCR: Accurate Arabic Document OCR with Faithful Tashkeel},
   author = {Salah AlHaismawi and Mohamed Saleh Tulib and Ahmed ElSayed Mohamed Ibrahim},
   year   = {2026},
-  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-OCR-4B-GGUF}
+  url    = {https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF}
 }
 ```

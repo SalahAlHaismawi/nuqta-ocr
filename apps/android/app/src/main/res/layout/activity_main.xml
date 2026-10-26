@@ -40,7 +40,7 @@
             android:text="Arabic OCR that keeps the tashkeel."
             android:textColor="@color/ink" android:textSize="28sp" android:lineSpacingMultiplier="1.05"/>
         <TextView android:id="@+id/sub" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" android:text="Nuqta-OCR 0.8B, running on this phone. Nothing leaves the device."
+            android:layout_marginTop="8dp" android:text="Nuqta-Arabic-OCR 0.8B, running on this phone. Nothing leaves the device."
             android:textColor="@color/muted" android:textSize="15sp"/>
 
         <!-- setup card -->
