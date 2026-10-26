@@ -65,6 +65,10 @@ nuqta read passport.jpg --mode id --json
   [Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF) (2.9 GB). The files carry the reading
   settings (greedy decoding, thinking off, a minimum image size), so most apps read well without setup; the cards
   list the settings to check in apps that override them.
+- **Desktop GUI for Windows (community project):** [nuqta-ocr-gui](https://github.com/hadi4172/nuqta-ocr-gui) is a
+  gImageReader-style app that OCRs PDFs and images with the GGUF builds through llama.cpp, on an NVIDIA GPU or the CPU.
+  It reads pages, regions or page ranges and exports text or a searchable PDF. It can also read everything with 0.8B and
+  re-read only the low-confidence pages with 4B. The 4B Q4_K_M fits on an 8 GB GPU.
 
 ## Speed (0.8B, one 24 GB GPU)
 
