@@ -22,6 +22,7 @@ MODELS = {
         mis=dict(cer=0.121, wer=0.246, bleu=68.4, chrf=89.4, teds=76.1, mars=82.8, tables="56 / 59"),
         mis_plain=dict(cer=0.161, chrf=87.6, teds=74.4, mars=81.0, teds_ci="67.4-81.1"),
         faith=0.16, tdir="98% / 98%", layout="90.9%", ids="85.7%", pass_="87.2% / 85.7%", privacy="0 of 634",
+        ar_lead="وهو الأول على معياري KITAB-Bench (معدل خطأ الحروف 0.106) وMisraj-DocOCR (‏MARS 82.8) بين النتائج المنشورة، متقدمًا على Gemini وGPT-4o وBaseer.", ar_run="يعمل على بطاقة رسومية بذاكرة 16 جيجابايت، أو دون اتصال على الحاسوب بصيغة GGUF.",
         kitab=K4, tagline="Open-source **Arabic OCR** model, **first on KITAB-Bench and Misraj-DocOCR** among published results. It is the most accurate model in the Nuqta OCR family.",
         training="20,000 steps from Qwen3.5-4B (effective batch 64 on 4 GPUs, AdamW 8-bit, peak LR 1e-5 for the decoder and "
                  "1e-6 for the vision encoder, warmup-stable-decay schedule); from step 15,000 a curated annealing mix "
@@ -37,6 +38,7 @@ MODELS = {
         mis=dict(cer=0.130, wer=0.241, bleu=63.6, chrf=87.4, teds=66.8, mars=77.1, tables="55 / 59"),
         mis_plain=dict(cer=0.141, chrf=85.7, teds=66.9, mars=76.3, teds_ci="59.2-74.7"),
         faith=0.08, tdir="95% / 96%", layout="87.3%", ids="79.2%", pass_="84.9% / 85.7%", privacy="0 of 633",
+        ar_lead="يضم أقل من مليار معامل، ويبلغ معدل خطأ الحروف فيه 0.117 على KITAB-Bench، متقدمًا على Gemini-2.0-Flash ‏(0.13) وGPT-4o ‏(0.31).", ar_run="صغير بما يكفي ليعمل على الهاتف دون اتصال بالإنترنت (نحو 1.6 جيجابايت من الذاكرة بصيغة GGUF).",
         kitab=K08, tagline="Open-source **Arabic OCR** model with under 1B parameters, small enough for a phone. It is ahead of Gemini-2.0-Flash, AIN-7B and GPT-4o on KITAB-Bench and on Misraj-DocOCR it is just behind Misraj's own Baseer v2 and ahead of Gemini-2.5-Pro and GPT-5 (recommended input size).",
         training="40,000 steps from Qwen3.5-0.8B (effective batch 16, AdamW 8-bit, peak LR 2e-5 for the decoder and 2e-6 for the "
                  "vision encoder, warmup-stable-decay schedule); from step 30,000 a curated annealing mix (verified real pages, "
@@ -163,6 +165,21 @@ Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta
 [library and benchmark code](https://github.com/SalahAlHaismawi/nuqta-ocr) · Apache-2.0
 
 **Contributors:** Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim
+
+<div dir="rtl">
+
+### نقطة: نموذج مفتوح المصدر للتعرف الضوئي على النص العربي (OCR عربي)
+
+يحوّل «نقطة» صور الصفحات والمستندات الممسوحة ضوئيًا وملفات PDF العربية إلى نص أو Markdown، ويستخرج الجداول بصيغة HTML،
+ويقرأ البطاقات الشخصية وجوازات السفر. {m['ar_lead']}
+
+- ينقل التشكيل المطبوع في الصفحة كما هو، ونادرًا ما يضيف تشكيلًا غير موجود فيها.
+- مفتوح المصدر برخصة Apache-2.0، ويعمل على أجهزتك فلا تخرج مستنداتك من شبكتك.
+- {m['ar_run']}
+
+[جرّبه مجانًا](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR) · `pip install nuqta-ocr`
+
+</div>
 
 ## Highlights
 

@@ -9,6 +9,14 @@ Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **N
 - Markdown output with HTML tables, in reading order
 - Runs on-premises on a single GPU, or fully offline on Android and iPhone: your documents never leave your network
 
+<div dir="rtl">
+
+**بالعربية:** «نقطة» مكتبة ونماذج مفتوحة المصدر للتعرف الضوئي على النص العربي (OCR عربي). تحوّل صور الصفحات والمستندات الممسوحة
+ضوئيًا وملفات PDF إلى نص أو Markdown، وتستخرج الجداول، وتقرأ البطاقات الشخصية وجوازات السفر، وتنقل التشكيل المطبوع كما هو.
+النموذج 4B هو الأول على معياري KITAB-Bench وMisraj-DocOCR بين النتائج المنشورة. [جرّبه مجانًا](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR).
+
+</div>
+
 ## Install
 
 ```bash

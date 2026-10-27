@@ -82,6 +82,21 @@ Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta
 
 **Contributors:** Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim
 
+<div dir="rtl">
+
+### نقطة: نموذج مفتوح المصدر للتعرف الضوئي على النص العربي (OCR عربي)
+
+يحوّل «نقطة» صور الصفحات والمستندات الممسوحة ضوئيًا وملفات PDF العربية إلى نص أو Markdown، ويستخرج الجداول بصيغة HTML،
+ويقرأ البطاقات الشخصية وجوازات السفر. يضم أقل من مليار معامل، ويبلغ معدل خطأ الحروف فيه 0.117 على KITAB-Bench، متقدمًا على Gemini-2.0-Flash ‏(0.13) وGPT-4o ‏(0.31).
+
+- ينقل التشكيل المطبوع في الصفحة كما هو، ونادرًا ما يضيف تشكيلًا غير موجود فيها.
+- مفتوح المصدر برخصة Apache-2.0، ويعمل على أجهزتك فلا تخرج مستنداتك من شبكتك.
+- صغير بما يكفي ليعمل على الهاتف دون اتصال بالإنترنت (نحو 1.6 جيجابايت من الذاكرة بصيغة GGUF).
+
+[جرّبه مجانًا](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR) · `pip install nuqta-ocr`
+
+</div>
+
 ## Highlights
 
 - **KITAB-Bench: CER 0.117**, against Gemini-2.0-Flash 0.13, AIN-7B 0.20 and GPT-4o 0.31 (13 Arabic OCR datasets; 0.132 with the images as given).
