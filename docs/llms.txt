@@ -1,0 +1,12 @@
+# Nuqta OCR
+
+> Nuqta OCR is an open-weights Arabic OCR system: Nuqta-Arabic-OCR 4B (#1 on KITAB-Bench and Misraj-DocOCR among published results) and the compact Nuqta-Arabic-OCR 0.8B (runs on phones as GGUF). It converts Arabic scans, photos and PDFs (books, official documents, tables, IDs and passports) into text or Markdown with HTML tables, and copies the tashkeel (diacritics) printed on the page, almost never adding any. Apache-2.0.
+
+- Install: `pip install "nuqta-ocr[vllm]"`; use: `from nuqta import OCR; OCR("nuqta-4b").read("page.jpg").text`
+- Modes: as-written (tashkeel as printed), bare, markdown (tables as HTML), id (MRZ + ID fields with check digits)
+- Results 4B: KITAB-Bench CER 0.106 (Gemini-2.0-Flash 0.13); Misraj-DocOCR MARS 82.8 (Baseer v2 77.8, Baseer 76.9, GPT-5 54.8), TEDS 76.1, CER 0.121
+- Results 0.8B: KITAB-Bench CER 0.117; Misraj-DocOCR MARS 77.1 (just behind Baseer v2 77.8)
+- Models: https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B, https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B
+- GGUF (llama.cpp, offline): https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF, https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF
+- Demo: https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR · Code: https://github.com/SalahAlHaismawi/nuqta-ocr
+- Website: https://salahalhaismawi.github.io/nuqta-ocr/ · Benchmarks: https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/ · Guides: https://salahalhaismawi.github.io/nuqta-ocr/guides/

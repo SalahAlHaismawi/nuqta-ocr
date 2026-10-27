@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuqta OCR: open-source Arabic OCR, first on KITAB-Bench and Misraj</title>
+<meta name="description" content="Open-source Arabic OCR models and Python library. Converts Arabic scans, photos and PDFs to text or Markdown, keeps printed tashkeel, reads tables, IDs and passports. Best published scores on KITAB-Bench and Misraj-DocOCR.">
+<link rel="canonical" href="https://salahalhaismawi.github.io/nuqta-ocr/"><link rel="alternate" hreflang="en" href="https://salahalhaismawi.github.io/nuqta-ocr/"><link rel="alternate" hreflang="ar" href="https://salahalhaismawi.github.io/nuqta-ocr/ar/"><link rel="alternate" hreflang="x-default" href="https://salahalhaismawi.github.io/nuqta-ocr/">
+<link rel="icon" href="img/icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://salahalhaismawi.github.io/nuqta-ocr/">
+<meta property="og:title" content="Nuqta OCR: open-source Arabic OCR, first on KITAB-Bench and Misraj"><meta property="og:description" content="Open-source Arabic OCR models and Python library. Converts Arabic scans, photos and PDFs to text or Markdown, keeps printed tashkeel, reads tables, IDs and passports. Best published scores on KITAB-Bench and Misraj-DocOCR.">
+<meta property="og:image" content="https://salahalhaismawi.github.io/nuqta-ocr/img/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Nuqta OCR: open-source Arabic OCR, first on KITAB-Bench and Misraj", "description": "Open-source Arabic OCR models and Python library. Converts Arabic scans, photos and PDFs to text or Markdown, keeps printed tashkeel, reads tables, IDs and passports. Best published scores on KITAB-Bench and Misraj-DocOCR.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/", "inLanguage": "en", "dateModified": "2026-10-27", "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Nuqta OCR", "alternateName": ["Nuqta Arabic OCR", "نقطة", "Nuqta-Arabic-OCR"], "applicationCategory": "DeveloperApplication", "operatingSystem": "Linux, macOS, Windows, Android, iOS", "description": "Open-source Arabic OCR models (4B and 0.8B) and Python library. First on KITAB-Bench (CER 0.106) and Misraj-DocOCR (MARS 82.8) among published results. Copies printed tashkeel, reads tables, IDs and passports.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/", "downloadUrl": "https://pypi.org/project/nuqta-ocr/", "softwareVersion": "0.1.1", "license": "https://www.apache.org/licenses/LICENSE-2.0", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}], "sameAs": ["https://github.com/SalahAlHaismawi/nuqta-ocr", "https://pypi.org/project/nuqta-ocr/", "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR", "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B", "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the best Arabic OCR model?", "acceptedAnswer": {"@type": "Answer", "text": "On the two public Arabic OCR benchmarks, Nuqta-Arabic-OCR 4B has the best published results: character error rate 0.106 on KITAB-Bench (Gemini-2.0-Flash 0.13, GPT-4o 0.31) and MARS 82.8 on Misraj-DocOCR (Baseer v2 77.8, Gemini-2.5-Pro 70.8). It is open source under Apache-2.0. The smaller Nuqta-Arabic-OCR 0.8B is second on KITAB-Bench and runs on a phone."}}, {"@type": "Question", "name": "What is the best open-source Arabic OCR?", "acceptedAnswer": {"@type": "Answer", "text": "Nuqta OCR. Both models are open weights under Apache-2.0, and both score better on KITAB-Bench than every other published result, open or closed. Tesseract and EasyOCR score 0.54 and 0.58 character error rate on the same benchmark."}}, {"@type": "Question", "name": "Does Nuqta OCR keep tashkeel (Arabic diacritics)?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It copies the diacritics printed on the page and almost never adds any: 0.08 to 0.16 invented marks per 100 letters on undiacritized text. Fully vocalized text such as Quran or children's books keeps its marks."}}, {"@type": "Question", "name": "Can it convert Arabic PDFs to text?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The nuqta-ocr Python library renders every PDF page and returns plain text or Markdown with HTML tables, in reading order."}}, {"@type": "Question", "name": "Does it read Arabic handwriting?", "acceptedAnswer": {"@type": "Answer", "text": "It reads handwritten lines and paragraphs (KHATT character error rate 0.07 to 0.11), but it is built for printed documents, where it is most accurate."}}, {"@type": "Question", "name": "Can it run without a GPU?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The GGUF builds run on CPU with llama.cpp, LM Studio and similar apps, and the 0.8B runs offline on Android and iPhone. On a laptop CPU a dense book page takes about a minute; on a 24 GB GPU about 3 seconds."}}, {"@type": "Question", "name": "Is Nuqta OCR free for commercial use?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The models and the library are released under Apache-2.0."}}, {"@type": "Question", "name": "Which languages does it read?", "acceptedAnswer": {"@type": "Answer", "text": "Arabic, and English mixed into Arabic documents (for example bilingual tables and IDs)."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href=""><img src="img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<nav><a href="best-arabic-ocr/">Benchmarks</a><a href="guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="ar/" hreflang="ar">العربية</a></nav>
+</div></header>
+<main><div class="wrap">
+
+<p class="eyebrow">Open-source Arabic OCR</p>
+<h1>Nuqta OCR: the most accurate open Arabic OCR</h1>
+<p class="lead">Nuqta reads Arabic scans, photos and PDFs into text or Markdown. It is first on both public Arabic OCR
+benchmarks, copies the tashkeel printed on the page without adding any, and runs on your own hardware, down to a phone.</p>
+<div class="cta"><a class="btn primary" href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Try it in your browser</a><a class="btn" href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a>
+<a class="btn" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a><a class="btn" href="best-arabic-ocr/">Benchmarks</a></div>
+<div class="stats">
+<div class="stat"><b>0.106</b><span>KITAB-Bench character error rate. Gemini-2.0-Flash: 0.13</span></div>
+<div class="stat"><b>82.8</b><span>Misraj-DocOCR MARS. Baseer v2: 77.8</span></div>
+<div class="stat"><b>0.08</b><span>invented diacritics per 100 letters (0.8B)</span></div>
+<div class="stat"><b>1.6 GB</b><span>RAM for the 0.8B on a phone, offline</span></div>
+</div>
+
+<h2>What it reads</h2>
+<div class="cards">
+<div class="card"><h3>Books and scans</h3><p>Printed pages, old books and scanned documents, in reading order.</p></div>
+<div class="card"><h3>PDFs to Markdown</h3><p>Headings, lists and tables as HTML. Every page of a PDF.</p></div>
+<div class="card"><h3>Tashkeel as printed</h3><p>Vocalized text keeps its marks. Plain text stays plain.</p></div>
+<div class="card"><h3>Tables</h3><p>Right-to-left and left-to-right tables, in the column order they are drawn.</p></div>
+<div class="card"><h3>IDs and passports</h3><p>MRZ fields with ICAO check digits; failed checks are flagged, never guessed.</p></div>
+<div class="card"><h3>Offline</h3><p>On-premises GPU, laptop CPU, Android and iPhone. Documents stay on your hardware.</p></div>
+</div>
+
+<h2>Two models</h2>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Size</th><th>KITAB-Bench CER ↓</th><th>Misraj MARS ↑</th><th>Runs on</th></tr></thead><tbody><tr><td><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Nuqta-Arabic-OCR 4B</a></td><td class=n>4.75B</td><td class=n>0.106</td><td class=n>82.8</td><td class=n>16 GB GPU, or laptop (GGUF)</td></tr><tr><td><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B">Nuqta-Arabic-OCR 0.8B</a></td><td class=n>0.89B</td><td class=n>0.117</td><td class=n>77.1</td><td class=n>any GPU, CPU, phone (GGUF)</td></tr></tbody></table></div>
+<p class="note">GGUF builds for llama.cpp, LM Studio and other local apps:
+<a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF">4B GGUF</a> (2.9 GB) · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF">0.8B GGUF</a> (560 MB).
+Full comparison with Gemini, GPT, Azure, Mistral, Baseer, Tesseract and others: <a href="best-arabic-ocr/">Arabic OCR benchmarks</a>.</p>
+
+<h2>Use it in Python</h2>
+<pre><code>pip install "nuqta-ocr[vllm]"   # Linux + NVIDIA GPU, fastest
+pip install "nuqta-ocr[fast]"   # transformers with fast kernels
+pip install nuqta-ocr           # transformers only</code></pre>
+<pre><code>from nuqta import OCR
+
+if __name__ == "__main__":
+    ocr = OCR("nuqta-4b")          # or "nuqta-0.8b" for small GPUs
+    print(ocr.read("page.jpg").text)                     # tashkeel only where printed
+    print(ocr.read("scan.pdf", mode="markdown").text)    # headings, lists, HTML tables
+    print(ocr.read("passport.jpg", mode="id").fields)    # MRZ fields with check digits</code></pre>
+<p>Command line: <code>nuqta read scan.pdf --mode markdown</code>. More in the <a href="guides/">guides</a>.</p>
+
+<h2>Questions</h2>
+<details><summary>What is the best Arabic OCR model?</summary><p>On the two public Arabic OCR benchmarks, Nuqta-Arabic-OCR 4B has the best published results: character error rate 0.106 on KITAB-Bench (Gemini-2.0-Flash 0.13, GPT-4o 0.31) and MARS 82.8 on Misraj-DocOCR (Baseer v2 77.8, Gemini-2.5-Pro 70.8). It is open source under Apache-2.0. The smaller Nuqta-Arabic-OCR 0.8B is second on KITAB-Bench and runs on a phone.</p></details><details><summary>What is the best open-source Arabic OCR?</summary><p>Nuqta OCR. Both models are open weights under Apache-2.0, and both score better on KITAB-Bench than every other published result, open or closed. Tesseract and EasyOCR score 0.54 and 0.58 character error rate on the same benchmark.</p></details><details><summary>Does Nuqta OCR keep tashkeel (Arabic diacritics)?</summary><p>Yes. It copies the diacritics printed on the page and almost never adds any: 0.08 to 0.16 invented marks per 100 letters on undiacritized text. Fully vocalized text such as Quran or children&#x27;s books keeps its marks.</p></details><details><summary>Can it convert Arabic PDFs to text?</summary><p>Yes. The nuqta-ocr Python library renders every PDF page and returns plain text or Markdown with HTML tables, in reading order.</p></details><details><summary>Does it read Arabic handwriting?</summary><p>It reads handwritten lines and paragraphs (KHATT character error rate 0.07 to 0.11), but it is built for printed documents, where it is most accurate.</p></details><details><summary>Can it run without a GPU?</summary><p>Yes. The GGUF builds run on CPU with llama.cpp, LM Studio and similar apps, and the 0.8B runs offline on Android and iPhone. On a laptop CPU a dense book page takes about a minute; on a 24 GB GPU about 3 seconds.</p></details><details><summary>Is Nuqta OCR free for commercial use?</summary><p>Yes. The models and the library are released under Apache-2.0.</p></details><details><summary>Which languages does it read?</summary><p>Arabic, and English mixed into Arabic documents (for example bilingual tables and IDs).</p></details>
+
+<h2>Cite</h2>
+<pre><code>@misc{nuqta_ocr_2026,
+  title  = {Nuqta OCR: Accurate Arabic Document OCR with Faithful Tashkeel},
+  author = {Salah AlHaismawi and Mohamed Saleh Tulib and Ahmed ElSayed Mohamed Ibrahim},
+  year   = {2026},
+  url    = {https://github.com/SalahAlHaismawi/nuqta-ocr}
+}</code></pre>
+
+</div></main>
+<footer><div class="wrap">Nuqta OCR · open-source Arabic OCR · Apache-2.0 · <a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a> · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a> · <a href="https://pypi.org/project/nuqta-ocr/">PyPI</a><br>
+Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim · Updated 2026-10-27</div></footer>
+</body>
+</html>

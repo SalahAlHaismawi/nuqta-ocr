@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convert Arabic PDFs to text in Python | Nuqta OCR</title>
+<meta name="description" content="Extract Arabic text from scanned or image-only PDFs, with tashkeel and tables, using the open-source Nuqta OCR library.">
+<link rel="canonical" href="https://salahalhaismawi.github.io/nuqta-ocr/guides/arabic-pdf-to-text/">
+<link rel="icon" href="../../img/icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://salahalhaismawi.github.io/nuqta-ocr/guides/arabic-pdf-to-text/">
+<meta property="og:title" content="Convert Arabic PDFs to text in Python | Nuqta OCR"><meta property="og:description" content="Extract Arabic text from scanned or image-only PDFs, with tashkeel and tables, using the open-source Nuqta OCR library.">
+<meta property="og:image" content="https://salahalhaismawi.github.io/nuqta-ocr/img/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "Convert Arabic PDFs to text in Python | Nuqta OCR", "description": "Extract Arabic text from scanned or image-only PDFs, with tashkeel and tables, using the open-source Nuqta OCR library.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/guides/arabic-pdf-to-text/", "inLanguage": "en", "dateModified": "2026-10-27", "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I extract Arabic text from a scanned PDF?", "acceptedAnswer": {"@type": "Answer", "text": "Use an OCR model, because a scanned PDF contains images, not text. With the open-source nuqta-ocr library: pip install nuqta-ocr, then OCR('nuqta-4b').read('file.pdf').text."}}, {"@type": "Question", "name": "Why is Arabic text from my PDF reversed or broken?", "acceptedAnswer": {"@type": "Answer", "text": "The PDF's text layer stores Arabic in visual order or as presentation-form glyphs. OCR the rendered page instead of copying the text layer."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../../"><img src="../../img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<nav><a href="../../best-arabic-ocr/">Benchmarks</a><a href="../../guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="../../ar/" hreflang="ar">العربية</a></nav>
+</div></header>
+<main><div class="wrap">
+<p class="eyebrow"><a href="../">Guides</a></p><h1>Convert Arabic PDFs to text in Python</h1><p class="lead">Extract Arabic text from scanned or image-only PDFs, with tashkeel and tables, using the open-source Nuqta OCR library.</p>
+<h2>1. Install</h2>
+<pre><code>pip install "nuqta-ocr[vllm]"   # Linux + NVIDIA GPU, fastest
+pip install "nuqta-ocr[fast]"   # transformers with fast kernels
+pip install nuqta-ocr           # transformers only</code></pre>
+<p>vLLM is the fastest backend (about 3 seconds per page for the 0.8B on a 24 GB GPU). Without a GPU, see
+<a href="../run-arabic-ocr-offline/">running offline on CPU</a>.</p>
+<h2>2. Read the PDF</h2>
+<pre><code>from nuqta import OCR
+
+if __name__ == "__main__":
+    ocr = OCR("nuqta-4b")                                 # or "nuqta-0.8b"
+    result = ocr.read("contract.pdf", mode="markdown")    # every page, rendered at 200 dpi
+    for i, page in enumerate(result.pages, 1):
+        print(f"--- page {i} ---")
+        print(page.text)
+    open("contract.md", "w", encoding="utf-8").write(result.text)</code></pre>
+<p><code>mode="markdown"</code> keeps headings, lists and tables (as HTML). Use the default <code>as-written</code> mode for plain
+text, or <code>bare</code> to remove all tashkeel.</p>
+<h2>3. Many files at once</h2>
+<pre><code>results = ocr.read_many(["a.pdf", "b.pdf", "scan.jpg"], mode="markdown")   # batched on the GPU</code></pre>
+<h2>Command line</h2>
+<pre><code>nuqta read contract.pdf --mode markdown > contract.md</code></pre>
+<h2>Why not pdftotext?</h2>
+<p>Text extraction tools such as pdftotext or PyMuPDF only work when the PDF already contains a text layer. Scanned PDFs are images,
+and many Arabic PDFs have a broken text layer with letters in the wrong order or in presentation forms. OCR reads what is printed.</p>
+<h2>Questions</h2><details><summary>How do I extract Arabic text from a scanned PDF?</summary><p>Use an OCR model, because a scanned PDF contains images, not text. With the open-source nuqta-ocr library: pip install nuqta-ocr, then OCR(&#x27;nuqta-4b&#x27;).read(&#x27;file.pdf&#x27;).text.</p></details><details><summary>Why is Arabic text from my PDF reversed or broken?</summary><p>The PDF&#x27;s text layer stores Arabic in visual order or as presentation-form glyphs. OCR the rendered page instead of copying the text layer.</p></details>
+</div></main>
+<footer><div class="wrap">Nuqta OCR · open-source Arabic OCR · Apache-2.0 · <a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a> · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a> · <a href="https://pypi.org/project/nuqta-ocr/">PyPI</a><br>
+Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim · Updated 2026-10-27</div></footer>
+</body>
+</html>

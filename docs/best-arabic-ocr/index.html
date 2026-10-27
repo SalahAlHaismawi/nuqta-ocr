@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best Arabic OCR models in 2026: benchmark comparison</title>
+<meta name="description" content="KITAB-Bench and Misraj-DocOCR results for Arabic OCR: Nuqta, Gemini, GPT-4o, GPT-5, Azure, Mistral OCR, Baseer, QARI, dots.ocr, Tesseract and EasyOCR.">
+<link rel="canonical" href="https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/">
+<link rel="icon" href="../img/icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/">
+<meta property="og:title" content="Best Arabic OCR models in 2026: benchmark comparison"><meta property="og:description" content="KITAB-Bench and Misraj-DocOCR results for Arabic OCR: Nuqta, Gemini, GPT-4o, GPT-5, Azure, Mistral OCR, Baseer, QARI, dots.ocr, Tesseract and EasyOCR.">
+<meta property="og:image" content="https://salahalhaismawi.github.io/nuqta-ocr/img/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "name": "Best Arabic OCR models in 2026: benchmark comparison", "description": "KITAB-Bench and Misraj-DocOCR results for Arabic OCR: Nuqta, Gemini, GPT-4o, GPT-5, Azure, Mistral OCR, Baseer, QARI, dots.ocr, Tesseract and EasyOCR.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/", "inLanguage": "en", "dateModified": "2026-10-27", "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which Arabic OCR is the most accurate in 2026?", "acceptedAnswer": {"@type": "Answer", "text": "Nuqta-Arabic-OCR 4B has the best published score on both public Arabic OCR benchmarks: KITAB-Bench character error rate 0.106 and Misraj-DocOCR MARS 82.8."}}, {"@type": "Question", "name": "Is Tesseract good for Arabic?", "acceptedAnswer": {"@type": "Answer", "text": "Tesseract works for clean printed Arabic but misses many characters on real documents: 0.54 character error rate on KITAB-Bench, against 0.106 for Nuqta-Arabic-OCR 4B. It also drops or mangles tashkeel."}}, {"@type": "Question", "name": "Is Gemini or GPT better than open models for Arabic OCR?", "acceptedAnswer": {"@type": "Answer", "text": "Not on these benchmarks. Gemini-2.0-Flash scores 0.13 and GPT-4o 0.31 on KITAB-Bench, and Gemini-2.5-Pro 70.8 and GPT-5 54.8 MARS on Misraj-DocOCR, all behind Nuqta's open models."}}, {"@type": "Question", "name": "What is the best Arabic OCR for tables?", "acceptedAnswer": {"@type": "Answer", "text": "On Misraj-DocOCR tables (TEDS), Nuqta-Arabic-OCR 4B scores 76.1, ahead of Baseer v2 (67), Gemini-2.5-Pro (52) and Azure (42)."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../"><img src="../img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<nav><a href="../best-arabic-ocr/">Benchmarks</a><a href="../guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="../ar/" hreflang="ar">العربية</a></nav>
+</div></header>
+<main><div class="wrap">
+
+<p class="eyebrow">Benchmarks · updated 2026-10-27</p>
+<h1>Best Arabic OCR models in 2026, compared</h1>
+<p class="lead">Scores from the two public Arabic OCR benchmarks, KITAB-Bench and Misraj-DocOCR, for open models, cloud APIs and
+classic OCR engines. Other systems' numbers are the ones published by the benchmark authors.</p>
+
+<h2>Summary</h2>
+<ul>
+<li><b>Most accurate overall:</b> Nuqta-Arabic-OCR 4B (open, Apache-2.0). First on both benchmarks.</li>
+<li><b>Best small model:</b> Nuqta-Arabic-OCR 0.8B. Second on KITAB-Bench, ahead of Gemini-2.0-Flash and GPT-4o, and runs on a phone.</li>
+<li><b>Lowest character error on Misraj-DocOCR:</b> Baseer v2 (0.12) and Nuqta 4B (0.121) are effectively tied; Baseer v2 has no public weights.</li>
+<li><b>Classic engines:</b> Tesseract (0.54) and EasyOCR (0.58) miss about half of the characters on KITAB-Bench.</li>
+</ul>
+
+<h2>KITAB-Bench: 13 Arabic OCR datasets</h2>
+<p>3,760 images: book pages, scanned lines, handwriting, manuscripts, slides, scene text and fonts. Character error rate, lower is better.</p>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Weights</th><th>CER ↓</th></tr></thead><tbody><tr class="us"><td>Nuqta-Arabic-OCR 4B</td><td class=n>4.75B, open</td><td class=n>0.106</td></tr><tr class="us"><td>Nuqta-Arabic-OCR 0.8B</td><td class=n>0.89B, open</td><td class=n>0.117</td></tr><tr><td>Gemini-2.0-Flash</td><td class=n>closed</td><td class=n>0.130</td></tr><tr><td>AIN-7B</td><td class=n>7B, open</td><td class=n>0.200</td></tr><tr><td>GPT-4o</td><td class=n>closed</td><td class=n>0.310</td></tr><tr><td>Qwen-2.5-VL</td><td class=n>7B, open</td><td class=n>0.492</td></tr><tr><td>Tesseract</td><td class=n>open</td><td class=n>0.540</td></tr><tr><td>EasyOCR</td><td class=n>open</td><td class=n>0.580</td></tr></tbody></table></div>
+<p class="note">Nuqta at its recommended input size (small page renders are enlarged to the training size). With every image sent
+unchanged: 4B 0.111, 0.8B 0.132. 234 test images also appear in public datasets used for training; without them the 4B scores 0.113.
+Source: <a href="https://github.com/mbzuai-oryx/KITAB-Bench">KITAB-Bench</a> and the Nuqta model cards.</p>
+
+<h2>Misraj-DocOCR: 400 real Arabic document pages</h2>
+<p>Pages converted to Markdown. MARS combines text and table accuracy, TEDS scores tables; higher is better. CER, lower is better.</p>
+<div class="tbl"><table><thead><tr><th>Model</th><th>Weights</th><th>MARS ↑</th><th>TEDS ↑</th><th>CER ↓</th></tr></thead><tbody><tr class="us"><td>Nuqta-Arabic-OCR 4B</td><td class=n>4.75B, open</td><td class=n>82.8</td><td class=n>76.1</td><td class=n>0.121</td></tr><tr><td>Baseer v2 (Misraj)</td><td class=n>no public weights</td><td class=n>77.8</td><td class=n>67</td><td class=n>0.12</td></tr><tr class="us"><td>Nuqta-Arabic-OCR 0.8B</td><td class=n>0.89B, open</td><td class=n>77.1</td><td class=n>66.8</td><td class=n>0.130</td></tr><tr><td>Baseer (paper)</td><td class=n>3B</td><td class=n>76.9</td><td class=n>66</td><td class=n>0.53</td></tr><tr><td>Gemini-2.5-Pro</td><td class=n>closed</td><td class=n>70.8</td><td class=n>52</td><td class=n>0.31</td></tr><tr><td>Azure Document Intelligence</td><td class=n>closed</td><td class=n>62.2</td><td class=n>42</td><td class=n>0.27</td></tr><tr><td>dots.ocr</td><td class=n>3B, open</td><td class=n>59.2</td><td class=n>40</td><td class=n>0.40</td></tr><tr><td>GPT-5</td><td class=n>closed</td><td class=n>54.8</td><td class=n>48</td><td class=n>0.62</td></tr><tr><td>Mistral OCR</td><td class=n>closed</td><td class=n>44.4</td><td class=n>17</td><td class=n>0.42</td></tr><tr><td>QARI</td><td class=n>2B, open</td><td class=n>42.8</td><td class=n>21</td><td class=n>0.64</td></tr></tbody></table></div>
+<p class="note">Other systems from the Baseer paper and <a href="https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj">Misraj's September 2026 results table</a>.
+Our scorer reproduces Misraj's published Qwen3-VL-8B score within a point, and our predictions are public in
+<a href="https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks">the benchmarks folder</a> for anyone to re-score. Dataset: <a href="https://huggingface.co/datasets/Misraj/Misraj-DocOCR">Misraj-DocOCR</a>.</p>
+
+<h2>How to choose</h2>
+<div class="cards">
+<div class="card"><h3>Highest accuracy, own GPU</h3><p>Nuqta-Arabic-OCR 4B on a 16–24 GB GPU.</p><a class="more" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Model →</a></div>
+<div class="card"><h3>Small GPU, CPU or phone</h3><p>Nuqta-Arabic-OCR 0.8B, or its 560 MB GGUF build.</p><a class="more" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B">Model →</a></div>
+<div class="card"><h3>Coming from Tesseract</h3><p>A drop-in Python library with the same one-call use.</p><a class="more" href="../guides/tesseract-arabic-alternative/">Guide →</a></div>
+</div>
+
+<h2>Questions</h2>
+<details><summary>Which Arabic OCR is the most accurate in 2026?</summary><p>Nuqta-Arabic-OCR 4B has the best published score on both public Arabic OCR benchmarks: KITAB-Bench character error rate 0.106 and Misraj-DocOCR MARS 82.8.</p></details><details><summary>Is Tesseract good for Arabic?</summary><p>Tesseract works for clean printed Arabic but misses many characters on real documents: 0.54 character error rate on KITAB-Bench, against 0.106 for Nuqta-Arabic-OCR 4B. It also drops or mangles tashkeel.</p></details><details><summary>Is Gemini or GPT better than open models for Arabic OCR?</summary><p>Not on these benchmarks. Gemini-2.0-Flash scores 0.13 and GPT-4o 0.31 on KITAB-Bench, and Gemini-2.5-Pro 70.8 and GPT-5 54.8 MARS on Misraj-DocOCR, all behind Nuqta&#x27;s open models.</p></details><details><summary>What is the best Arabic OCR for tables?</summary><p>On Misraj-DocOCR tables (TEDS), Nuqta-Arabic-OCR 4B scores 76.1, ahead of Baseer v2 (67), Gemini-2.5-Pro (52) and Azure (42).</p></details>
+
+</div></main>
+<footer><div class="wrap">Nuqta OCR · open-source Arabic OCR · Apache-2.0 · <a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a> · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a> · <a href="https://pypi.org/project/nuqta-ocr/">PyPI</a><br>
+Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim · Updated 2026-10-27</div></footer>
+</body>
+</html>

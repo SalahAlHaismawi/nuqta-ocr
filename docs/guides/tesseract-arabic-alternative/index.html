@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A more accurate alternative to Tesseract for Arabic | Nuqta OCR</title>
+<meta name="description" content="Tesseract misses about half of the characters on the KITAB-Bench Arabic benchmark. Nuqta OCR cuts the error rate five-fold and keeps tashkeel.">
+<link rel="canonical" href="https://salahalhaismawi.github.io/nuqta-ocr/guides/tesseract-arabic-alternative/">
+<link rel="icon" href="../../img/icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://salahalhaismawi.github.io/nuqta-ocr/guides/tesseract-arabic-alternative/">
+<meta property="og:title" content="A more accurate alternative to Tesseract for Arabic | Nuqta OCR"><meta property="og:description" content="Tesseract misses about half of the characters on the KITAB-Bench Arabic benchmark. Nuqta OCR cuts the error rate five-fold and keeps tashkeel.">
+<meta property="og:image" content="https://salahalhaismawi.github.io/nuqta-ocr/img/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="../../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "A more accurate alternative to Tesseract for Arabic | Nuqta OCR", "description": "Tesseract misses about half of the characters on the KITAB-Bench Arabic benchmark. Nuqta OCR cuts the error rate five-fold and keeps tashkeel.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/guides/tesseract-arabic-alternative/", "inLanguage": "en", "dateModified": "2026-10-27", "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Tesseract good for Arabic OCR?", "acceptedAnswer": {"@type": "Answer", "text": "For clean printed lines it works, but on the KITAB-Bench Arabic benchmark it has a 0.54 character error rate, against 0.106 for Nuqta-Arabic-OCR 4B."}}, {"@type": "Question", "name": "What is the best free Arabic OCR?", "acceptedAnswer": {"@type": "Answer", "text": "Nuqta OCR is free and open source (Apache-2.0) and has the best published scores on KITAB-Bench and Misraj-DocOCR."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<a class="brand" href="../../"><img src="../../img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<nav><a href="../../best-arabic-ocr/">Benchmarks</a><a href="../../guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="../../ar/" hreflang="ar">العربية</a></nav>
+</div></header>
+<main><div class="wrap">
+<p class="eyebrow"><a href="../">Guides</a></p><h1>A more accurate alternative to Tesseract for Arabic</h1><p class="lead">Tesseract misses about half of the characters on the KITAB-Bench Arabic benchmark. Nuqta OCR cuts the error rate five-fold and keeps tashkeel.</p>
+<h2>The numbers</h2>
+<div class="tbl"><table><thead><tr><th>Engine</th><th>KITAB-Bench CER ↓</th></tr></thead><tbody><tr class="us"><td>Nuqta-Arabic-OCR 4B</td><td class=n>0.106</td></tr><tr class="us"><td>Nuqta-Arabic-OCR 0.8B</td><td class=n>0.117</td></tr><tr><td>Tesseract</td><td class=n>0.540</td></tr><tr><td>EasyOCR</td><td class=n>0.580</td></tr></tbody></table></div>
+<p>Tesseract was built for line-by-line printed text. Arabic's joined letters, dots and diacritics, mixed-direction tables
+and low-resolution scans are where it fails. Nuqta is a vision-language model trained on Arabic documents.</p>
+<h2>Switching</h2>
+<pre><code># before
+import pytesseract
+from PIL import Image
+text = pytesseract.image_to_string(Image.open("page.png"), lang="ara")
+
+# after
+from nuqta import OCR
+
+if __name__ == "__main__":       # needed with the vLLM backend
+    ocr = OCR("nuqta-0.8b")
+    text = ocr.read("page.png").text</code></pre>
+<p>Nuqta needs more compute than Tesseract. The 0.8B runs on any small GPU, and on CPU through its GGUF build
+(<a href="../run-arabic-ocr-offline/">offline guide</a>).</p>
+<h2>Questions</h2><details><summary>Is Tesseract good for Arabic OCR?</summary><p>For clean printed lines it works, but on the KITAB-Bench Arabic benchmark it has a 0.54 character error rate, against 0.106 for Nuqta-Arabic-OCR 4B.</p></details><details><summary>What is the best free Arabic OCR?</summary><p>Nuqta OCR is free and open source (Apache-2.0) and has the best published scores on KITAB-Bench and Misraj-DocOCR.</p></details>
+</div></main>
+<footer><div class="wrap">Nuqta OCR · open-source Arabic OCR · Apache-2.0 · <a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a> · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a> · <a href="https://pypi.org/project/nuqta-ocr/">PyPI</a><br>
+Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim · Updated 2026-10-27</div></footer>
+</body>
+</html>

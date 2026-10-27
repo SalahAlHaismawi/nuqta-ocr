@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>نقطة: OCR عربي مفتوح المصدر لتحويل الصور وملفات PDF إلى نص</title>
+<meta name="description" content="نماذج ومكتبة مفتوحة المصدر للتعرف الضوئي على النص العربي: تحويل الصور والمستندات الممسوحة وملفات PDF إلى نص، مع التشكيل والجداول والبطاقات وجوازات السفر. الأول على معياري KITAB-Bench وMisraj-DocOCR.">
+<link rel="canonical" href="https://salahalhaismawi.github.io/nuqta-ocr/ar/">
+<link rel="icon" href="../img/icon.png">
+<meta property="og:type" content="website"><meta property="og:url" content="https://salahalhaismawi.github.io/nuqta-ocr/ar/">
+<meta property="og:title" content="نقطة: OCR عربي مفتوح المصدر لتحويل الصور وملفات PDF إلى نص"><meta property="og:description" content="نماذج ومكتبة مفتوحة المصدر للتعرف الضوئي على النص العربي: تحويل الصور والمستندات الممسوحة وملفات PDF إلى نص، مع التشكيل والجداول والبطاقات وجوازات السفر. الأول على معياري KITAB-Bench وMisraj-DocOCR.">
+<meta property="og:image" content="https://salahalhaismawi.github.io/nuqta-ocr/img/og.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="../style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "نقطة: OCR عربي مفتوح المصدر لتحويل الصور وملفات PDF إلى نص", "description": "نماذج ومكتبة مفتوحة المصدر للتعرف الضوئي على النص العربي: تحويل الصور والمستندات الممسوحة وملفات PDF إلى نص، مع التشكيل والجداول والبطاقات وجوازات السفر. الأول على معياري KITAB-Bench وMisraj-DocOCR.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/ar/", "inLanguage": "ar", "dateModified": "2026-10-27", "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Nuqta OCR", "alternateName": ["Nuqta Arabic OCR", "نقطة", "Nuqta-Arabic-OCR"], "applicationCategory": "DeveloperApplication", "operatingSystem": "Linux, macOS, Windows, Android, iOS", "description": "Open-source Arabic OCR models (4B and 0.8B) and Python library. First on KITAB-Bench (CER 0.106) and Misraj-DocOCR (MARS 82.8) among published results. Copies printed tashkeel, reads tables, IDs and passports.", "url": "https://salahalhaismawi.github.io/nuqta-ocr/", "downloadUrl": "https://pypi.org/project/nuqta-ocr/", "softwareVersion": "0.1.1", "license": "https://www.apache.org/licenses/LICENSE-2.0", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": [{"@type": "Person", "name": "Salah AlHaismawi"}, {"@type": "Person", "name": "Mohamed Saleh Tulib"}, {"@type": "Person", "name": "Ahmed ElSayed Mohamed Ibrahim"}], "sameAs": ["https://github.com/SalahAlHaismawi/nuqta-ocr", "https://pypi.org/project/nuqta-ocr/", "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR", "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B", "https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B"]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ما أفضل برنامج OCR عربي؟", "acceptedAnswer": {"@type": "Answer", "text": "على المعيارين العامين للتعرف الضوئي على النص العربي، حقق نموذج Nuqta-Arabic-OCR 4B أفضل النتائج المنشورة: معدل خطأ في الحروف 0.106 على KITAB-Bench، ونتيجة 82.8 على Misraj-DocOCR، متقدمًا على Gemini وGPT وBaseer. وهو مفتوح المصدر برخصة Apache-2.0."}}, {"@type": "Question", "name": "هل يحافظ على التشكيل؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم. ينقل التشكيل المطبوع في الصفحة كما هو، ونادرًا ما يضيف حركات غير موجودة فيها."}}, {"@type": "Question", "name": "كيف أحوّل ملف PDF عربي إلى نص؟", "acceptedAnswer": {"@type": "Answer", "text": "ثبّت المكتبة بالأمر pip install nuqta-ocr، ثم استخدم OCR('nuqta-4b').read('file.pdf').text، أو جرّب الصفحة التجريبية في المتصفح دون تثبيت."}}, {"@type": "Question", "name": "هل يعمل دون إنترنت؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم. يعمل على خوادمك أو حاسوبك أو هاتفك دون اتصال، فلا تخرج مستنداتك من أجهزتك."}}, {"@type": "Question", "name": "هل هو مجاني؟", "acceptedAnswer": {"@type": "Answer", "text": "نعم، النماذج والمكتبة مجانية ومفتوحة المصدر، ويجوز استخدامها تجاريًا."}}]}</script>
+</head>
+<body dir="rtl">
+<header class="top"><div class="wrap">
+<a class="brand" href="../ar/"><img src="../img/icon.png" alt="" width="34" height="34">نقطة</a>
+<nav><a href="../best-arabic-ocr/">المقارنة</a><a href="../guides/">الأدلة</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">التجربة</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="../" hreflang="en">English</a></nav>
+</div></header>
+<main><div class="wrap">
+
+<p class="eyebrow">OCR عربي مفتوح المصدر</p>
+<h1>نقطة: أدق نظام مفتوح المصدر للتعرف الضوئي على النص العربي</h1>
+<p class="lead">يحوّل «نقطة» صور الصفحات والمستندات الممسوحة ضوئيًا وملفات PDF العربية إلى نص أو Markdown. وهو الأول على
+معياري التعرف الضوئي العربي العامّين، وينقل التشكيل المطبوع كما هو، ويعمل على أجهزتك حتى الهاتف.</p>
+<div class="cta"><a class="btn primary" href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">جرّبه في المتصفح</a><a class="btn" href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a>
+<a class="btn" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a><a class="btn" href="../best-arabic-ocr/">المقارنة</a></div>
+<div class="stats">
+<div class="stat"><b dir="ltr">0.106</b><span>معدل خطأ الحروف على <bdi>KITAB-Bench</bdi>، مقابل 0.13 لنموذج <bdi>Gemini-2.0-Flash</bdi></span></div>
+<div class="stat"><b dir="ltr">82.8</b><span>نتيجة <bdi>MARS</bdi> على <bdi>Misraj-DocOCR</bdi>، مقابل 77.8 لنموذج <bdi>Baseer v2</bdi></span></div>
+<div class="stat"><b dir="ltr">0.08</b><span>حركة مضافة خطأً لكل 100 حرف (النموذج <bdi>0.8B</bdi>)</span></div>
+<div class="stat"><b dir="ltr">1.6 GB</b><span>ذاكرة يحتاجها النموذج الصغير على الهاتف دون إنترنت</span></div>
+</div>
+<h2>ماذا يقرأ</h2>
+<div class="cards">
+<div class="card"><h3>الكتب والمستندات الممسوحة</h3><p>الصفحات المطبوعة والكتب القديمة، بترتيب القراءة الصحيح.</p></div>
+<div class="card"><h3>تحويل PDF إلى نص</h3><p>العناوين والقوائم والجداول بصيغة HTML، لكل صفحات الملف.</p></div>
+<div class="card"><h3>التشكيل كما هو مطبوع</h3><p>النص المشكول يحتفظ بحركاته، وغير المشكول يبقى دونها.</p></div>
+<div class="card"><h3>الجداول</h3><p>جداول من اليمين إلى اليسار ومن اليسار إلى اليمين، بترتيب أعمدتها.</p></div>
+<div class="card"><h3>البطاقات وجوازات السفر</h3><p>قراءة منطقة MRZ مع التحقق من أرقام الفحص.</p></div>
+<div class="card"><h3>دون إنترنت</h3><p>على خوادمك أو حاسوبك أو هاتف أندرويد وآيفون.</p></div>
+</div>
+<h2>الاستخدام في بايثون</h2>
+<pre><code>pip install "nuqta-ocr[vllm]"   # Linux + NVIDIA GPU, fastest
+pip install "nuqta-ocr[fast]"   # transformers with fast kernels
+pip install nuqta-ocr           # transformers only</code></pre>
+<pre><code>from nuqta import OCR
+
+if __name__ == "__main__":
+    ocr = OCR("nuqta-4b")          # or "nuqta-0.8b" for small GPUs
+    print(ocr.read("page.jpg").text)                     # tashkeel only where printed
+    print(ocr.read("scan.pdf", mode="markdown").text)    # headings, lists, HTML tables
+    print(ocr.read("passport.jpg", mode="id").fields)    # MRZ fields with check digits</code></pre>
+<h2>أسئلة شائعة</h2>
+<details><summary>ما أفضل برنامج OCR عربي؟</summary><p>على المعيارين العامين للتعرف الضوئي على النص العربي، حقق نموذج Nuqta-Arabic-OCR 4B أفضل النتائج المنشورة: معدل خطأ في الحروف 0.106 على KITAB-Bench، ونتيجة 82.8 على Misraj-DocOCR، متقدمًا على Gemini وGPT وBaseer. وهو مفتوح المصدر برخصة Apache-2.0.</p></details><details><summary>هل يحافظ على التشكيل؟</summary><p>نعم. ينقل التشكيل المطبوع في الصفحة كما هو، ونادرًا ما يضيف حركات غير موجودة فيها.</p></details><details><summary>كيف أحوّل ملف PDF عربي إلى نص؟</summary><p>ثبّت المكتبة بالأمر pip install nuqta-ocr، ثم استخدم OCR(&#x27;nuqta-4b&#x27;).read(&#x27;file.pdf&#x27;).text، أو جرّب الصفحة التجريبية في المتصفح دون تثبيت.</p></details><details><summary>هل يعمل دون إنترنت؟</summary><p>نعم. يعمل على خوادمك أو حاسوبك أو هاتفك دون اتصال، فلا تخرج مستنداتك من أجهزتك.</p></details><details><summary>هل هو مجاني؟</summary><p>نعم، النماذج والمكتبة مجانية ومفتوحة المصدر، ويجوز استخدامها تجاريًا.</p></details>
+
+</div></main>
+<footer><div class="wrap">نقطة · نماذج مفتوحة المصدر للتعرف الضوئي على النص العربي · Apache-2.0 · <a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a> · <a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a> · <a href="https://pypi.org/project/nuqta-ocr/">PyPI</a><br>
+Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim · آخر تحديث 2026-10-27</div></footer>
+</body>
+</html>

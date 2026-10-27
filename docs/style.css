@@ -1,0 +1,56 @@
+:root{--paper:#F3EFE6;--card:#FAF8F3;--ink:#141414;--muted:#6E695F;--rule:#D8D2C5;--green:#0F7A5C;--soft:#E3EFE9;--code:#EBE6DA}
+@media (prefers-color-scheme:dark){:root{--paper:#121412;--card:#1A1D1A;--ink:#ECE8DF;--muted:#A39E93;--rule:#33362F;--green:#4FC79C;--soft:#17271F;--code:#202320}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 'IBM Plex Sans',system-ui,sans-serif}
+[lang=ar] body,body[dir=rtl]{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif}
+a{color:var(--green)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--rule)}
+header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap}
+header.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;color:var(--ink)}
+header.top .brand img{width:34px;height:34px;border-radius:8px}
+header.top nav{display:flex;gap:16px;flex-wrap:wrap;margin-inline-start:auto;font-size:15px}
+header.top nav a{color:var(--muted);text-decoration:none}
+header.top nav a:hover{color:var(--ink)}
+main{padding:40px 0 64px}
+h1{font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(34px,6vw,54px);line-height:1.1;margin:0 0 16px}
+h2{font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(26px,4vw,34px);line-height:1.2;margin:48px 0 12px}
+h3{font-size:19px;margin:28px 0 8px}
+[dir=rtl] .stat b{text-align:right}
+bdi{white-space:nowrap}
+.btn.primary{color:#fff}
+@media (prefers-color-scheme:dark){.btn.primary{color:#0b1a14}}
+[dir=rtl] h1,[dir=rtl] h2{font-family:'Amiri','IBM Plex Sans Arabic',serif;font-weight:700}
+.lead{font-size:20px;color:var(--muted);max-width:760px}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+.btn{display:inline-block;padding:11px 18px;border-radius:10px;border:1px solid var(--rule);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--green);border-color:var(--green);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:32px 0}
+.stat{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.stat b{display:block;font-family:'EB Garamond',Georgia,serif;font-size:40px;font-weight:500;color:var(--green);line-height:1.1}
+.stat span{color:var(--muted);font-size:15px}
+.tbl{overflow-x:auto;margin:16px 0;border:1px solid var(--rule);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:9px 12px;text-align:start;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-weight:600;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:0}
+tr.us td{background:var(--soft);font-weight:600}
+td.n{font-variant-numeric:tabular-nums}
+pre{background:var(--code);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5;direction:ltr;text-align:left}
+code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.92em}
+p code,li code{background:var(--code);padding:1px 5px;border-radius:5px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
+.card h3{margin:0 0 6px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.card a.more{display:inline-block;margin-top:10px;font-weight:600;text-decoration:none}
+details{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;margin:10px 0}
+summary{font-weight:600;cursor:pointer}
+details p{margin:8px 0 0;color:var(--muted)}
+.note{color:var(--muted);font-size:14px}
+.ar-text{font-family:'Amiri',serif;font-size:1.25em}
+footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--muted);font-size:14px}
+footer a{color:var(--muted)}
+@media (max-width:600px){body{font-size:16px}th,td{white-space:normal;padding:8px}td:first-child{min-width:120px}header.top nav{margin-inline-start:0}}
