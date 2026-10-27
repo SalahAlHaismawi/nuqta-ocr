@@ -28,6 +28,8 @@ This repo holds the GGUF build of [Nuqta-Arabic-OCR-0.8B](https://huggingface.co
 printed and almost never adds any. It runs fully offline in **about 1.6 GB of RAM**, on Android, iOS, Mac,
 Windows and Linux, on CPU or GPU.
 
+Website and guides: [https://salahalhaismawi.github.io/nuqta-ocr/](https://salahalhaismawi.github.io/nuqta-ocr/) · [run Arabic OCR offline](https://salahalhaismawi.github.io/nuqta-ocr/guides/run-arabic-ocr-offline/)
+
 | File | Size | Use |
 |---|---|---|
 | `nuqta-ocr-0.8b-Q4_K_M.gguf` | 560 MB | **phones** (recommended) |

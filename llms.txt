@@ -9,3 +9,4 @@
 - Models: https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B, https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B
 - GGUF (llama.cpp, offline): https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF, https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF
 - Demo: https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR · Code: https://github.com/SalahAlHaismawi/nuqta-ocr
+- Website: https://salahalhaismawi.github.io/nuqta-ocr/ · Benchmarks compared: https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/ · Guides: https://salahalhaismawi.github.io/nuqta-ocr/guides/

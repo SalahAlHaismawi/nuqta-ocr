@@ -162,7 +162,7 @@ letters on undiacritized text).
 
 Part of the [Nuqta OCR](https://huggingface.co/collections/SalahALHaismawi/nuqta-ocr-6ad4af255195b706ac93d1d4) family ·
 [{m['other'][0]}](https://huggingface.co/{m['other'][1]}) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR) ·
-[library and benchmark code](https://github.com/SalahAlHaismawi/nuqta-ocr) · Apache-2.0
+[website](https://salahalhaismawi.github.io/nuqta-ocr/) · [library and benchmark code](https://github.com/SalahAlHaismawi/nuqta-ocr) · Apache-2.0
 
 **Contributors:** Salah AlHaismawi · Mohamed Saleh Tulib · Ahmed ElSayed Mohamed Ibrahim
 

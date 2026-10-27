@@ -9,6 +9,8 @@ Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **N
 - Markdown output with HTML tables, in reading order
 - Runs on-premises on a single GPU, or fully offline on Android and iPhone: your documents never leave your network
 
+Website: [https://salahalhaismawi.github.io/nuqta-ocr/](https://salahalhaismawi.github.io/nuqta-ocr/) · [Arabic OCR benchmarks compared](https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/) · [guides](https://salahalhaismawi.github.io/nuqta-ocr/guides/) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR)
+
 <div dir="rtl">
 
 **بالعربية:** «نقطة» مكتبة ونماذج مفتوحة المصدر للتعرف الضوئي على النص العربي (OCR عربي). تحوّل صور الصفحات والمستندات الممسوحة
