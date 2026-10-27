@@ -17,12 +17,12 @@
 </head>
 <body>
 <header class="top"><div class="wrap">
-<a class="brand" href="../"><img src="../img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<a class="brand" href="../">Nuqta OCR<span class="ar">نقطة</span></a>
 <nav><a href="../best-arabic-ocr/">Benchmarks</a><a href="../guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="../ar/" hreflang="ar">العربية</a></nav>
 </div></header>
 <main><div class="wrap">
 
-<p class="eyebrow">Benchmarks · updated 2026-10-27</p>
+<p class="kicker">Updated 2026-10-27</p>
 <h1>Best Arabic OCR models in 2026, compared</h1>
 <p class="lead">Scores from the two public Arabic OCR benchmarks, KITAB-Bench and Misraj-DocOCR, for open models, cloud APIs and
 classic OCR engines. Other systems' numbers are the ones published by the benchmark authors.</p>
@@ -50,11 +50,11 @@ Our scorer reproduces Misraj's published Qwen3-VL-8B score within a point, and o
 <a href="https://github.com/SalahAlHaismawi/nuqta-ocr/tree/main/benchmarks">the benchmarks folder</a> for anyone to re-score. Dataset: <a href="https://huggingface.co/datasets/Misraj/Misraj-DocOCR">Misraj-DocOCR</a>.</p>
 
 <h2>How to choose</h2>
-<div class="cards">
-<div class="card"><h3>Highest accuracy, own GPU</h3><p>Nuqta-Arabic-OCR 4B on a 16–24 GB GPU.</p><a class="more" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Model →</a></div>
-<div class="card"><h3>Small GPU, CPU or phone</h3><p>Nuqta-Arabic-OCR 0.8B, or its 560 MB GGUF build.</p><a class="more" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B">Model →</a></div>
-<div class="card"><h3>Coming from Tesseract</h3><p>A drop-in Python library with the same one-call use.</p><a class="more" href="../guides/tesseract-arabic-alternative/">Guide →</a></div>
-</div>
+<ul class="plain">
+<li><b>Highest accuracy, own GPU</b><span><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Nuqta-Arabic-OCR 4B</a> on a 16–24 GB GPU.</span></li>
+<li><b>Small GPU, CPU or phone</b><span><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B">Nuqta-Arabic-OCR 0.8B</a>, or its 560 MB GGUF build.</span></li>
+<li><b>Coming from Tesseract</b><span>Same one-call use from Python. <a href="../guides/tesseract-arabic-alternative/">Switching guide</a>.</span></li>
+</ul>
 
 <h2>Questions</h2>
 <details><summary>Which Arabic OCR is the most accurate in 2026?</summary><p>Nuqta-Arabic-OCR 4B has the best published score on both public Arabic OCR benchmarks: KITAB-Bench character error rate 0.106 and Misraj-DocOCR MARS 82.8.</p></details><details><summary>Is Tesseract good for Arabic?</summary><p>Tesseract works for clean printed Arabic but misses many characters on real documents: 0.54 character error rate on KITAB-Bench, against 0.106 for Nuqta-Arabic-OCR 4B. It also drops or mangles tashkeel.</p></details><details><summary>Is Gemini or GPT better than open models for Arabic OCR?</summary><p>Not on these benchmarks. Gemini-2.0-Flash scores 0.13 and GPT-4o 0.31 on KITAB-Bench, and Gemini-2.5-Pro 70.8 and GPT-5 54.8 MARS on Misraj-DocOCR, all behind Nuqta&#x27;s open models.</p></details><details><summary>What is the best Arabic OCR for tables?</summary><p>On Misraj-DocOCR tables (TEDS), Nuqta-Arabic-OCR 4B scores 76.1, ahead of Baseer v2 (67), Gemini-2.5-Pro (52) and Azure (42).</p></details>

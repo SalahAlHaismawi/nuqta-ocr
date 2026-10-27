@@ -17,33 +17,36 @@
 </head>
 <body>
 <header class="top"><div class="wrap">
-<a class="brand" href=""><img src="img/icon.png" alt="" width="34" height="34">Nuqta OCR</a>
+<a class="brand" href="">Nuqta OCR<span class="ar">نقطة</span></a>
 <nav><a href="best-arabic-ocr/">Benchmarks</a><a href="guides/">Guides</a><a href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Demo</a><a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a><a href="ar/" hreflang="ar">العربية</a></nav>
 </div></header>
 <main><div class="wrap">
 
-<p class="eyebrow">Open-source Arabic OCR</p>
-<h1>Nuqta OCR: the most accurate open Arabic OCR</h1>
-<p class="lead">Nuqta reads Arabic scans, photos and PDFs into text or Markdown. It is first on both public Arabic OCR
-benchmarks, copies the tashkeel printed on the page without adding any, and runs on your own hardware, down to a phone.</p>
-<div class="cta"><a class="btn primary" href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Try it in your browser</a><a class="btn" href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a>
-<a class="btn" href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Hugging Face</a><a class="btn" href="best-arabic-ocr/">Benchmarks</a></div>
-<div class="stats">
-<div class="stat"><b>0.106</b><span>KITAB-Bench character error rate. Gemini-2.0-Flash: 0.13</span></div>
-<div class="stat"><b>82.8</b><span>Misraj-DocOCR MARS. Baseer v2: 77.8</span></div>
-<div class="stat"><b>0.08</b><span>invented diacritics per 100 letters (0.8B)</span></div>
-<div class="stat"><b>1.6 GB</b><span>RAM for the 0.8B on a phone, offline</span></div>
+<div class="hero"><div>
+<h1>Nuqta: open-source Arabic OCR</h1>
+<p class="lead">Nuqta turns Arabic scans, photos and PDFs into text you can copy and search. It writes the tashkeel that is
+printed on the page and adds none of its own. Its two models have the best published scores on KITAB-Bench and
+Misraj-DocOCR, and the smaller one runs on a phone.</p>
+<div class="go"><a class="main" href="https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR">Try it in the browser</a><a href="best-arabic-ocr/">Benchmarks</a>
+<a href="https://github.com/SalahAlHaismawi/nuqta-ocr">GitHub</a></div>
+</div>
+<figure><div class="proof"><img src="img/sample_page.png" width="900" height="307" alt="Arabic book page with tashkeel"><span class="tag">Nuqta 4B output, unedited</span><div class="out">مُغَامَرَاتُ السِّنْجَابِ <mark>ثرثار</mark> فَتَسَلَّقَ الشَّجَرَةَ وَتَبِعَهُ <mark>شادو</mark>. وَكَانَ تَرْكِيزُ <mark>شادو</mark> مُنْصَبًّا عَلَى الْإِيقَاعِ بِ<mark>ثرثار</mark>؛ حَتَّى إِنَّهُ لَمْ يَلْحَظْ وُجُودَ الْعَجُوزِ أَحْمَرِ الذَّيْلِ، وَهُوَ مَا أَمَّلَهُ <mark>ثرثار</mark>. فَرَاحَ <mark>ثرثار</mark> يَصْعَدُ لِأَعْلَى، مُتَخَطِّيًا أَحْمَرَ الذَّيْلِ، إِلَّا أَنَّهُ شَدَّ رِيشَةً مِنْ رِيشِ ذَيْلِهِ الطَّوِيلِ أَثْنَاءَ مُرُورِهِ، ثُمَّ رَكَضَ إِلَى أَعْلَى الشَّجَرَةِ، وَاسْتَجْمَعَ آخِرَ طَاقَتِهِ لِيَثِبَ إِلَى شَجَرَةِ تَنُّوبٍ قَرِيبَةٍ؛ …</div></div><figcaption>A page from a Hindawi children's book (CC BY 4.0). The names ثرثار and شادو are printed without marks, and the output leaves them that way.</figcaption></figure>
+</div>
+<div class="nums">
+<div><b>0.106</b><span>character error rate on KITAB-Bench. Next best: Gemini-2.0-Flash, 0.13</span></div>
+<div><b>82.8</b><span>MARS on Misraj-DocOCR. Next best: Baseer v2, 77.8</span></div>
+<div><b>1.6 GB</b><span>of memory runs the 0.8B offline on a phone</span></div>
 </div>
 
 <h2>What it reads</h2>
-<div class="cards">
-<div class="card"><h3>Books and scans</h3><p>Printed pages, old books and scanned documents, in reading order.</p></div>
-<div class="card"><h3>PDFs to Markdown</h3><p>Headings, lists and tables as HTML. Every page of a PDF.</p></div>
-<div class="card"><h3>Tashkeel as printed</h3><p>Vocalized text keeps its marks. Plain text stays plain.</p></div>
-<div class="card"><h3>Tables</h3><p>Right-to-left and left-to-right tables, in the column order they are drawn.</p></div>
-<div class="card"><h3>IDs and passports</h3><p>MRZ fields with ICAO check digits; failed checks are flagged, never guessed.</p></div>
-<div class="card"><h3>Offline</h3><p>On-premises GPU, laptop CPU, Android and iPhone. Documents stay on your hardware.</p></div>
-</div>
+<ul class="plain">
+<li><b>Books and scanned documents</b><span>Printed pages and old books, in reading order.</span></li>
+<li><b>PDFs</b><span>Every page, with headings, lists and tables kept as Markdown and HTML.</span></li>
+<li><b>Tashkeel</b><span>Vocalized text keeps its marks. Unmarked text stays unmarked.</span></li>
+<li><b>Tables</b><span>Arabic and English tables, with columns in the order they are drawn.</span></li>
+<li><b>IDs and passports</b><span>MRZ fields with their ICAO check digits. A failed check is flagged, not guessed.</span></li>
+<li><b>On your own hardware</b><span>A GPU server, a laptop, Android or iPhone. Documents stay with you.</span></li>
+</ul>
 
 <h2>Two models</h2>
 <div class="tbl"><table><thead><tr><th>Model</th><th>Size</th><th>KITAB-Bench CER ↓</th><th>Misraj MARS ↑</th><th>Runs on</th></tr></thead><tbody><tr><td><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B">Nuqta-Arabic-OCR 4B</a></td><td class=n>4.75B</td><td class=n>0.106</td><td class=n>82.8</td><td class=n>16 GB GPU, or laptop (GGUF)</td></tr><tr><td><a href="https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B">Nuqta-Arabic-OCR 0.8B</a></td><td class=n>0.89B</td><td class=n>0.117</td><td class=n>77.1</td><td class=n>any GPU, CPU, phone (GGUF)</td></tr></tbody></table></div>

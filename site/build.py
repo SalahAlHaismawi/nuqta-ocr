@@ -18,64 +18,7 @@ MISRAJ = "https://huggingface.co/datasets/Misraj/Misraj-DocOCR"
 MISRAJ_TABLE = "https://misraj.ai/en/blogs/baseer-arabic-document-ocr-vlm-misraj"
 AUTHORS = ["Salah AlHaismawi", "Mohamed Saleh Tulib", "Ahmed ElSayed Mohamed Ibrahim"]
 
-CSS = """
-:root{--paper:#F3EFE6;--card:#FAF8F3;--ink:#141414;--muted:#6E695F;--rule:#D8D2C5;--green:#0F7A5C;--soft:#E3EFE9;--code:#EBE6DA}
-@media (prefers-color-scheme:dark){:root{--paper:#121412;--card:#1A1D1A;--ink:#ECE8DF;--muted:#A39E93;--rule:#33362F;--green:#4FC79C;--soft:#17271F;--code:#202320}}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 'IBM Plex Sans',system-ui,sans-serif}
-[lang=ar] body,body[dir=rtl]{font-family:'IBM Plex Sans Arabic','IBM Plex Sans',system-ui,sans-serif}
-a{color:var(--green)}
-.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
-header.top{border-bottom:1px solid var(--rule)}
-header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap}
-header.top .brand{display:flex;align-items:center;gap:10px;font-weight:600;text-decoration:none;color:var(--ink)}
-header.top .brand img{width:34px;height:34px;border-radius:8px}
-header.top nav{display:flex;gap:16px;flex-wrap:wrap;margin-inline-start:auto;font-size:15px}
-header.top nav a{color:var(--muted);text-decoration:none}
-header.top nav a:hover{color:var(--ink)}
-main{padding:40px 0 64px}
-h1{font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(34px,6vw,54px);line-height:1.1;margin:0 0 16px}
-h2{font-family:'EB Garamond',Georgia,serif;font-weight:500;font-size:clamp(26px,4vw,34px);line-height:1.2;margin:48px 0 12px}
-h3{font-size:19px;margin:28px 0 8px}
-[dir=rtl] .stat b{text-align:right}
-bdi{white-space:nowrap}
-.btn.primary{color:#fff}
-@media (prefers-color-scheme:dark){.btn.primary{color:#0b1a14}}
-[dir=rtl] h1,[dir=rtl] h2{font-family:'Amiri','IBM Plex Sans Arabic',serif;font-weight:700}
-.lead{font-size:20px;color:var(--muted);max-width:760px}
-.eyebrow{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
-.btn{display:inline-block;padding:11px 18px;border-radius:10px;border:1px solid var(--rule);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600}
-.btn.primary{background:var(--green);border-color:var(--green);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:32px 0}
-.stat{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
-.stat b{display:block;font-family:'EB Garamond',Georgia,serif;font-size:40px;font-weight:500;color:var(--green);line-height:1.1}
-.stat span{color:var(--muted);font-size:15px}
-.tbl{overflow-x:auto;margin:16px 0;border:1px solid var(--rule);border-radius:12px;background:var(--card)}
-table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{padding:9px 12px;text-align:start;border-bottom:1px solid var(--rule);white-space:nowrap}
-th{font-weight:600;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
-tr:last-child td{border-bottom:0}
-tr.us td{background:var(--soft);font-weight:600}
-td.n{font-variant-numeric:tabular-nums}
-pre{background:var(--code);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:14px;line-height:1.5;direction:ltr;text-align:left}
-code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.92em}
-p code,li code{background:var(--code);padding:1px 5px;border-radius:5px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0}
-.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 20px}
-.card h3{margin:0 0 6px}
-.card p{margin:0;color:var(--muted);font-size:15px}
-.card a.more{display:inline-block;margin-top:10px;font-weight:600;text-decoration:none}
-details{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;margin:10px 0}
-summary{font-weight:600;cursor:pointer}
-details p{margin:8px 0 0;color:var(--muted)}
-.note{color:var(--muted);font-size:14px}
-.ar-text{font-family:'Amiri',serif;font-size:1.25em}
-footer{border-top:1px solid var(--rule);padding:28px 0;color:var(--muted);font-size:14px}
-footer a{color:var(--muted)}
-@media (max-width:600px){body{font-size:16px}th,td{white-space:normal;padding:8px}td:first-child{min-width:120px}header.top nav{margin-inline-start:0}}
-"""
+CSS = (ROOT / "site" / "style.css").read_text()
 
 FONTS = ("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=IBM+Plex+Mono&"
          "family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@400;600&family=Amiri:wght@400;700&display=swap")
@@ -139,7 +82,7 @@ def page(path: str, title: str, desc: str, body: str, *, lang="en", ld=(), alt=N
 </head>
 <body{' dir="rtl"' if rtl else ''}>
 <header class="top"><div class="wrap">
-<a class="brand" href="{rel(depth, 'ar/' if rtl else '')}"><img src="{rel(depth, 'img/icon.png')}" alt="" width="34" height="34">{'نقطة' if rtl else 'Nuqta OCR'}</a>
+<a class="brand" href="{rel(depth, 'ar/' if rtl else '')}">{'نقطة' if rtl else 'Nuqta OCR<span class="ar">نقطة</span>'}</a>
 <nav>{links}</nav>
 </div></header>
 <main><div class="wrap">
@@ -236,29 +179,43 @@ HOME_FAQ = [
      "Arabic, and English mixed into Arabic documents (for example bilingual tables and IDs)."),
 ]
 
+_ex = json.loads((ROOT / "space" / "assets" / "example_outputs.json").read_text())["1_book.png"]["text"]
+_ex = _ex[:_ex.index("قَرِيبَةٍ؛") + len("قَرِيبَةٍ؛")] + " …"
+_ex = html.escape(_ex).replace("ثرثار", "<mark>ثرثار</mark>").replace("شادو", "<mark>شادو</mark>")
+
+
+def proof(depth, tag, caption):
+    return (f'<figure><div class="proof"><img src="{rel(depth, "img/sample_page.png")}" width="900" height="307" '
+            f'alt="Arabic book page with tashkeel"><span class="tag">{tag}</span><div class="out">{_ex}</div></div>'
+            f'<figcaption>{caption}</figcaption></figure>')
+
+
 home_body = f"""
-<p class="eyebrow">Open-source Arabic OCR</p>
-<h1>Nuqta OCR: the most accurate open Arabic OCR</h1>
-<p class="lead">Nuqta reads Arabic scans, photos and PDFs into text or Markdown. It is first on both public Arabic OCR
-benchmarks, copies the tashkeel printed on the page without adding any, and runs on your own hardware, down to a phone.</p>
-<div class="cta"><a class="btn primary" href="{DEMO}">Try it in your browser</a><a class="btn" href="{GH}">GitHub</a>
-<a class="btn" href="{HF}Nuqta-Arabic-OCR-4B">Hugging Face</a><a class="btn" href="best-arabic-ocr/">Benchmarks</a></div>
-<div class="stats">
-<div class="stat"><b>0.106</b><span>KITAB-Bench character error rate. Gemini-2.0-Flash: 0.13</span></div>
-<div class="stat"><b>82.8</b><span>Misraj-DocOCR MARS. Baseer v2: 77.8</span></div>
-<div class="stat"><b>0.08</b><span>invented diacritics per 100 letters (0.8B)</span></div>
-<div class="stat"><b>1.6 GB</b><span>RAM for the 0.8B on a phone, offline</span></div>
+<div class="hero"><div>
+<h1>Nuqta: open-source Arabic OCR</h1>
+<p class="lead">Nuqta turns Arabic scans, photos and PDFs into text you can copy and search. It writes the tashkeel that is
+printed on the page and adds none of its own. Its two models have the best published scores on KITAB-Bench and
+Misraj-DocOCR, and the smaller one runs on a phone.</p>
+<div class="go"><a class="main" href="{DEMO}">Try it in the browser</a><a href="best-arabic-ocr/">Benchmarks</a>
+<a href="{GH}">GitHub</a></div>
+</div>
+{proof(0, "Nuqta 4B output, unedited", "A page from a Hindawi children's book (CC BY 4.0). The names ثرثار and شادو are printed without marks, and the output leaves them that way.")}
+</div>
+<div class="nums">
+<div><b>0.106</b><span>character error rate on KITAB-Bench. Next best: Gemini-2.0-Flash, 0.13</span></div>
+<div><b>82.8</b><span>MARS on Misraj-DocOCR. Next best: Baseer v2, 77.8</span></div>
+<div><b>1.6 GB</b><span>of memory runs the 0.8B offline on a phone</span></div>
 </div>
 
 <h2>What it reads</h2>
-<div class="cards">
-<div class="card"><h3>Books and scans</h3><p>Printed pages, old books and scanned documents, in reading order.</p></div>
-<div class="card"><h3>PDFs to Markdown</h3><p>Headings, lists and tables as HTML. Every page of a PDF.</p></div>
-<div class="card"><h3>Tashkeel as printed</h3><p>Vocalized text keeps its marks. Plain text stays plain.</p></div>
-<div class="card"><h3>Tables</h3><p>Right-to-left and left-to-right tables, in the column order they are drawn.</p></div>
-<div class="card"><h3>IDs and passports</h3><p>MRZ fields with ICAO check digits; failed checks are flagged, never guessed.</p></div>
-<div class="card"><h3>Offline</h3><p>On-premises GPU, laptop CPU, Android and iPhone. Documents stay on your hardware.</p></div>
-</div>
+<ul class="plain">
+<li><b>Books and scanned documents</b><span>Printed pages and old books, in reading order.</span></li>
+<li><b>PDFs</b><span>Every page, with headings, lists and tables kept as Markdown and HTML.</span></li>
+<li><b>Tashkeel</b><span>Vocalized text keeps its marks. Unmarked text stays unmarked.</span></li>
+<li><b>Tables</b><span>Arabic and English tables, with columns in the order they are drawn.</span></li>
+<li><b>IDs and passports</b><span>MRZ fields with their ICAO check digits. A failed check is flagged, not guessed.</span></li>
+<li><b>On your own hardware</b><span>A GPU server, a laptop, Android or iPhone. Documents stay with you.</span></li>
+</ul>
 
 <h2>Two models</h2>
 {table(["Model", "Size", "KITAB-Bench CER ↓", "Misraj MARS ↑", "Runs on"],
@@ -301,7 +258,7 @@ CMP_FAQ = [
 ]
 
 cmp_body = f"""
-<p class="eyebrow">Benchmarks · updated {TODAY}</p>
+<p class="kicker">Updated {TODAY}</p>
 <h1>Best Arabic OCR models in 2026, compared</h1>
 <p class="lead">Scores from the two public Arabic OCR benchmarks, KITAB-Bench and Misraj-DocOCR, for open models, cloud APIs and
 classic OCR engines. Other systems' numbers are the ones published by the benchmark authors.</p>
@@ -329,11 +286,11 @@ Our scorer reproduces Misraj's published Qwen3-VL-8B score within a point, and o
 <a href="{GH}/tree/main/benchmarks">the benchmarks folder</a> for anyone to re-score. Dataset: <a href="{MISRAJ}">Misraj-DocOCR</a>.</p>
 
 <h2>How to choose</h2>
-<div class="cards">
-<div class="card"><h3>Highest accuracy, own GPU</h3><p>Nuqta-Arabic-OCR 4B on a 16–24 GB GPU.</p><a class="more" href="{HF}Nuqta-Arabic-OCR-4B">Model →</a></div>
-<div class="card"><h3>Small GPU, CPU or phone</h3><p>Nuqta-Arabic-OCR 0.8B, or its 560 MB GGUF build.</p><a class="more" href="{HF}Nuqta-Arabic-OCR-0.8B">Model →</a></div>
-<div class="card"><h3>Coming from Tesseract</h3><p>A drop-in Python library with the same one-call use.</p><a class="more" href="../guides/tesseract-arabic-alternative/">Guide →</a></div>
-</div>
+<ul class="plain">
+<li><b>Highest accuracy, own GPU</b><span><a href="{HF}Nuqta-Arabic-OCR-4B">Nuqta-Arabic-OCR 4B</a> on a 16–24 GB GPU.</span></li>
+<li><b>Small GPU, CPU or phone</b><span><a href="{HF}Nuqta-Arabic-OCR-0.8B">Nuqta-Arabic-OCR 0.8B</a>, or its 560 MB GGUF build.</span></li>
+<li><b>Coming from Tesseract</b><span>Same one-call use from Python. <a href="../guides/tesseract-arabic-alternative/">Switching guide</a>.</span></li>
+</ul>
 
 <h2>Questions</h2>
 {faq_html(CMP_FAQ)}
@@ -344,7 +301,7 @@ GUIDES = []
 
 def guide(slug, title, desc, body, faq=()):
     GUIDES.append((slug, title, desc))
-    full = f'<p class="eyebrow"><a href="../">Guides</a></p><h1>{html.escape(title)}</h1><p class="lead">{html.escape(desc)}</p>{body}'
+    full = f'<p class="kicker"><a href="../">Guides</a></p><h1>{html.escape(title)}</h1><p class="lead">{html.escape(desc)}</p>{body}'
     if faq:
         full += "<h2>Questions</h2>" + faq_html(faq)
     page(f"guides/{slug}/", title + " | Nuqta OCR", desc, full, ld=[faq_ld(faq)] if faq else [], kind="TechArticle")
@@ -462,46 +419,48 @@ are faster. On a 24 GB GPU the same page takes about 3 seconds. Use about 8 fast
 <p>The <a href="{GH}/tree/main/apps">Android and iPhone apps</a> run the 0.8B on the device and show the first words in about 2 seconds.</p>
 """)
 
-guides_body = '<p class="eyebrow">Guides</p><h1>Arabic OCR guides</h1><p class="lead">How to use Nuqta OCR for common Arabic OCR jobs.</p><div class="cards">' + "".join(
-    f'<div class="card"><h3>{html.escape(t)}</h3><p>{html.escape(d)}</p><a class="more" href="{s}/">Read →</a></div>' for s, t, d in GUIDES) + "</div>"
+guides_body = '<h1>Arabic OCR guides</h1><p class="lead">How to use Nuqta OCR for common Arabic OCR jobs.</p><ul class="plain">' + "".join(
+    f'<li><b><a href="{s}/">{html.escape(t)}</a></b><span>{html.escape(d)}</span></li>' for s, t, d in GUIDES) + "</ul>"
 
 # ---------------------------------------------------------------- arabic home
 AR_FAQ = [
-    ("ما أفضل برنامج OCR عربي؟",
-     "على المعيارين العامين للتعرف الضوئي على النص العربي، حقق نموذج Nuqta-Arabic-OCR 4B أفضل النتائج المنشورة: معدل خطأ في الحروف 0.106 على "
-     "KITAB-Bench، ونتيجة 82.8 على Misraj-DocOCR، متقدمًا على Gemini وGPT وBaseer. وهو مفتوح المصدر برخصة Apache-2.0."),
-    ("هل يحافظ على التشكيل؟",
-     "نعم. ينقل التشكيل المطبوع في الصفحة كما هو، ونادرًا ما يضيف حركات غير موجودة فيها."),
-    ("كيف أحوّل ملف PDF عربي إلى نص؟",
-     "ثبّت المكتبة بالأمر pip install nuqta-ocr، ثم استخدم OCR('nuqta-4b').read('file.pdf').text، أو جرّب الصفحة التجريبية في المتصفح دون تثبيت."),
+    ("ما أفضل نموذج لاستخراج النص العربي من الصور؟",
+     "بحسب النتائج المنشورة في الاختبارين العامّين لقراءة النص العربي، يتصدر نموذج Nuqta-Arabic-OCR 4B: نسبة الخطأ في الحروف 0.106 في "
+     "اختبار KITAB-Bench، و82.8 في اختبار Misraj-DocOCR، متقدمًا على Gemini وGPT وBaseer. والنموذج مفتوح المصدر برخصة Apache-2.0."),
+    ("هل يحتفظ بالتشكيل؟",
+     "نعم، يكتب الحركات المطبوعة في الصفحة كما هي، ونادرًا ما يضيف حركة غير موجودة فيها."),
+    ("كيف أستخرج النص من ملف PDF عربي؟",
+     "ثبّت المكتبة بالأمر pip install nuqta-ocr، ثم استدعِ OCR('nuqta-4b').read('file.pdf').text. ويمكنك أيضًا تجربته في المتصفح دون تثبيت أي شيء."),
     ("هل يعمل دون إنترنت؟",
-     "نعم. يعمل على خوادمك أو حاسوبك أو هاتفك دون اتصال، فلا تخرج مستنداتك من أجهزتك."),
-    ("هل هو مجاني؟", "نعم، النماذج والمكتبة مجانية ومفتوحة المصدر، ويجوز استخدامها تجاريًا."),
+     "نعم، يعمل على خوادمك أو حاسوبك أو هاتفك دون اتصال، فتبقى مستنداتك عندك."),
+    ("هل هو مجاني؟", "نعم، النماذج والمكتبة مجانية ومفتوحة المصدر، ويمكن استخدامها في المشاريع التجارية."),
 ]
 
 ar_body = f"""
-<p class="eyebrow">OCR عربي مفتوح المصدر</p>
-<h1>نقطة: أدق نظام مفتوح المصدر للتعرف الضوئي على النص العربي</h1>
-<p class="lead">يحوّل «نقطة» صور الصفحات والمستندات الممسوحة ضوئيًا وملفات PDF العربية إلى نص أو Markdown. وهو الأول على
-معياري التعرف الضوئي العربي العامّين، وينقل التشكيل المطبوع كما هو، ويعمل على أجهزتك حتى الهاتف.</p>
-<div class="cta"><a class="btn primary" href="{DEMO}">جرّبه في المتصفح</a><a class="btn" href="{GH}">GitHub</a>
-<a class="btn" href="{HF}Nuqta-Arabic-OCR-4B">Hugging Face</a><a class="btn" href="../best-arabic-ocr/">المقارنة</a></div>
-<div class="stats">
-<div class="stat"><b dir="ltr">0.106</b><span>معدل خطأ الحروف على <bdi>KITAB-Bench</bdi>، مقابل 0.13 لنموذج <bdi>Gemini-2.0-Flash</bdi></span></div>
-<div class="stat"><b dir="ltr">82.8</b><span>نتيجة <bdi>MARS</bdi> على <bdi>Misraj-DocOCR</bdi>، مقابل 77.8 لنموذج <bdi>Baseer v2</bdi></span></div>
-<div class="stat"><b dir="ltr">0.08</b><span>حركة مضافة خطأً لكل 100 حرف (النموذج <bdi>0.8B</bdi>)</span></div>
-<div class="stat"><b dir="ltr">1.6 GB</b><span>ذاكرة يحتاجها النموذج الصغير على الهاتف دون إنترنت</span></div>
+<div class="hero"><div>
+<h1>نقطة: قراءة النص العربي من الصور وملفات PDF</h1>
+<p class="lead">نقطة نموذج مفتوح المصدر يستخرج النص العربي من صور الصفحات والمستندات الممسوحة وملفات PDF، فتحصل على نص
+يمكنك نسخه والبحث فيه. ويكتب التشكيل كما ورد في الصفحة، ولا يضيف حركات من عنده. وقد حقق نموذجاه أعلى النتائج المنشورة
+في اختباري <bdi>KITAB-Bench</bdi> و<bdi>Misraj-DocOCR</bdi>، ويعمل الصغير منهما على الهاتف دون إنترنت.</p>
+<div class="go"><a class="main" href="{DEMO}">جرّبه في المتصفح</a><a href="../best-arabic-ocr/">المقارنة</a><a href="{GH}">GitHub</a></div>
 </div>
-<h2>ماذا يقرأ</h2>
-<div class="cards">
-<div class="card"><h3>الكتب والمستندات الممسوحة</h3><p>الصفحات المطبوعة والكتب القديمة، بترتيب القراءة الصحيح.</p></div>
-<div class="card"><h3>تحويل PDF إلى نص</h3><p>العناوين والقوائم والجداول بصيغة HTML، لكل صفحات الملف.</p></div>
-<div class="card"><h3>التشكيل كما هو مطبوع</h3><p>النص المشكول يحتفظ بحركاته، وغير المشكول يبقى دونها.</p></div>
-<div class="card"><h3>الجداول</h3><p>جداول من اليمين إلى اليسار ومن اليسار إلى اليمين، بترتيب أعمدتها.</p></div>
-<div class="card"><h3>البطاقات وجوازات السفر</h3><p>قراءة منطقة MRZ مع التحقق من أرقام الفحص.</p></div>
-<div class="card"><h3>دون إنترنت</h3><p>على خوادمك أو حاسوبك أو هاتف أندرويد وآيفون.</p></div>
+{proof(1, "ناتج نموذج نقطة 4B كما هو، دون تعديل", "صفحة من كتاب أطفال نشرته مؤسسة هنداوي (برخصة CC BY 4.0). الاسمان «ثرثار» و«شادو» غير مشكولين في الكتاب، وبقيا كذلك في الناتج.")}
 </div>
-<h2>الاستخدام في بايثون</h2>
+<div class="nums">
+<div><b dir="ltr">0.106</b><span>نسبة الخطأ في الحروف في اختبار <bdi>KITAB-Bench</bdi>، وأقرب منافس 0.13</span></div>
+<div><b dir="ltr">82.8</b><span>النتيجة في اختبار <bdi>Misraj-DocOCR</bdi>، وأقرب منافس 77.8</span></div>
+<div><b dir="ltr">1.6 GB</b><span>من الذاكرة تكفي لتشغيل النموذج الصغير على الهاتف</span></div>
+</div>
+<h2>ما يقرؤه نقطة</h2>
+<ul class="plain">
+<li><b>الكتب والمستندات الممسوحة</b><span>يقرأ الصفحة بترتيبها الصحيح، من الكتب المطبوعة إلى الوثائق القديمة.</span></li>
+<li><b>ملفات PDF</b><span>يقرأ صفحات الملف كلها، ويحتفظ بالعناوين والقوائم والجداول.</span></li>
+<li><b>التشكيل</b><span>النص المشكول يبقى مشكولًا، وغير المشكول يبقى بلا حركات.</span></li>
+<li><b>الجداول</b><span>العربية والإنجليزية، بترتيب أعمدتها كما في الأصل.</span></li>
+<li><b>الهويات وجوازات السفر</b><span>يقرأ منطقة MRZ ويتحقق من أرقام التدقيق فيها.</span></li>
+<li><b>على جهازك</b><span>يعمل على خوادمك أو حاسوبك أو هاتفك، فلا تغادر مستنداتك أجهزتك.</span></li>
+</ul>
+<h2>طريقة الاستخدام</h2>
 {INSTALL}
 {QUICK}
 <h2>أسئلة شائعة</h2>
