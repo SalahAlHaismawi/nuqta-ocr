@@ -496,6 +496,6 @@ paths = [
               ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "Claude-SearchBot", "Claude-User", "PerplexityBot",
                "Perplexity-User", "Google-Extended", "Applebot-Extended", "CCBot", "Bingbot"])
     + f"Sitemap: {BASE}sitemap.xml\n")
-(OUT / "llms.txt").write_text((ROOT / "llms.txt").read_text().rstrip() + f"\n- Website: {BASE} · Benchmarks: {BASE}best-arabic-ocr/ · Guides: {BASE}guides/\n")
+(OUT / "llms.txt").write_text((ROOT / "llms.txt").read_text())  # the repo copy already links the website
 (OUT / ".nojekyll").write_text("")
 print("built", len(paths), "pages into", OUT)
