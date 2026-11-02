@@ -3,7 +3,7 @@ torch
 pillow
 spaces
 gradio>=5
-transformers>=4.57
+transformers>=5.2
 torchvision
 accelerate
 pypdfium2

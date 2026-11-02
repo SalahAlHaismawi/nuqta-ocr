@@ -1,6 +1,6 @@
 [project]
 name = "nuqta-ocr"
-version = "0.1.1"
+version = "0.2.0"
 description = "Nuqta OCR: open-source Arabic OCR with faithful tashkeel (open 0.8B and 4B models)"
 readme = "README.md"
 license = "Apache-2.0"
@@ -23,13 +23,14 @@ dependencies = [
   "pypdfium2>=4",
   "torch>=2.4",
   "torchvision",
-  "transformers>=4.57",
+  "transformers>=5.2",  # qwen3_5 first ships in 5.2.0
   "accelerate>=1.0",
 ]
 
 [project.optional-dependencies]
 vllm = ["vllm>=0.19"]
 fast = ["flash-linear-attention>=0.5", "causal-conv1d>=1.5"]  # fast kernels for the transformers backend
+mcp = ["mcp>=1.25"]  # nuqta-mcp: the OCR as a tool for Claude, Cursor and other MCP clients
 dev = ["pytest>=8"]
 # benchmarks/ (run.py + score.py): dataset download, endpoint client and the official KITAB-Bench / Misraj scoring
 bench = [
@@ -53,6 +54,7 @@ Demo = "https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR"
 
 [project.scripts]
 nuqta = "nuqta.cli:main"
+nuqta-mcp = "nuqta.mcp_server:main"
 
 [build-system]
 requires = ["hatchling"]

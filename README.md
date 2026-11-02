@@ -9,6 +9,9 @@ Accurate Arabic document OCR with **faithful tashkeel**, in two open models: **N
 - Markdown output with HTML tables, in reading order
 - Runs on-premises on a single GPU, or fully offline on Android and iPhone: your documents never leave your network
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SalahAlHaismawi/nuqta-ocr/blob/main/examples/nuqta_quickstart.ipynb)
+[![Open In Kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://github.com/SalahAlHaismawi/nuqta-ocr/blob/main/examples/nuqta_quickstart.ipynb)
+
 Website: [https://salahalhaismawi.github.io/nuqta-ocr/](https://salahalhaismawi.github.io/nuqta-ocr/) · [Arabic OCR benchmarks compared](https://salahalhaismawi.github.io/nuqta-ocr/best-arabic-ocr/) · [guides](https://salahalhaismawi.github.io/nuqta-ocr/guides/) · [demo](https://huggingface.co/spaces/SalahALHaismawi/Nuqta-Arabic-OCR)
 
 <div dir="rtl">
@@ -59,6 +62,31 @@ nuqta read passport.jpg --mode id --json
 | `markdown` | headings, paragraphs, lists and tables (HTML) in reading order |
 | `id` | `markdown` reading + structured fields: passport / visa / ID-card MRZ with ICAO check digits; Egyptian national ID fields cross-checked against the national number |
 
+## Use from Claude, Cursor and other MCP clients
+
+`pip install "nuqta-ocr[mcp]"` adds `nuqta-mcp`, an MCP server with one tool, `read_document(path, mode, pages)`,
+that reads an image or PDF on your computer in any of the modes above. The model loads on the first call (allow
+a minute) and stays loaded. Set `NUQTA_MODEL=nuqta-4b` (or pass `--model nuqta-4b`) for the larger model.
+
+Claude Code:
+
+```bash
+claude mcp add nuqta -- nuqta-mcp
+```
+
+Claude Desktop (`claude_desktop_config.json`) and Cursor (`~/.cursor/mcp.json`) use the same block:
+
+```json
+{
+  "mcpServers": {
+    "nuqta": { "command": "nuqta-mcp", "env": { "NUQTA_MODEL": "nuqta-0.8b" } }
+  }
+}
+```
+
+If the client cannot find `nuqta-mcp`, give its full path (`which nuqta-mcp`), or use
+`"command": "uvx", "args": ["--from", "nuqta-ocr[mcp]", "nuqta-mcp"]`.
+
 ## What the library does for you
 
 - **Page rule:** full pages are shown to the model at its training resolution (2.4 MP); word, line and card crops keep their size. Small page renders (e.g. 72-dpi PDF pages) otherwise lose letters.
@@ -75,6 +103,14 @@ nuqta read passport.jpg --mode id --json
   [Nuqta-Arabic-OCR-4B-GGUF](https://huggingface.co/SalahALHaismawi/Nuqta-Arabic-OCR-4B-GGUF) (2.9 GB). The files carry the reading
   settings (greedy decoding, thinking off, a minimum image size), so most apps read well without setup; the cards
   list the settings to check in apps that override them.
+- **Ollama:** runs straight from Hugging Face; put the image path in the prompt.
+
+  ```bash
+  ollama run --think=false hf.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF:Q4_K_M \
+    "Transcribe the Arabic text in this image exactly as written. Include only the diacritics (tashkeel) that are visible in the image. ./page.jpg"
+  ```
+
+  Use `Nuqta-Arabic-OCR-4B-GGUF:Q4_K_M` for the 4B. Over the API, send the image in `images` with `"think": false`.
 - **Desktop GUI for Windows (community project):** [nuqta-ocr-gui](https://github.com/hadi4172/nuqta-ocr-gui) is a
   gImageReader-style app that OCRs PDFs and images with the GGUF builds through llama.cpp, on an NVIDIA GPU or the CPU.
   It reads pages, regions or page ranges and exports text or a searchable PDF. It can also read everything with 0.8B and

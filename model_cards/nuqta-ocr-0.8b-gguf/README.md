@@ -88,6 +88,17 @@ The model may begin its answer with an empty `<think></think>` block: drop it.
 that download these files once and read pages fully offline (first words in about 2 seconds with the 0.8B). They
 handle the input size, read the page in strips and use the right settings for you.
 
+### With Ollama
+
+Ollama runs these files straight from Hugging Face. Put the image path in the prompt:
+
+```bash
+ollama run --think=false hf.co/SalahALHaismawi/Nuqta-Arabic-OCR-0.8B-GGUF:Q4_K_M \
+  "Transcribe the Arabic text in this image exactly as written. Include only the diacritics (tashkeel) that are visible in the image. ./page.jpg"
+```
+
+Over the API (`/api/chat`), send the image in `images` and set `"think": false`.
+
 ### In chat apps (PocketPal, LM Studio, Jan, Ollama…)
 
 These files carry Nuqta's reading settings, so llama.cpp-based apps pick them up without any setup: greedy decoding

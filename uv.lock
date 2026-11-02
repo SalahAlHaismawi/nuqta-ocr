@@ -4156,7 +4156,7 @@ wheels = [
 
 [[package]]
 name = "nuqta-ocr"
-version = "0.1.1"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "accelerate" },
@@ -4189,6 +4189,9 @@ fast = [
     { name = "causal-conv1d" },
     { name = "flash-linear-attention" },
 ]
+mcp = [
+    { name = "mcp" },
+]
 vllm = [
     { name = "vllm", version = "0.30.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "vllm", version = "0.32.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
@@ -4206,6 +4209,7 @@ requires-dist = [
     { name = "huggingface-hub", marker = "extra == 'bench'", specifier = ">=0.24" },
     { name = "levenshtein", marker = "extra == 'bench'", specifier = ">=0.25" },
     { name = "lxml", marker = "extra == 'bench'", specifier = ">=5" },
+    { name = "mcp", marker = "extra == 'mcp'", specifier = ">=1.25" },
     { name = "pillow", specifier = ">=10" },
     { name = "pyarrow", marker = "extra == 'bench'", specifier = ">=14" },
     { name = "pypdfium2", specifier = ">=4" },
@@ -4213,10 +4217,10 @@ requires-dist = [
     { name = "sacrebleu", marker = "extra == 'bench'", specifier = ">=2.4,<3" },
     { name = "torch", specifier = ">=2.4" },
     { name = "torchvision" },
-    { name = "transformers", specifier = ">=4.57" },
+    { name = "transformers", specifier = ">=5.2" },
     { name = "vllm", marker = "extra == 'vllm'", specifier = ">=0.19" },
 ]
-provides-extras = ["vllm", "fast", "dev", "bench"]
+provides-extras = ["vllm", "fast", "mcp", "dev", "bench"]
 
 [[package]]
 name = "nvidia-cublas"
