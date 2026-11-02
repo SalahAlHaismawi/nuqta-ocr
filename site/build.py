@@ -473,12 +473,12 @@ OUT.mkdir(exist_ok=True)
 (OUT / "style.css").write_text(CSS.strip() + "\n")
 paths = [
     page("", "Nuqta OCR: open-source Arabic OCR, first on KITAB-Bench and Misraj",
-         "Open-source Arabic OCR models and Python library. Converts Arabic scans, photos and PDFs to text or Markdown, keeps printed "
-         "tashkeel, reads tables, IDs and passports. Best published scores on KITAB-Bench and Misraj-DocOCR.",
+         "Open-source Arabic OCR models and Python library: scans, photos and PDFs to text or Markdown, with tashkeel, tables "
+         "and IDs. First on KITAB-Bench and Misraj.",
          home_body, ld=[SOFTWARE, faq_ld(HOME_FAQ)], alt="ar/"),
     page("ar/", "نقطة: OCR عربي مفتوح المصدر لتحويل الصور وملفات PDF إلى نص",
-         "نماذج ومكتبة مفتوحة المصدر للتعرف الضوئي على النص العربي: تحويل الصور والمستندات الممسوحة وملفات PDF إلى نص، مع التشكيل والجداول "
-         "والبطاقات وجوازات السفر. الأول على معياري KITAB-Bench وMisraj-DocOCR.",
+         "نماذج ومكتبة مفتوحة المصدر للتعرف الضوئي على النص العربي: الصور وملفات PDF إلى نص مع التشكيل والجداول "
+         "والبطاقات. الأول على KITAB-Bench وMisraj.",
          ar_body, lang="ar", ld=[SOFTWARE, faq_ld(AR_FAQ)], alt=""),
     page("best-arabic-ocr/", "Best Arabic OCR models in 2026: benchmark comparison",
          "KITAB-Bench and Misraj-DocOCR results for Arabic OCR: Nuqta, Gemini, GPT-4o, GPT-5, Azure, Mistral OCR, Baseer, QARI, "
