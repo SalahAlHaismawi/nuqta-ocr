@@ -68,6 +68,7 @@ def page(path: str, title: str, desc: str, body: str, *, lang="en", ld=(), alt=N
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="cV3bLYaiwx_uWgcfLye5ZW7KCQ7KMcF4KvZ8LbxjnN4">
 <title>{html.escape(title)}</title>
 <meta name="description" content="{html.escape(desc)}">
 <link rel="canonical" href="{url}">{alts}
