@@ -179,6 +179,18 @@ def test_read_lines_returns_text_and_boxes_without_a_model():
     assert ocr.calls == [(3, 'as-written', 8192)]
 
 
+def test_read_lines_renders_every_pdf_page(tmp_path):
+    pdf = tmp_path / 'two.pdf'
+    first = strokes_page()
+    second = strokes_page()
+    first.save(pdf, save_all=True, append_images=[second], resolution=200)
+    ocr = FakeOCR()
+    result = read_lines(ocr, [pdf])[0]
+    assert len(result.pages) == 2
+    assert [len(page.lines) for page in result.pages] == [3, 3]
+    assert ocr.calls == [(3, 'as-written', 8192), (3, 'as-written', 8192)]
+
+
 def test_read_lines_rejects_markdown_mode():
     with pytest.raises(ValueError, match='as-written and bare'):
         read_lines(FakeOCR(), [strokes_page()], mode='markdown')
