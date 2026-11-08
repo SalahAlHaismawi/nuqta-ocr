@@ -30,8 +30,9 @@ dependencies = [
 [project.optional-dependencies]
 vllm = ["vllm>=0.19"]
 fast = ["flash-linear-attention>=0.5", "causal-conv1d>=1.5"]  # fast kernels for the transformers backend
+layout = ["numpy>=1.24", "opencv-python-headless>=4.8"]  # line segmentation and hOCR geometry
 mcp = ["mcp>=1.25"]  # nuqta-mcp: the OCR as a tool for Claude, Cursor and other MCP clients
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "numpy>=1.24", "opencv-python-headless>=4.8", "lxml>=5"]
 # benchmarks/ (run.py + score.py): dataset download, endpoint client and the official KITAB-Bench / Misraj scoring
 bench = [
   "huggingface_hub>=0.24",

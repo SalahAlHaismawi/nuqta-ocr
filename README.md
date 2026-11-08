@@ -62,6 +62,37 @@ nuqta read passport.jpg --mode id --json
 | `markdown` | headings, paragraphs, lists and tables (HTML) in reading order |
 | `id` | `markdown` reading + structured fields: passport / visa / ID-card MRZ with ICAO check digits; Egyptian national ID fields cross-checked against the national number |
 
+## Line layout and hOCR
+
+Line-level boxes enable searchable PDFs and hOCR. Install the optional
+image-processing extras, then read with `layout=True`:
+
+```bash
+pip install "nuqta-ocr[layout]"
+nuqta read page.jpg --format hocr > page.hocr
+```
+
+```python
+from nuqta import OCR, to_hocr
+
+ocr = OCR("nuqta-0.8b")
+result = ocr.read("page.jpg", layout=True)
+for line in result.pages[0].lines:
+    print(line.bbox, line.text)
+open("page.hocr", "w", encoding="utf-8").write(to_hocr(result))
+```
+
+The page is binarized (Otsu), lightly deskewed, and split into lines with a
+horizontal projection profile; each line is cropped with a margin for
+diacritics and read separately. `Page.lines` holds the text and the box in the
+original image, `Page.width/height/dpi` make the result exportable as hOCR, and
+`Page.warnings` reports degenerate output (repetition, counting loops).
+
+Limits: single-column pages; word-level boxes are not predicted yet, so each
+line is one `ocrx_word`; and per-line inference costs more than one full-page
+read (on CPU, tens of seconds per line). Markdown and ID modes still need the
+whole page and do not accept `layout=True`.
+
 ## Use from Claude, Cursor and other MCP clients
 
 `pip install "nuqta-ocr[mcp]"` adds `nuqta-mcp`, an MCP server with one tool, `read_document(path, mode, pages)`,

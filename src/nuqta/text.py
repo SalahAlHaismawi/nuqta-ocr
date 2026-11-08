@@ -62,3 +62,54 @@ def trim_loops(text: str) -> str:
 
 def looped(text: str) -> bool:
     return len(text) - len(trim_loops(text)) > LOOP_CHARS
+
+
+# --- output validation -----------------------------------------------------------------
+# The loop detector above removes repetition, but some degenerate readings are not repeats:
+# a model that falls into a counting loop emits "1 2 3 4 ..." (or Arabic-Indic digits),
+# which has no repeated substring and survives trim_loops.  Counting tables can also contain
+# long ascending runs, so this only fires on a long run of *consecutive numeric tokens* with
+# no words between them.
+COUNTING_RUN = 10
+_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
+_TRIM = ".,;:،؛!?()[]{}<>«»\"'"
+
+
+def _numeric_tokens(text: str) -> list[int]:
+    out: list[int] = []
+    for token in text.translate(_DIGITS).split():
+        token = token.strip(_TRIM)
+        if token.isdigit():
+            out.append(int(token))
+    return out
+
+
+def counting_sequence(text: str, min_run: int = COUNTING_RUN) -> bool:
+    """True for a long run of consecutive numbers (a common generation loop)."""
+    numbers = _numeric_tokens(text)
+    run = 1
+    for previous, current in zip(numbers, numbers[1:]):
+        run = run + 1 if current == previous + 1 else 1
+        if run >= min_run:
+            return True
+    return False
+
+
+def validate_text(text: str) -> list[str]:
+    """Return human-readable reasons a reading looks degenerate (empty when clean).
+
+    This is a warning, not a correction: the caller decides whether to retry,
+    reject the page or pass it to a human.  The OCRmyPDF plugin treats any
+    non-empty result as a hard failure.
+    """
+    issues: list[str] = []
+    if looped(text):
+        issues.append("repeated output")
+    if counting_sequence(text):
+        issues.append("counting sequence")
+    letters = "".join(ch for ch in text if ch.isalpha())
+    if len(letters) >= 40:
+        most = max(set(letters), key=letters.count)
+        if letters.count(most) / len(letters) > 0.5:
+            issues.append("one character dominates")
+    return issues
