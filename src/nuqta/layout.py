@@ -79,7 +79,7 @@ class SegmentedPage:
     get boxes in the original input image.
     """
 
-    image: 'Image.Image'
+    image: Image.Image
     boxes: list[Box]
     angle: float
     matrix: object                    # 2x3 affine matrix (NumPy array)
@@ -263,14 +263,14 @@ def map_box(box: Box, matrix, size: tuple[int, int]) -> Box:
     xs, ys = mapped[:, 0], mapped[:, 1]
     width, height = size
     return (
-        max(0, min(width, int(math.floor(xs.min())))),
-        max(0, min(height, int(math.floor(ys.min())))),
-        max(0, min(width, int(math.ceil(xs.max())))),
-        max(0, min(height, int(math.ceil(ys.max())))),
+        max(0, min(width, math.floor(xs.min()))),
+        max(0, min(height, math.floor(ys.min()))),
+        max(0, min(width, math.ceil(xs.max()))),
+        max(0, min(height, math.ceil(ys.max()))),
     )
 
 
-def segment_page(image: 'Image.Image', *, deskew: bool = True) -> SegmentedPage:
+def segment_page(image: Image.Image, *, deskew: bool = True) -> SegmentedPage:
     """Find text lines in a single-column page.
 
     Args:
@@ -313,7 +313,7 @@ def crop_box(
     *,
     above: Box | None = None,
     below: Box | None = None,
-) -> 'Image.Image':
+) -> Image.Image:
     """Crop one line with a vertical margin for diacritics.
 
     ``above`` and ``below`` are the neighbouring line boxes (in the deskewed
@@ -323,8 +323,8 @@ def crop_box(
     """
     x0, y0, x1, y1 = box
     height = max(y1 - y0, 1)
-    margin_y = int(round(height * _MARGIN_Y))
-    margin_x = int(round(height * _MARGIN_X))
+    margin_y = round(height * _MARGIN_Y)
+    margin_x = round(height * _MARGIN_X)
     top = y0 - margin_y
     bottom = y1 + margin_y
     if above is not None:
@@ -338,7 +338,7 @@ def crop_box(
     return page.image.crop((left, top, right, bottom))
 
 
-def segment_lines(image: 'Image.Image', *, deskew: bool = True) -> list[Line]:
+def segment_lines(image: Image.Image, *, deskew: bool = True) -> list[Line]:
     """Convenience wrapper: line boxes in the original image, text empty."""
     page = segment_page(image, deskew=deskew)
     return [

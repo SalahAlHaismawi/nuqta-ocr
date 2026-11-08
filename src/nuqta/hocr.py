@@ -17,7 +17,7 @@ from typing import TYPE_CHECKING
 from xml.etree import ElementTree as ET
 
 if TYPE_CHECKING:  # pragma: no cover - only for type checkers
-    from .ocr import Page, Result
+    from .ocr import Result
 
 
 def _bbox(box: tuple[int, int, int, int]) -> str:
@@ -26,7 +26,7 @@ def _bbox(box: tuple[int, int, int, int]) -> str:
 
 
 def to_hocr(
-    result: 'Result',
+    result: Result,
     *,
     title: str = 'Nuqta OCR',
     lang: str = 'ar',
@@ -42,8 +42,7 @@ def to_hocr(
     lines: list[str] = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<!DOCTYPE html>',
-        f'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{escape(lang)}" '
-        f'lang="{escape(lang)}" dir="rtl">',
+        f'<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{escape(lang)}" lang="{escape(lang)}" dir="rtl">',
         '<head>',
         '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />',
         '<meta name="ocr-system" content="nuqta" />',

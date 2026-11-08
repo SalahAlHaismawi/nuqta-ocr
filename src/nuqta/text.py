@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+from itertools import pairwise
 
 PROMPTS = {
     "as-written": "Transcribe the Arabic text in this image exactly as written. Include only the diacritics (tashkeel) "
@@ -88,7 +89,7 @@ def counting_sequence(text: str, min_run: int = COUNTING_RUN) -> bool:
     """True for a long run of consecutive numbers (a common generation loop)."""
     numbers = _numeric_tokens(text)
     run = 1
-    for previous, current in zip(numbers, numbers[1:]):
+    for previous, current in pairwise(numbers):
         run = run + 1 if current == previous + 1 else 1
         if run >= min_run:
             return True

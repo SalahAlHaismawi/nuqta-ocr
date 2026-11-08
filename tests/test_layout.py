@@ -13,9 +13,15 @@ import numpy as np
 import pytest
 from PIL import Image, ImageDraw
 
-from nuqta import Line, Page, Result, OCR, to_hocr, validate_hocr
+from nuqta import OCR, Line, Page, Result, to_hocr, validate_hocr
 from nuqta.cli import main
-from nuqta.layout import OPTIONAL_DEPS_HINT, SegmentedPage, crop_box, map_box, segment_page
+from nuqta.layout import (
+    OPTIONAL_DEPS_HINT,
+    SegmentedPage,
+    crop_box,
+    map_box,
+    segment_page,
+)
 from nuqta.text import counting_sequence, validate_text
 
 XHTML = '{http://www.w3.org/1999/xhtml}'

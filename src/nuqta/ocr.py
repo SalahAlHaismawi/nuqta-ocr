@@ -54,7 +54,7 @@ def _pdf_pages(path: Path, dpi: int = 200) -> list[Image.Image]:
 def _image_dpi(im: Image.Image) -> int:
     dpi = im.info.get("dpi")
     try:
-        return int(round(float(dpi[0]))) if dpi else 200
+        return round(float(dpi[0])) if dpi else 200
     except (TypeError, ValueError, IndexError):
         return 200
 
