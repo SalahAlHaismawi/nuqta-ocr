@@ -65,7 +65,7 @@ nuqta read passport.jpg --mode id --json
 ## Line layout and hOCR
 
 Line-level boxes enable searchable PDFs and hOCR. Install the optional
-image-processing extras, then read with `layout=True`:
+image-processing extras, then call `read_lines`:
 
 ```bash
 pip install "nuqta-ocr[layout]"
@@ -73,10 +73,10 @@ nuqta read page.jpg --format hocr > page.hocr
 ```
 
 ```python
-from nuqta import OCR, to_hocr
+from nuqta import OCR, read_lines, to_hocr
 
 ocr = OCR("nuqta-0.8b")
-result = ocr.read("page.jpg", layout=True)
+result = read_lines(ocr, ["page.jpg"])[0]
 for line in result.pages[0].lines:
     print(line.bbox, line.text)
 open("page.hocr", "w", encoding="utf-8").write(to_hocr(result))
@@ -84,14 +84,14 @@ open("page.hocr", "w", encoding="utf-8").write(to_hocr(result))
 
 The page is binarized (Otsu), lightly deskewed, and split into lines with a
 horizontal projection profile; each line is cropped with a margin for
-diacritics and read separately. `Page.lines` holds the text and the box in the
-original image, `Page.width/height/dpi` make the result exportable as hOCR, and
-`Page.warnings` reports degenerate output (repetition, counting loops).
+diacritics and read through the normal `OCR.read_many` API. `LineResult.pages`
+holds the text, the boxes in the original image, and the page geometry needed
+by hOCR. The core `OCR` class and its default output are unchanged.
 
 Limits: single-column pages; word-level boxes are not predicted yet, so each
 line is one `ocrx_word`; and per-line inference costs more than one full-page
-read (on CPU, tens of seconds per line). Markdown and ID modes still need the
-whole page and do not accept `layout=True`.
+read (on CPU, tens of seconds per line). Markdown and ID modes need the whole
+page and are not supported by `read_lines`.
 
 ## Use from Claude, Cursor and other MCP clients
 
