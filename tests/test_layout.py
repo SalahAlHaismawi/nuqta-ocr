@@ -12,8 +12,6 @@ from xml.etree import ElementTree as ET
 
 import numpy as np
 import pytest
-from PIL import Image, ImageDraw
-
 from nuqta import OCR, Page, Result, to_hocr, validate_hocr
 from nuqta.cli import main
 from nuqta.layout import (
@@ -27,6 +25,7 @@ from nuqta.layout import (
     read_lines,
     segment_page,
 )
+from PIL import Image, ImageDraw
 
 XHTML = '{http://www.w3.org/1999/xhtml}'
 
