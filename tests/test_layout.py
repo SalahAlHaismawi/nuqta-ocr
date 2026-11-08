@@ -49,6 +49,11 @@ def test_segment_lines_finds_lines_top_to_bottom_and_skips_rules():
     assert all(box[1] > 80 for box in page.boxes)
 
 
+def test_blank_page_has_no_lines():
+    page = segment_page(Image.new('RGB', (600, 800), 'white'))
+    assert page.boxes == []
+
+
 def test_deskew_is_estimated_and_boxes_stay_aligned():
     page = segment_page(strokes_page(rotation=2))
     assert 1.5 <= abs(page.angle) <= 2.5

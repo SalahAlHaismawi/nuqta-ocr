@@ -149,8 +149,9 @@ def _profile_angle(gray, cv2, np) -> float:
 
     coarse = max(np.arange(-4.0, 4.01, 1.0), key=score)
     fine = max(np.arange(coarse - 1.0, coarse + 1.01, 0.1), key=score)
-    # Very large angles mean the projection locked onto a graphic, not text.
-    return float(fine) if abs(fine) <= 5.0 else 0.0
+    # Very large angles mean the projection locked onto a graphic, not text;
+    # sub-0.15 degree corrections only add interpolation blur.
+    return float(fine) if 0.15 <= abs(fine) <= 5.0 else 0.0
 
 
 def _rotate(gray, angle: float, cv2):
