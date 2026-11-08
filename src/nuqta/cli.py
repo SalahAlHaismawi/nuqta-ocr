@@ -5,7 +5,6 @@ import argparse
 import json
 import sys
 
-from .ocr import Result
 from .text import MODES
 
 DEFAULT_MODEL = "nuqta-0.8b"
@@ -33,22 +32,19 @@ def main(argv: list[str] | None = None) -> None:
     from .ocr import OCR
 
     ocr = OCR(a.model, backend=a.backend, enlarge_pages=not a.no_enlarge)
-    results = ocr.read_many(a.files, mode=a.mode, layout=out_format == "hocr")
     if out_format == "hocr":
         from .hocr import to_hocr
+        from .layout import LineResult, read_lines
 
-        pages = [page for result in results for page in result.pages]
-        print(to_hocr(Result(pages, a.mode), title=", ".join(a.files)))
+        line_results = read_lines(ocr, a.files, mode=a.mode)
+        pages = [page for result in line_results for page in result.pages]
+        print(to_hocr(LineResult(pages=pages, mode=a.mode), title=", ".join(a.files)))
         return
+    results = ocr.read_many(a.files, mode=a.mode)
     for f, res in zip(a.files, results):
         if out_format == "json":
-            pages = []
-            for page in res.pages:
-                data = vars(page).copy()
-                data["lines"] = [{"text": line.text, "bbox": list(line.bbox)} for line in page.lines]
-                pages.append(data)
             print(json.dumps({"file": f, "mode": res.mode, "text": res.text, "fields": res.fields,
-                              "pages": pages}, ensure_ascii=False, default=str))
+                              "pages": [vars(p) for p in res.pages]}, ensure_ascii=False, default=str))
         else:
             if len(a.files) > 1:
                 print(f"==> {f} <==")

@@ -1,10 +1,11 @@
-"""Layout, hOCR and output-validation tests.
+"""Layout, hOCR and CLI tests.
 
-No model is downloaded or called here: the synthetic pages are black strokes
-on white, and the OCR API tests use a fake backend.
+No model is downloaded or called: synthetic black strokes stand in for text and
+a fake OCR object implements only the public ``read_many`` call.
 """
 from __future__ import annotations
 
+import inspect
 import json
 import sys
 from xml.etree import ElementTree as ET
@@ -13,16 +14,19 @@ import numpy as np
 import pytest
 from PIL import Image, ImageDraw
 
-from nuqta import OCR, Line, Page, Result, to_hocr, validate_hocr
+from nuqta import OCR, Page, Result, to_hocr, validate_hocr
 from nuqta.cli import main
 from nuqta.layout import (
     OPTIONAL_DEPS_HINT,
+    Line,
+    LinePage,
+    LineResult,
     SegmentedPage,
     crop_box,
     map_box,
+    read_lines,
     segment_page,
 )
-from nuqta.text import counting_sequence, validate_text
 
 XHTML = '{http://www.w3.org/1999/xhtml}'
 
@@ -45,7 +49,6 @@ def test_segment_lines_finds_lines_top_to_bottom_and_skips_rules():
     assert len(page.boxes) == 3
     assert [box[1] for box in page.boxes] == sorted(box[1] for box in page.boxes)
     assert all(80 <= box[0] and box[2] <= 520 for box in page.boxes)
-    # the rule at y=60 is not reported as a text line
     assert all(box[1] > 80 for box in page.boxes)
 
 
@@ -58,7 +61,6 @@ def test_deskew_is_estimated_and_boxes_stay_aligned():
     page = segment_page(strokes_page(rotation=2))
     assert 1.5 <= abs(page.angle) <= 2.5
     assert len(page.boxes) == 3
-    # boxes are in the deskewed image, so they line up with the unrotated page
     assert all(abs(box[1] - expected) <= 10 for box, expected in zip(page.boxes, (100, 200, 300)))
 
 
@@ -69,19 +71,17 @@ def test_map_box_back_to_original_page():
     x0, y0, x1, y1 = mapped
     assert 0 <= x0 < x1 <= page.size[0]
     assert 0 <= y0 < y1 <= page.size[1]
-    # the rotated box is a little taller than the deskewed one
     assert y1 - y0 >= box[3] - box[1]
 
 
 def test_crop_margin_includes_diacritics_and_stops_at_neighbour():
     image = Image.new('RGB', (400, 300), 'white')
-    ImageDraw.Draw(image).point((150, 92), fill='black')  # a mark above the line
+    ImageDraw.Draw(image).point((150, 92), fill='black')
     page = SegmentedPage(image=image, boxes=[], angle=0.0, matrix=np.eye(3), size=image.size)
     line = (100, 100, 300, 130)
-    # margin is 40% of 30px = 12px; midpoint to the line above is 90px
     crop = crop_box(page, line, above=(100, 50, 300, 80), below=(100, 160, 300, 190))
-    assert crop.size == (216, 52)  # x: 92..308, y: 90..142
-    assert crop.getpixel((58, 2)) == (0, 0, 0)  # the mark at (150, 92) survived
+    assert crop.size == (216, 52)
+    assert crop.getpixel((58, 2)) == (0, 0, 0)
 
 
 def test_crop_margin_is_clamped_to_page_edges():
@@ -94,7 +94,7 @@ def test_crop_margin_is_clamped_to_page_edges():
 
 def test_hocr_is_well_formed_and_has_rtl_arabic_lines():
     pages = [
-        Page(
+        LinePage(
             'سطرٌ أول\nسطر ثانٍ',
             lines=[Line('سطرٌ أول', (10, 20, 110, 50)), Line('سطر ثانٍ', (10, 70, 110, 100))],
             width=200,
@@ -102,7 +102,7 @@ def test_hocr_is_well_formed_and_has_rtl_arabic_lines():
             dpi=200,
         )
     ]
-    document = to_hocr(Result(pages, 'as-written'))
+    document = to_hocr(LineResult(pages, 'as-written'))
     validate_hocr(document)
     root = ET.fromstring(document)
     page_div = root.find(f'.//{XHTML}div[@class="ocr_page"]')
@@ -115,21 +115,21 @@ def test_hocr_is_well_formed_and_has_rtl_arabic_lines():
         numbers = line.get('title').split('bbox', 1)[1].split()
         assert len(numbers) == 4 and all(number.isdigit() for number in numbers)
         words = line.findall(f'.//{XHTML}span[@class="ocrx_word"]')
-        assert len(words) == 1  # OCRmyPDF drops lines without a word child
+        assert len(words) == 1
         assert words[0].text
 
 
 def test_hocr_escapes_text():
-    page = Page('A & B < C', lines=[Line('A & B < C', (0, 0, 60, 20))], width=80, height=40)
-    document = to_hocr(Result([page], 'as-written'))
+    page = LinePage('A & B < C', lines=[Line('A & B < C', (0, 0, 60, 20))], width=80, height=40)
+    document = to_hocr(LineResult([page], 'as-written'))
     assert '&amp;' in document and '&lt;' in document
     assert ET.fromstring(document).find(f'.//{XHTML}span[@class="ocrx_word"]').text == 'A & B < C'
 
 
 def test_hocr_requires_page_size():
-    page = Page('نص', lines=[Line('نص', (0, 0, 10, 10))])
+    page = LinePage('نص', lines=[Line('نص', (0, 0, 10, 10))], width=0, height=0)
     with pytest.raises(ValueError, match='page size'):
-        to_hocr(Result([page], 'as-written'))
+        to_hocr(LineResult([page], 'as-written'))
 
 
 def test_validate_hocr_rejects_a_line_without_words():
@@ -149,23 +149,6 @@ def test_validate_hocr_rejects_bad_bbox():
         validate_hocr(document)
 
 
-def test_counting_sequence_detects_a_loop_but_not_a_table():
-    assert counting_sequence(' '.join(str(n) for n in range(1, 30)))
-    assert counting_sequence(' '.join('٠١٢٣٤٥٦٧٨٩'[0] for _ in range(1))) is False
-    arabic = ' '.join('٠١٢٣٤٥٦٧٨٩'[n % 10] for n in range(1, 15))
-    assert isinstance(counting_sequence(arabic), bool)
-    assert not counting_sequence('١ ٢ ٣ ثم كلام')
-    assert not counting_sequence('القلم 1 والكتاب 2 والورق 3')
-
-
-def test_validate_text_reports_repetition_and_dominance():
-    assert 'repeated output' in validate_text('نص ' + 'أ' * 300)
-    assert 'one character dominates' in validate_text('أ' * 200)
-    assert validate_text('نص عربي سليم') == []
-    # form lines are legitimate repeats, not a degenerate reading
-    assert validate_text('الاسم: ' + '.' * 60) == []
-
-
 def test_missing_optional_dependencies_has_a_clear_message(monkeypatch):
     monkeypatch.setitem(sys.modules, 'cv2', None)
     with pytest.raises(ImportError, match='nuqta-ocr\\[layout\\]'):
@@ -173,62 +156,74 @@ def test_missing_optional_dependencies_has_a_clear_message(monkeypatch):
     assert 'opencv' in OPTIONAL_DEPS_HINT
 
 
-class FakeBackend:
-    def generate(self, items, max_new_tokens):
-        return [f'سطر {i + 1}' for i in range(len(items))]
+class FakeOCR:
+    """Implements the one public method layout code is allowed to call."""
+
+    def __init__(self):
+        self.calls = []
+
+    def read_many(self, srcs, mode='as-written', max_new_tokens=8192):
+        self.calls.append((len(srcs), mode, max_new_tokens))
+        return [Result([Page(f'سطر {index + 1}')], mode) for index in range(len(srcs))]
 
 
-def test_ocr_layout_returns_line_text_and_boxes_without_a_model():
-    ocr = object.__new__(OCR)
-    ocr.backend = FakeBackend()
-    ocr.enlarge_pages = True
-    result = ocr.read(strokes_page(), layout=True)
+def test_read_lines_returns_text_and_boxes_without_a_model():
+    ocr = FakeOCR()
+    result = read_lines(ocr, [strokes_page()])[0]
     page = result.pages[0]
     assert page.width == 600 and page.height == 800
     assert len(page.lines) == 3
     assert [line.text for line in page.lines] == ['سطر 1', 'سطر 2', 'سطر 3']
     assert all(isinstance(value, int) for line in page.lines for value in line.bbox)
     assert page.text == 'سطر 1\nسطر 2\nسطر 3'
+    assert ocr.calls == [(3, 'as-written', 8192)]
 
 
-def test_ocr_layout_rejects_markdown_mode():
-    ocr = object.__new__(OCR)
-    ocr.backend = FakeBackend()
-    ocr.enlarge_pages = True
+def test_read_lines_rejects_markdown_mode():
     with pytest.raises(ValueError, match='as-written and bare'):
-        ocr.read(strokes_page(), mode='markdown', layout=True)
+        read_lines(FakeOCR(), [strokes_page()], mode='markdown')
+
+
+def test_core_inference_api_is_unchanged():
+    assert 'layout' not in inspect.signature(OCR.read).parameters
+    assert list(Page.__dataclass_fields__) == ['text', 'looped', 'fallback']
 
 
 def test_cli_hocr_output(monkeypatch, capsys):
-    def fake_read_many(self, files, mode='as-written', max_new_tokens=8192, layout=False):
-        page = Page('نص', lines=[Line('نص', (10, 20, 100, 50))], width=200, height=300)
-        return [Result([page], mode)]
+    def fake_read_lines(ocr, files, *, mode='as-written', max_new_tokens=8192):
+        page = LinePage('نص', lines=[Line('نص', (10, 20, 100, 50))], width=200, height=300)
+        return [LineResult([page], mode)]
 
     monkeypatch.setattr('nuqta.ocr.OCR.__init__', lambda self, *args, **kwargs: None)
-    monkeypatch.setattr('nuqta.ocr.OCR.read_many', fake_read_many)
+    monkeypatch.setattr('nuqta.layout.read_lines', fake_read_lines)
     main(['read', 'page.png', '--format', 'hocr'])
     out = capsys.readouterr().out
     validate_hocr(out)
     assert 'class="ocr_page"' in out
 
 
-def test_cli_json_includes_line_boxes(monkeypatch, capsys):
-    def fake_read_many(self, files, mode='as-written', max_new_tokens=8192, layout=False):
-        page = Page('نص', lines=[Line('نص', (10, 20, 100, 50))], width=200, height=300)
-        return [Result([page], mode)]
-
-    monkeypatch.setattr('nuqta.ocr.OCR.__init__', lambda self, *args, **kwargs: None)
-    monkeypatch.setattr('nuqta.ocr.OCR.read_many', fake_read_many)
-    main(['read', 'page.png', '--format', 'json'])
-    data = json.loads(capsys.readouterr().out)
-    assert data['pages'][0]['lines'] == [{'text': 'نص', 'bbox': [10, 20, 100, 50]}]
-
-
 def test_cli_default_text_is_unchanged(monkeypatch, capsys):
-    def fake_read_many(self, files, mode='as-written', max_new_tokens=8192, layout=False):
+    def fake_read_many(self, files, mode='as-written', max_new_tokens=8192):
         return [Result([Page('نص')], mode)]
 
     monkeypatch.setattr('nuqta.ocr.OCR.__init__', lambda self, *args, **kwargs: None)
     monkeypatch.setattr('nuqta.ocr.OCR.read_many', fake_read_many)
     main(['read', 'page.png'])
     assert capsys.readouterr().out == 'نص\n'
+
+
+def test_cli_json_is_unchanged(monkeypatch, capsys):
+    def fake_read_many(self, files, mode='as-written', max_new_tokens=8192):
+        return [Result([Page('نص')], mode)]
+
+    monkeypatch.setattr('nuqta.ocr.OCR.__init__', lambda self, *args, **kwargs: None)
+    monkeypatch.setattr('nuqta.ocr.OCR.read_many', fake_read_many)
+    main(['read', 'page.png', '--format', 'json'])
+    data = json.loads(capsys.readouterr().out)
+    assert data == {
+        'file': 'page.png',
+        'mode': 'as-written',
+        'text': 'نص',
+        'fields': {},
+        'pages': [{'text': 'نص', 'looped': False, 'fallback': False}],
+    }

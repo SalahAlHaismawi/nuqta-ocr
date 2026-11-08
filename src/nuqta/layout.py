@@ -25,8 +25,12 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass
 from numbers import Integral
+from pathlib import Path
 
 from PIL import Image
+
+from .backends import MAX_NEW_TOKENS
+from .preprocess import load_image
 
 Box = tuple[int, int, int, int]
 
@@ -34,6 +38,7 @@ OPTIONAL_DEPS_HINT = (
     'line segmentation needs NumPy and OpenCV; install them with '
     '`pip install "nuqta-ocr[layout]"` or `pip install numpy opencv-python-headless`'
 )
+PDF_DPI = 200
 
 # Tuning constants.  They are deliberately conservative: a missed line is
 # worse than an extra one, because every extra crop costs a model call.
@@ -345,3 +350,112 @@ def segment_lines(image: Image.Image, *, deskew: bool = True) -> list[Line]:
     return [
         Line('', map_box(box, page.matrix, page.size)) for box in page.boxes
     ]
+
+
+@dataclass
+class LinePage:
+    """A page read line by line: text, boxes, and the geometry hOCR needs."""
+
+    text: str
+    lines: list[Line]
+    width: int
+    height: int
+    dpi: int = PDF_DPI
+
+
+@dataclass
+class LineResult:
+    """What :func:`read_lines` returns, one entry per input file."""
+
+    pages: list[LinePage]
+    mode: str
+
+    @property
+    def text(self) -> str:
+        return "\n\n".join(page.text for page in self.pages)
+
+    def __str__(self) -> str:
+        return self.text
+
+
+def _source_pages(src) -> list[Image.Image]:
+    """Load one image or render every page of a PDF, at the same 200 dpi as OCR.read."""
+    if isinstance(src, (str, Path)) and str(src).lower().endswith(".pdf"):
+        import pypdfium2 as pdfium
+
+        document = pdfium.PdfDocument(str(src))
+        pages = []
+        for index in range(len(document)):
+            image = document[index].render(scale=PDF_DPI / 72).to_pil().convert("RGB")
+            image.info["dpi"] = (PDF_DPI, PDF_DPI)
+            pages.append(image)
+        return pages
+    return [load_image(src)]
+
+
+def _page_dpi(image: Image.Image) -> int:
+    dpi = image.info.get("dpi")
+    try:
+        return round(float(dpi[0])) if dpi else PDF_DPI
+    except (TypeError, ValueError, IndexError):
+        return PDF_DPI
+
+
+def read_lines(
+    ocr,
+    srcs: list,
+    *,
+    mode: str = "as-written",
+    max_new_tokens: int = MAX_NEW_TOKENS,
+) -> list[LineResult]:
+    """Read one or more files line by line, using an existing :class:`nuqta.OCR`.
+
+    This is the layout entry point: it segments each page, asks the normal
+    public inference API to read the line crops, and returns text plus boxes.
+    It does not modify or subclass the inference path.
+
+    Args:
+        ocr: a configured ``nuqta.OCR`` instance (the model is loaded once).
+        srcs: image paths/bytes/PIL images or PDF paths.
+        mode: ``as-written`` or ``bare``; markdown and id need the whole page.
+        max_new_tokens: token budget passed through to each line reading.
+
+    Returns:
+        One :class:`LineResult` per input file, in the same order.
+    """
+    if mode not in ("as-written", "bare"):
+        raise ValueError("read_lines supports the as-written and bare modes only")
+    results: list[LineResult] = []
+    for src in srcs:
+        pages: list[LinePage] = []
+        for image in _source_pages(src):
+            segmented = segment_page(image)
+            boxes = segmented.boxes
+            crops = [
+                crop_box(
+                    segmented,
+                    box,
+                    above=boxes[index - 1] if index else None,
+                    below=boxes[index + 1] if index + 1 < len(boxes) else None,
+                )
+                for index, box in enumerate(boxes)
+            ]
+            # Go through the public inference API so the model stays loaded and
+            # the vLLM backend can still batch the crops.
+            readings = ocr.read_many(crops, mode=mode, max_new_tokens=max_new_tokens) if crops else []
+            lines: list[Line] = []
+            for box, reading in zip(boxes, readings):
+                text = " ".join(reading.text.split())
+                if text:
+                    lines.append(Line(text, map_box(box, segmented.matrix, segmented.size)))
+            pages.append(
+                LinePage(
+                    text="\n".join(line.text for line in lines),
+                    lines=lines,
+                    width=image.width,
+                    height=image.height,
+                    dpi=_page_dpi(image),
+                )
+            )
+        results.append(LineResult(pages=pages, mode=mode))
+    return results

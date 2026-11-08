@@ -13,11 +13,19 @@ left for a later version; the text and the box are still at line granularity.
 from __future__ import annotations
 
 from html import escape
-from typing import TYPE_CHECKING
+from typing import Protocol
 from xml.etree import ElementTree as ET
 
-if TYPE_CHECKING:  # pragma: no cover - only for type checkers
-    from .ocr import Result
+
+class _PageLike(Protocol):
+    width: int
+    height: int
+    dpi: int
+    lines: list
+
+
+class _ResultLike(Protocol):
+    pages: list[_PageLike]
 
 
 def _bbox(box: tuple[int, int, int, int]) -> str:
@@ -26,18 +34,17 @@ def _bbox(box: tuple[int, int, int, int]) -> str:
 
 
 def to_hocr(
-    result: Result,
+    result: _ResultLike,
     *,
     title: str = 'Nuqta OCR',
     lang: str = 'ar',
     dpi: int | None = None,
 ) -> str:
-    """Render a :class:`nuqta.Result` as one hOCR document.
+    """Render a line reading as one hOCR document.
 
-    Pages without a size (for example a reading produced before line layout
-    existed) cannot be placed on a page and raise ``ValueError``.  The output
-    is XHTML with ``lang``/``dir`` on every line, because Arabic text layers
-    need both to be selected and searched correctly.
+    Any object with ``pages`` whose pages expose ``width``, ``height``,
+    ``dpi`` and ``lines`` works; :class:`nuqta.LineResult` and the line layout
+    API produce exactly that. Pages without a size raise ``ValueError``.
     """
     lines: list[str] = [
         '<?xml version="1.0" encoding="UTF-8"?>',
