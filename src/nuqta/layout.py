@@ -6,9 +6,9 @@ image processing: Otsu binarization, a projection-profile deskew, and a
 horizontal projection profile for the lines themselves.  No second model and
 no training data are involved.
 
-The module is deliberately standalone: :mod:`nuqta` does not import it, and
-NumPy/OpenCV are optional extras (``pip install "nuqta-ocr[layout]"``).  The
-public surface is small and works on PIL images:
+NumPy/OpenCV are optional extras (``pip install "nuqta-ocr[layout]"``) and are
+imported only when a page is segmented, so ``import nuqta`` works without them.
+The public surface is small and works on PIL images:
 
     page = segment_page(image)          # deskewed image + line boxes
     for box in page.boxes:

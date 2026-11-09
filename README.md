@@ -89,9 +89,15 @@ holds the text, the boxes in the original image, and the page geometry needed
 by hOCR. The core `OCR` class and its default output are unchanged.
 
 Limits: single-column pages; word-level boxes are not predicted yet, so each
-line is one `ocrx_word`; and per-line inference costs more than one full-page
-read (on CPU, tens of seconds per line). Markdown and ID modes need the whole
-page and are not supported by `read_lines`.
+line is one `ocrx_word`; and Markdown and ID modes need the whole page and are
+not supported by `read_lines`.
+
+Speed and accuracy, measured on 67 single-column pages with ground truth (0.8B,
+vLLM, RTX 5090 Laptop GPU): line mode reads about 1.7 points fewer words right
+than a full-page read (95.3% vs 97.0%, tashkeel ignored; 84.8% vs 85.0% with
+exact tashkeel), because each line is read without the rest of the page. On a
+GPU it is faster for single pages (0.6-1.1 s vs 2-4 s per page), since all lines
+of a page are batched; on CPU it is about the same speed as a full-page read.
 
 ## Use from Claude, Cursor and other MCP clients
 

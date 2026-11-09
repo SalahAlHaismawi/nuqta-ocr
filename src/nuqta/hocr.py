@@ -62,8 +62,8 @@ def to_hocr(
         width, height = int(page.width), int(page.height)
         if width <= 0 or height <= 0:
             raise ValueError(
-                'hOCR needs the page size; read with layout=True so that each Page '
-                'records its width and height'
+                'hOCR needs the page size; use nuqta.read_lines, whose pages '
+                'record their width and height'
             )
         page_dpi = int(dpi) if dpi is not None else int(page.dpi or 0)
         scan_res = f'; scan_res {page_dpi} {page_dpi}' if page_dpi > 0 else ''
