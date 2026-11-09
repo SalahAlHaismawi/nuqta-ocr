@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import re
-from itertools import pairwise
 
 PROMPTS = {
     "as-written": "Transcribe the Arabic text in this image exactly as written. Include only the diacritics (tashkeel) "
@@ -76,23 +75,21 @@ _DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890
 _TRIM = ".,;:،؛!?()[]{}<>«»\"'"
 
 
-def _numeric_tokens(text: str) -> list[int]:
-    out: list[int] = []
+def counting_sequence(text: str, min_run: int = COUNTING_RUN) -> bool:
+    """True for a long run of consecutive numbers with nothing between them (a common generation loop)."""
+    run, previous = 0, None
     for token in text.translate(_DIGITS).split():
         token = token.strip(_TRIM)
+        if not token:
+            continue
         if token.isdigit():
-            out.append(int(token))
-    return out
-
-
-def counting_sequence(text: str, min_run: int = COUNTING_RUN) -> bool:
-    """True for a long run of consecutive numbers (a common generation loop)."""
-    numbers = _numeric_tokens(text)
-    run = 1
-    for previous, current in pairwise(numbers):
-        run = run + 1 if current == previous + 1 else 1
-        if run >= min_run:
-            return True
+            number = int(token)
+            run = run + 1 if previous is not None and number == previous + 1 else 1
+            previous = number
+            if run >= min_run:
+                return True
+        else:
+            run, previous = 0, None
     return False
 
 
@@ -100,8 +97,7 @@ def validate_text(text: str) -> list[str]:
     """Return human-readable reasons a reading looks degenerate (empty when clean).
 
     This is a warning, not a correction: the caller decides whether to retry,
-    reject the page or pass it to a human.  The OCRmyPDF plugin treats any
-    non-empty result as a hard failure.
+    reject the page or pass it to a human.
     """
     issues: list[str] = []
     if looped(text):
