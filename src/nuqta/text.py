@@ -62,3 +62,51 @@ def trim_loops(text: str) -> str:
 
 def looped(text: str) -> bool:
     return len(text) - len(trim_loops(text)) > LOOP_CHARS
+
+
+# --- output validation -----------------------------------------------------------------
+# The loop detector above removes repetition, but some degenerate readings are not repeats:
+# a model that falls into a counting loop emits "1 2 3 4 ..." (or Arabic-Indic digits),
+# which has no repeated substring and survives trim_loops.  Counting tables can also contain
+# long ascending runs, so this only fires on a long run of *consecutive numeric tokens* with
+# no words between them.
+COUNTING_RUN = 10
+_DIGITS = str.maketrans("٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹", "01234567890123456789")
+_TRIM = ".,;:،؛!?()[]{}<>«»\"'"
+
+
+def counting_sequence(text: str, min_run: int = COUNTING_RUN) -> bool:
+    """True for a long run of consecutive numbers with nothing between them (a common generation loop)."""
+    run, previous = 0, None
+    for token in text.translate(_DIGITS).split():
+        token = token.strip(_TRIM)
+        if not token:
+            continue
+        if token.isdigit():
+            number = int(token)
+            run = run + 1 if previous is not None and number == previous + 1 else 1
+            previous = number
+            if run >= min_run:
+                return True
+        else:
+            run, previous = 0, None
+    return False
+
+
+def validate_text(text: str) -> list[str]:
+    """Return human-readable reasons a reading looks degenerate (empty when clean).
+
+    This is a warning, not a correction: the caller decides whether to retry,
+    reject the page or pass it to a human.
+    """
+    issues: list[str] = []
+    if looped(text):
+        issues.append("repeated output")
+    if counting_sequence(text):
+        issues.append("counting sequence")
+    letters = "".join(ch for ch in text if ch.isalpha())
+    if len(letters) >= 40:
+        most = max(set(letters), key=letters.count)
+        if letters.count(most) / len(letters) > 0.5:
+            issues.append("one character dominates")
+    return issues
