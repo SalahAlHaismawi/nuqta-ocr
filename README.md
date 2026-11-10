@@ -96,8 +96,10 @@ Speed and accuracy, measured on 67 single-column pages with ground truth (0.8B,
 vLLM, RTX 5090 Laptop GPU): line mode reads about 1.7 points fewer words right
 than a full-page read (95.3% vs 97.0%, tashkeel ignored; 84.8% vs 85.0% with
 exact tashkeel), because each line is read without the rest of the page. On a
-GPU it is faster for single pages (0.6-1.1 s vs 2-4 s per page), since all lines
-of a page are batched; on CPU it is about the same speed as a full-page read.
+GPU it is faster for a single page (median 0.8 s vs 3.5 s), since all lines of
+a page are batched together. For many pages at once a full-page read is faster
+(67 pages: 41 s vs 56 s), because lines are batched one page at a time. On CPU
+line mode is about the same speed as a full-page read.
 
 ## Use from Claude, Cursor and other MCP clients
 

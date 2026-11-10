@@ -59,6 +59,13 @@ def test_blank_page_has_no_lines():
     assert page.boxes == []
 
 
+def test_short_image_keeps_its_lines():
+    """A crop of one or two lines: each line is a large share of the image height."""
+    for count in (1, 2):
+        page = segment_page(strokes_page().crop((0, 80, 600, 80 + 100 * count)))
+        assert len(page.boxes) == count
+
+
 def test_deskew_is_estimated_and_boxes_stay_aligned():
     page = segment_page(strokes_page(rotation=2))
     assert 1.5 <= abs(page.angle) <= 2.5

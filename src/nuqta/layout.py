@@ -237,7 +237,7 @@ def _detect_boxes(binary, width: int, height: int, cv2, np) -> list[Box]:
     boxes: list[Box] = []
     for start, end in runs:
         for y0, y1 in _split_tall_band(binary, start, end, median_height, cv2, np):
-            if y1 - y0 < _MIN_LINE_HEIGHT or (y1 - y0) > height * _MAX_LINE_FRACTION:
+            if y1 - y0 < _MIN_LINE_HEIGHT or (y1 - y0) > max(height * _MAX_LINE_FRACTION, 3 * median_height):
                 continue
             x0, x1, ink = _ink_extent(binary, y0, y1, np)
             if ink < _MIN_INK_PIXELS or x1 <= x0:
