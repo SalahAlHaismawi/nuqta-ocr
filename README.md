@@ -62,6 +62,45 @@ nuqta read passport.jpg --mode id --json
 | `markdown` | headings, paragraphs, lists and tables (HTML) in reading order |
 | `id` | `markdown` reading + structured fields: passport / visa / ID-card MRZ with ICAO check digits; Egyptian national ID fields cross-checked against the national number |
 
+## Line layout and hOCR
+
+Line-level boxes enable searchable PDFs and hOCR. Install the optional
+image-processing extras, then call `read_lines`:
+
+```bash
+pip install "nuqta-ocr[layout]"
+nuqta read page.jpg --format hocr > page.hocr
+```
+
+```python
+from nuqta import OCR, read_lines, to_hocr
+
+ocr = OCR("nuqta-0.8b")
+result = read_lines(ocr, ["page.jpg"])[0]
+for line in result.pages[0].lines:
+    print(line.bbox, line.text)
+open("page.hocr", "w", encoding="utf-8").write(to_hocr(result))
+```
+
+The page is binarized (Otsu), lightly deskewed, and split into lines with a
+horizontal projection profile; each line is cropped with a margin for
+diacritics and read through the normal `OCR.read_many` API. `LineResult.pages`
+holds the text, the boxes in the original image, and the page geometry needed
+by hOCR. The core `OCR` class and its default output are unchanged.
+
+Limits: single-column pages; word-level boxes are not predicted yet, so each
+line is one `ocrx_word`; and Markdown and ID modes need the whole page and are
+not supported by `read_lines`.
+
+Speed and accuracy, measured on 67 single-column pages with ground truth (0.8B,
+vLLM, RTX 5090 Laptop GPU): line mode reads about 1.7 points fewer words right
+than a full-page read (95.3% vs 97.0%, tashkeel ignored; 84.8% vs 85.0% with
+exact tashkeel), because each line is read without the rest of the page. On a
+GPU it is faster for a single page (median 0.8 s vs 3.5 s), since all lines of
+a page are batched together. For many pages at once a full-page read is faster
+(67 pages: 41 s vs 56 s), because lines are batched one page at a time. On CPU
+line mode is about the same speed as a full-page read.
+
 ## Use from Claude, Cursor and other MCP clients
 
 `pip install "nuqta-ocr[mcp]"` adds `nuqta-mcp`, an MCP server with one tool, `read_document(path, mode, pages)`,
