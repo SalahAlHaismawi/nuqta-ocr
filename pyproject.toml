@@ -1,6 +1,6 @@
 [project]
 name = "nuqta-ocr"
-version = "0.2.0"
+version = "0.3.0"
 description = "Nuqta OCR: open-source Arabic OCR with faithful tashkeel (open 0.8B and 4B models)"
 readme = "README.md"
 license = "Apache-2.0"

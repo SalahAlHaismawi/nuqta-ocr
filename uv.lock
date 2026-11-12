@@ -4156,7 +4156,7 @@ wheels = [
 
 [[package]]
 name = "nuqta-ocr"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "accelerate" },
@@ -4183,11 +4183,21 @@ bench = [
     { name = "sacrebleu" },
 ]
 dev = [
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' and python_full_version < '3.13'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "opencv-python-headless" },
     { name = "pytest" },
 ]
 fast = [
     { name = "causal-conv1d" },
     { name = "flash-linear-attention" },
+]
+layout = [
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' and python_full_version < '3.13'" },
+    { name = "numpy", version = "2.4.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "opencv-python-headless" },
 ]
 mcp = [
     { name = "mcp" },
@@ -4210,6 +4220,10 @@ requires-dist = [
     { name = "levenshtein", marker = "extra == 'bench'", specifier = ">=0.25" },
     { name = "lxml", marker = "extra == 'bench'", specifier = ">=5" },
     { name = "mcp", marker = "extra == 'mcp'", specifier = ">=1.25" },
+    { name = "numpy", marker = "extra == 'dev'", specifier = ">=1.24" },
+    { name = "numpy", marker = "extra == 'layout'", specifier = ">=1.24" },
+    { name = "opencv-python-headless", marker = "extra == 'dev'", specifier = ">=4.8" },
+    { name = "opencv-python-headless", marker = "extra == 'layout'", specifier = ">=4.8" },
     { name = "pillow", specifier = ">=10" },
     { name = "pyarrow", marker = "extra == 'bench'", specifier = ">=14" },
     { name = "pypdfium2", specifier = ">=4" },
@@ -4220,7 +4234,7 @@ requires-dist = [
     { name = "transformers", specifier = ">=5.2" },
     { name = "vllm", marker = "extra == 'vllm'", specifier = ">=0.19" },
 ]
-provides-extras = ["vllm", "fast", "mcp", "dev", "bench"]
+provides-extras = ["vllm", "fast", "layout", "mcp", "dev", "bench"]
 
 [[package]]
 name = "nvidia-cublas"
